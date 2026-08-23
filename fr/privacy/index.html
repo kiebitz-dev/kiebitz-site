@@ -158,7 +158,7 @@
 
 
 
-        <p lang="fr">Kiebitz traite vos données d’échecs exclusivement sur vos appareils. Il n’existe ni compte, ni inscription, ni stockage cloud, ni serveur Kiebitz auquel seraient transmis parties, analyses ou progression. Ces contenus ne sont pas non plus communiqués aux fournisseurs publicitaires.</p>
+        <p lang="fr">Kiebitz traite vos données d’échecs exclusivement sur vos appareils. Il n’existe ni compte, ni inscription, ni stockage cloud, ni serveur Kiebitz auquel seraient transmis parties, analyses ou progression. Ces contenus ne sont pas non plus communiqués aux fournisseurs publicitaires. La seule exception apparaît si vous partagez vous-même une position : le lien porte la position dans son adresse, et l’ouvrir appelle une page de l’éditeur (section 14).</p>
         <p lang="fr">Kiebitz Free peut afficher des publicités. L’application se connecte alors à Google Mobile Ads, et Google peut traiter des données techniques sur l’appareil et son utilisation. Les statistiques d’utilisation anonymes, sans aucune donnée d’échecs, sont activées par défaut ; vous pouvez les désactiver dans les réglages (section 7). Aucun rapport de plantage n’est transmis automatiquement. Toutes les connexions sont décrites à la section 4.</p>
 
 
@@ -292,6 +292,13 @@
           </tbody>
         </table>
         </div>
+
+
+        <p lang="fr"><strong>Partage :</strong> le lien vers une position partagée est créé sur votre appareil. L’application ne transmet rien à cette occasion. Ce n’est qu’à l’ouverture du lien que la position atteint, dans l’adresse, le serveur qui délivre la page (section 14).</p>
+
+
+
+
         <p style="margin-top:16px">
 
 
@@ -552,10 +559,17 @@
 
 
 
+
+
         <p lang="fr">Ce site est statique et distribué via GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis). Lors de la consultation, GitHub, en tant qu’hébergeur, traite dans des fichiers journaux des données de connexion techniquement nécessaires, en particulier votre adresse IP, la date et l’heure, le fichier demandé, le référent et l’identification du navigateur. La base légale est l’art. 6, § 1, f) du RGPD (exploitation sûre et sans perturbation). L’éditeur de ce site n’a pas accès à ces journaux.</p>
         <p lang="fr"><strong>Mesure d’audience :</strong> les pages publiques utilisent Cloudflare Web Analytics (Cloudflare, Inc.) et chargent à cette fin un script depuis <code>static.cloudflareinsights.com</code>. Celui-ci mesure les pages vues et les visites ainsi que le chemin consulté, le référent, le pays, le type d’appareil, le navigateur, le système d’exploitation et des valeurs techniques de performance ; Cloudflare traite aussi les données de connexion nécessaires, notamment l’adresse IP, lors du chargement et de la transmission. Aucun cookie ni localStorage n’est utilisé pour l’analyse, aucun identifiant durable n’est créé et aucune empreinte numérique n’est établie. Les résultats sont agrégés ; une « visite » n’est pas une personne identifiée de manière unique. La base légale est l’art. 6, § 1, f) du RGPD (intérêt légitime pour la portée, les contenus utiles et la qualité technique du site). Informations de Cloudflare : <a href="https://developers.cloudflare.com/web-analytics/about/" rel="noopener noreferrer">Web Analytics</a> et <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">confidentialité</a>.</p>
         <p lang="fr">Hormis Cloudflare Web Analytics, les pages publiques n’utilisent aucun script publicitaire ou de réseau social. L’espace publicitaire intégré uniquement à Kiebitz Desktop ne reçoit pas le script d’analyse et utilise un script local pour choisir les campagnes actives, mais aucun cookie, stockage, identifiant utilisateur, analytics ou script tiers. Polices, styles et visuels publicitaires sont servis depuis le même serveur. La langue choisie sur le site est enregistrée uniquement dans votre navigateur (localStorage) afin que la page s’affiche dans la même langue lors de la prochaine visite ; cette information n’est pas transmise. Déclaration de confidentialité de GitHub : <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" rel="noopener noreferrer">docs.github.com</a>.</p>
         <p lang="fr"><strong>Formulaire de retour :</strong> ce n’est qu’au moment où vous envoyez un message que les informations saisies (type de message, résumé, détails et, facultativement, plateforme, version de l’application et adresse e-mail) ainsi que les données de connexion techniquement nécessaires sont transmises à FormSubmit (formsubmit.co), qui les transfère ensuite par e-mail à l’éditeur. Aucune donnée n’est lue automatiquement dans l’application ni jointe au message. Selon ses propres indications, FormSubmit conserve les envois jusqu’à 30 jours à des fins de remise et de consultation. La base légale est l’art. 6, § 1, b) du RGPD lorsque vous demandez une assistance, et sinon l’art. 6, § 1, f) du RGPD (traitement des retours volontaires et amélioration du logiciel). L’e-mail reçu par l’éditeur est supprimé dès qu’il n’est plus nécessaire au traitement ni aux questions de suivi. Informations de FormSubmit : <a href="https://formsubmit.co/privacy.pdf" rel="noopener noreferrer">confidentialité</a> et <a href="https://formsubmit.co/documentation" rel="noopener noreferrer">documentation</a>.</p>
+        <p lang="fr"><strong>Positions partagées :</strong> lorsque vous partagez une position dans l’application, un lien sur <code>s.kiebitz.dev</code> est créé. La position se trouve dans l’adresse de ce lien ; rien n’est enregistré chez l’éditeur à ce sujet, il n’existe ni base de données ni enregistrement. Lorsque quelqu’un ouvre le lien, un Cloudflare Worker (Cloudflare, Inc.) y répond : il lit la position dans l’adresse, en dessine la page et l’image d’aperçu, puis l’abandonne. Cloudflare traite à cette occasion, en tant que sous-traitant, des données de connexion techniquement nécessaires telles que l’adresse IP, l’horodatage, l’adresse demandée, le référent et l’identification du navigateur ; la même mesure d’audience que sur le reste du site y est également active (voir ci-dessus), sans cookies ni identifiant durable. La base légale est l’art. 6, § 1, f) du RGPD (fourniture de la page demandée et intérêt légitime à sa portée). Le lien ne contient que la position et, le cas échéant, la suite de coups, l’évaluation, l’Elo de l’exercice et le titre que vous saisissez vous-même ; il ne contient ni noms de joueurs, ni parties, ni notes, ni données d’entraînement. Quiconque possède le lien voit la position : il n’est ni secret ni révocable, car il n’y a rien à supprimer côté serveur. Ne partagez donc que ce que vous voulez transmettre. Ces pages sont exclues des moteurs de recherche. Politique de confidentialité de Cloudflare : <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">confidentialité</a>.</p>
+
+
+
+
 
 
 

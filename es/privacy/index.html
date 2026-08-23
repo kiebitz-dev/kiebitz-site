@@ -160,7 +160,7 @@
 
 
 
-        <p lang="es">Kiebitz procesa tus datos de ajedrez exclusivamente en tus dispositivos. No hay cuenta, registro, almacenamiento en la nube ni servidor de Kiebitz al que se transmitan partidas, análisis o progreso. Estos contenidos tampoco se comparten con proveedores publicitarios.</p>
+        <p lang="es">Kiebitz procesa tus datos de ajedrez exclusivamente en tus dispositivos. No hay cuenta, registro, almacenamiento en la nube ni servidor de Kiebitz al que se transmitan partidas, análisis o progreso. Estos contenidos tampoco se comparten con proveedores publicitarios. La única excepción se da si compartes tú mismo una posición: el enlace lleva la posición en su dirección y, al abrirlo, se solicita una página del proveedor (sección 14).</p>
         <p lang="es">Kiebitz Free puede mostrar anuncios. Para ello la app conecta con Google Mobile Ads, y Google puede procesar datos técnicos del dispositivo y de uso. Las estadísticas de uso anónimas, sin datos de ajedrez, están activadas de fábrica; puedes desactivarlas en los ajustes (sección 7). Los informes de fallos nunca se envían de forma automática. Todas las conexiones se detallan en la sección 4.</p>
 
 
@@ -292,6 +292,13 @@
           </tbody>
         </table>
         </div>
+
+
+
+        <p lang="es"><strong>Compartir:</strong> el enlace a una posición compartida se crea en tu dispositivo. La app no transmite nada al hacerlo. Solo cuando alguien abre el enlace la posición llega, como parte de la dirección, al servidor que sirve la página (sección 14).</p>
+
+
+
         <p style="margin-top:16px">
 
 
@@ -556,10 +563,17 @@
 
 
 
+
+
+
         <p lang="es">Este sitio es estático y se sirve a través de GitHub Pages (GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, EE. UU.). Al visitarlo, GitHub, como alojador, trata en ficheros de registro del servidor datos de conexión técnicamente necesarios, en particular tu dirección IP, la fecha y la hora, el archivo solicitado, el referente y la identificación del navegador. La base jurídica es el art. 6.1.f del RGPD (funcionamiento seguro y sin fallos). El proveedor de este sitio no tiene acceso a esos registros.</p>
         <p lang="es"><strong>Medición de audiencia:</strong> las páginas públicas usan Cloudflare Web Analytics (Cloudflare, Inc.) y cargan un script desde <code>static.cloudflareinsights.com</code>. Este mide páginas vistas y visitas, además de la ruta consultada, referente, país, tipo de dispositivo, navegador, sistema operativo y valores técnicos de rendimiento; al cargarlo y transmitir las mediciones, Cloudflare también trata datos de conexión técnicamente necesarios, como la dirección IP. La analítica no usa cookies ni localStorage, no crea identificadores persistentes ni emplea huellas digitales. Los resultados son agregados; una «visita» no es una persona identificada de forma única. La base jurídica es el art. 6.1.f del RGPD (interés legítimo en el alcance, los contenidos útiles y la calidad técnica del sitio). Información de Cloudflare: <a href="https://developers.cloudflare.com/web-analytics/about/" rel="noopener noreferrer">Web Analytics</a> y <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">privacidad</a>.</p>
         <p lang="es">Salvo Cloudflare Web Analytics, las páginas públicas no usan scripts publicitarios ni de redes sociales. El espacio publicitario integrado únicamente en Kiebitz Desktop no recibe el script de analítica y usa un script local para seleccionar campañas activas, pero tampoco emplea cookies, almacenamiento, identificadores de usuario, analítica ni scripts de terceros. Las tipografías, los estilos y los anuncios se sirven desde el mismo servidor. El idioma elegido en el sitio se guarda únicamente en tu navegador (localStorage) para que la página aparezca en el mismo idioma la próxima vez; ese dato no se transmite. Declaración de privacidad de GitHub: <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" rel="noopener noreferrer">docs.github.com</a>.</p>
         <p lang="es"><strong>Formulario de comentarios:</strong> solo cuando envías un mensaje se transmiten a FormSubmit (formsubmit.co) los datos que has introducido (tipo de mensaje, resumen, detalles y, opcionalmente, plataforma, versión de la app y dirección de correo) junto con los datos de conexión técnicamente necesarios, y desde allí se reenvían por correo al proveedor. No se lee ni se adjunta automáticamente ningún dato de la app. Según su propia documentación, FormSubmit conserva los envíos hasta 30 días para su entrega y consulta. La base jurídica es el art. 6.1.b del RGPD cuando solicitas soporte y, por lo demás, el art. 6.1.f del RGPD (tramitación de comentarios voluntarios y mejora del software). El correo recibido por el proveedor se borra en cuanto deja de ser necesario para atender el mensaje o las consultas posteriores. Información de FormSubmit: <a href="https://formsubmit.co/privacy.pdf" rel="noopener noreferrer">privacidad</a> y <a href="https://formsubmit.co/documentation" rel="noopener noreferrer">documentación</a>.</p>
+        <p lang="es"><strong>Posiciones compartidas:</strong> cuando compartes una posición en la app se crea un enlace en <code>s.kiebitz.dev</code>. La posición está dentro de la dirección de ese enlace; el proveedor no guarda nada para ello, no hay base de datos ni registro. Cuando alguien abre el enlace, responde un Cloudflare Worker (Cloudflare, Inc.): lee la posición de la dirección, dibuja con ella la página y la imagen de vista previa, y después la descarta. En ese proceso Cloudflare, como encargado del tratamiento, trata datos de conexión técnicamente necesarios como la dirección IP, la hora, la dirección solicitada, el referente y la identificación del navegador; allí funciona además la misma medición de audiencia que en el resto del sitio (véase arriba), sin cookies ni identificadores persistentes. La base jurídica es el art. 6.1.f del RGPD (entrega de la página solicitada e interés legítimo en su alcance). El enlace contiene únicamente la posición y, en su caso, la secuencia de jugadas, la evaluación, el Elo del ejercicio y el título que escribes tú; no contiene nombres de jugadores, partidas, notas ni datos de entrenamiento. Quien tenga el enlace ve la posición: no es secreto ni revocable, porque en el servidor no hay nada que borrar. Comparte por tanto solo lo que quieras transmitir. Estas páginas están excluidas de los buscadores. Política de privacidad de Cloudflare: <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">privacidad</a>.</p>
+
+
+
 
 
 

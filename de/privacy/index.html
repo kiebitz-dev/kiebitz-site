@@ -154,7 +154,7 @@
 
       <section id="c2">
         <h2><span class="num">02</span><span lang="de">Grundsatz: local-first</span></h2>
-        <p lang="de">Kiebitz verarbeitet deine Schachdaten ausschließlich auf deinen eigenen Geräten. Es gibt kein Nutzerkonto, keine Registrierung, keinen Cloud-Speicher und keinen Kiebitz-Server, an den Partien, Analysen oder Trainingsfortschritte übertragen werden. Diese Inhalte werden auch nicht an Anzeigenanbieter weitergegeben.</p>
+        <p lang="de">Kiebitz verarbeitet deine Schachdaten ausschließlich auf deinen eigenen Geräten. Es gibt kein Nutzerkonto, keine Registrierung, keinen Cloud-Speicher und keinen Kiebitz-Server, an den Partien, Analysen oder Trainingsfortschritte übertragen werden. Diese Inhalte werden auch nicht an Anzeigenanbieter weitergegeben. Eine Ausnahme entsteht nur, wenn du selbst eine Stellung teilst: Der Link trägt die Stellung in seiner Adresse, und wer ihn öffnet, ruft damit eine Seite des Anbieters auf (Abschnitt 14).</p>
         <p lang="de">Kiebitz Free kann Werbung anzeigen. Dafür stellt die App Verbindungen zu Google Mobile Ads her; Google kann dabei technische Geräte- und Nutzungsdaten verarbeiten. Eine anonyme Nutzungsstatistik ohne Schachdaten ist ab Werk an; du kannst sie in den Einstellungen abschalten (Abschnitt 7). Absturzberichte werden nie automatisch übermittelt. Alle Netzverbindungen sind in Abschnitt 4 aufgeführt.</p>
 
 
@@ -292,6 +292,13 @@
           </tbody>
         </table>
         </div>
+        <p lang="de"><strong>Teilen:</strong> Der Link zu einer geteilten Stellung entsteht auf deinem Gerät. Die App überträgt dabei nichts. Erst wenn jemand den Link öffnet, erreicht die Stellung als Teil der Adresse den Server, der die Seite ausliefert (Abschnitt 14).</p>
+
+
+
+
+
+
         <p style="margin-top:16px">
           <span lang="de">Diese Dienste sind unabhängige Dritte und verarbeiten die genannten Daten nach ihren eigenen Datenschutzbestimmungen. Die Werbeverarbeitung ist auf Kiebitz Free beschränkt; Schachinhalte werden keinem dieser Dienste als Werbedaten übermittelt.</span>
 
@@ -548,6 +555,13 @@
         <p lang="de"><strong>Reichweitenmessung:</strong> Die öffentlich aufrufbaren Website-Seiten verwenden Cloudflare Web Analytics (Cloudflare, Inc.). Dafür wird ein Skript von <code>static.cloudflareinsights.com</code> geladen. Es erfasst Seitenaufrufe und Besuche sowie den aufgerufenen Pfad, Referrer, Land, Gerätetyp, Browser, Betriebssystem und technische Leistungswerte; beim Abruf und bei der Übermittlung verarbeitet Cloudflare außerdem technisch notwendige Verbindungsdaten wie die IP-Adresse. Der Dienst setzt für Analytics weder Cookies noch localStorage ein, bildet keine dauerhaften Nutzerkennungen und verwendet kein Fingerprinting. Die Auswertung ist aggregiert; ein „Besuch“ ist keine eindeutig identifizierte Person. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Reichweite, gefragten Inhalten und technischer Qualität der Website). Hinweise von Cloudflare: <a href="https://developers.cloudflare.com/web-analytics/about/" rel="noopener noreferrer">Web Analytics</a> und <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">Datenschutz</a>.</p>
         <p lang="de">Abgesehen von Cloudflare Web Analytics setzen die öffentlich aufrufbaren Website-Seiten keine Werbe- oder Social-Media-Skripte ein. Die ausschließlich in Kiebitz Desktop eingebettete Werbefläche erhält das Analytics-Skript nicht und verwendet ein lokales Skript zur Auswahl aktiver Kampagnen, aber ebenfalls keine Cookies, Speicherung, Nutzerkennungen, Analytics oder Drittanbieter-Skripte. Schriftarten, Stile und Werbemittel liegen auf demselben Server. Die von dir auf der Website gewählte Sprache wird ausschließlich lokal in deinem Browser (localStorage) gespeichert, damit die Seite beim nächsten Besuch in derselben Sprache erscheint; diese Angabe wird nicht übertragen. Datenschutzerklärung von GitHub: <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" rel="noopener noreferrer">docs.github.com</a>.</p>
         <p lang="de"><strong>Feedback-Formular:</strong> Nur wenn du eine Meldung absendest, werden die von dir eingetragenen Angaben (Art der Meldung, Kurzfassung, Details, optional Plattform, App-Version und E-Mail-Adresse) sowie technisch notwendige Verbindungsdaten an FormSubmit (formsubmit.co) übertragen und von dort per E-Mail an den Anbieter weitergeleitet. Es werden keine Daten automatisch aus der App ausgelesen oder angehängt. FormSubmit hält Einsendungen nach eigenen Angaben bis zu 30 Tage für die Zustellung und den Abruf vor. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit du Support anfragst, im Übrigen Art. 6 Abs. 1 lit. f DSGVO (Bearbeitung freiwilliger Rückmeldungen und Verbesserung der Software). Die beim Anbieter eingegangene E-Mail wird gelöscht, sobald sie für Bearbeitung und Rückfragen nicht mehr benötigt wird. Hinweise von FormSubmit: <a href="https://formsubmit.co/privacy.pdf" rel="noopener noreferrer">Datenschutz</a> und <a href="https://formsubmit.co/documentation" rel="noopener noreferrer">Dokumentation</a>.</p>
+        <p lang="de"><strong>Geteilte Stellungen:</strong> Teilst du in der App eine Stellung, entsteht ein Link auf <code>s.kiebitz.dev</code>. Die Stellung steckt in der Adresse dieses Links; beim Anbieter wird dafür nichts gespeichert, es gibt weder Datenbank noch Datensatz. Öffnet jemand den Link, beantwortet ihn ein Cloudflare Worker (Cloudflare, Inc.): Er liest die Stellung aus der Adresse, zeichnet daraus Seite und Vorschaubild und verwirft sie anschließend. Cloudflare verarbeitet dabei als Auftragsverarbeiter technisch notwendige Verbindungsdaten wie IP-Adresse, Zeitpunkt, angeforderte Adresse, Referrer und Browserkennung; außerdem läuft dort dieselbe Reichweitenmessung wie auf der übrigen Website (siehe oben), ohne Cookies und ohne dauerhafte Kennung. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (Bereitstellung der aufgerufenen Seite und berechtigtes Interesse an ihrer Reichweite). Der Link enthält nur die Stellung, gegebenenfalls die zugehörige Zugfolge, Bewertung, Puzzle-Elo und die Überschrift, die du selbst eingibst; Spielernamen, Partien, Notizen oder Trainingsdaten enthält er nicht. Wer den Link hat, sieht die Stellung: Er ist nicht geheim und lässt sich nicht zurückrufen, weil es serverseitig nichts zu löschen gibt. Teile deshalb nur, was du weitergeben willst. Für Suchmaschinen sind diese Seiten gesperrt. Datenschutzerklärung von Cloudflare: <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer">Datenschutz</a>.</p>
+
+
+
+
+
+
 
 
 
