@@ -905,13 +905,13 @@
         <p lang="ar">إذا أُضيفت إلى التطبيق وظائف تستتبع معالجات جديدة للبيانات، فستُعدَّل هذه السياسة قبل ذلك. والنسخة السارية مؤرَّخة أعلاه ومتاحة بصفة دائمة على هذا العنوان.</p>
         <div class="panel" style="margin-top:22px">
           <p>
-            <span lang="de">Fragen zum Datenschutz? Schreib an <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. Der Quellcode der App ist einsehbar unter <a href="https://github.com/Torim98/Kiebitz" rel="noopener">github.com/Torim98/Kiebitz</a>.</span>
-            <span lang="en">Questions about privacy? Write to <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. The app's source code can be inspected at <a href="https://github.com/Torim98/Kiebitz" rel="noopener">github.com/Torim98/Kiebitz</a>.</span>
-            <span lang="fr">Des questions sur la protection des données ? Écrivez à <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. Le code source de l’application est consultable sur <a href="https://github.com/Torim98/Kiebitz" rel="noopener">github.com/Torim98/Kiebitz</a>.</span>
-            <span lang="es">¿Dudas sobre privacidad? Escribe a <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. El código fuente de la app se puede consultar en <a href="https://github.com/Torim98/Kiebitz" rel="noopener">github.com/Torim98/Kiebitz</a>.</span>
-            <span lang="zh">对隐私有疑问？请写信到 <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>。应用源码可在 <a href="https://github.com/Torim98/Kiebitz" rel="noopener">github.com/Torim98/Kiebitz</a> 查阅。</span>
-            <span lang="hi">गोपनीयता से जुड़े सवाल? <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a> पर लिखिए। ऐप का सोर्स कोड <a href="https://github.com/Torim98/Kiebitz" rel="noopener">github.com/Torim98/Kiebitz</a> पर देखा जा सकता है।</span>
-            <span lang="ar">أسئلة عن الخصوصية؟ راسل <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. ويمكن الاطّلاع على الشيفرة المصدرية للتطبيق على <a href="https://github.com/Torim98/Kiebitz" rel="noopener">github.com/Torim98/Kiebitz</a>.</span>
+            <span lang="de">Fragen zum Datenschutz? Schreib an <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. Der Quellcode der App ist einsehbar unter <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">github.com/kiebitz-dev/Kiebitz</a>.</span>
+            <span lang="en">Questions about privacy? Write to <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. The app's source code can be inspected at <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">github.com/kiebitz-dev/Kiebitz</a>.</span>
+            <span lang="fr">Des questions sur la protection des données ? Écrivez à <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. Le code source de l’application est consultable sur <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">github.com/kiebitz-dev/Kiebitz</a>.</span>
+            <span lang="es">¿Dudas sobre privacidad? Escribe a <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. El código fuente de la app se puede consultar en <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">github.com/kiebitz-dev/Kiebitz</a>.</span>
+            <span lang="zh">对隐私有疑问？请写信到 <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>。应用源码可在 <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">github.com/kiebitz-dev/Kiebitz</a> 查阅。</span>
+            <span lang="hi">गोपनीयता से जुड़े सवाल? <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a> पर लिखिए। ऐप का सोर्स कोड <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">github.com/kiebitz-dev/Kiebitz</a> पर देखा जा सकता है।</span>
+            <span lang="ar">أسئلة عن الخصوصية؟ راسل <a href="mailto:support@kiebitz.dev">support@kiebitz.dev</a>. ويمكن الاطّلاع على الشيفرة المصدرية للتطبيق على <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">github.com/kiebitz-dev/Kiebitz</a>.</span>
           </p>
         </div>
       </section>
@@ -932,7 +932,7 @@
       <a href="../privacy/index.html"><span lang="de">Datenschutz</span><span lang="en">Privacy</span><span lang="fr">Confidentialité</span><span lang="es">Privacidad</span><span lang="zh">隐私</span><span lang="hi">गोपनीयता</span><span lang="ar">الخصوصية</span></a>
       <a href="../terms/index.html"><span lang="de">Vertragsbedingungen</span><span lang="en">Terms of service</span><span lang="fr">Conditions générales</span><span lang="es">Condiciones generales</span><span lang="zh">服务条款</span><span lang="hi">सेवा की शर्तें</span><span lang="ar">شروط الخدمة</span></a>
       <a href="../impressum/index.html"><span lang="de">Impressum</span><span lang="en">Legal notice</span><span lang="fr">Mentions légales</span><span lang="es">Aviso legal</span><span lang="zh">法律声明</span><span lang="hi">क़ानूनी सूचना</span><span lang="ar">بيان قانوني</span></a>
-      <a href="https://github.com/Torim98/Kiebitz" rel="noopener">GitHub</a>
+      <a href="https://github.com/kiebitz-dev/Kiebitz" rel="noopener">GitHub</a>
       </div>
       <div class="foot-links-support">
       <a class="foot-support" href="https://github.com/sponsors/Torim98" target="_blank" rel="noopener noreferrer" data-sponsor-open>

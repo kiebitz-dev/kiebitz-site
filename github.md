@@ -1,4 +1,4 @@
-repo: Torim98/Kiebitz
+repo: kiebitz-dev/Kiebitz
 branch: main
 
 ## Last sync

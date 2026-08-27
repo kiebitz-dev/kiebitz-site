@@ -2,8 +2,8 @@ export const site = {
   // Change only this value after the custom domain is connected.
   origin: "https://kiebitz.dev",
   name: "Kiebitz",
-  repository: "https://github.com/Torim98/Kiebitz",
-  downloadUrl: "https://github.com/Torim98/Kiebitz/releases",
+  repository: "https://github.com/kiebitz-dev/Kiebitz",
+  downloadUrl: "https://github.com/kiebitz-dev/Kiebitz/releases",
   playStoreUrl: "https://play.google.com/store/apps/details?id=de.torim.kiebitz",
   socialImage: "assets/og-kiebitz.png",
   // Öffentliche Kennung aus Cloudflare Web Analytics; kein Geheimnis.

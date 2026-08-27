@@ -1,6 +1,6 @@
 # kiebitz-site
 
-Website for **[Kiebitz](https://github.com/Torim98/Kiebitz)** — a local-first
+Website for **[Kiebitz](https://github.com/kiebitz-dev/Kiebitz)** — a local-first
 chess companion for desktop and Android. No account or chess-data cloud; analysis stays on your devices.
 
 Live: <https://kiebitz.dev/>
@@ -68,7 +68,7 @@ After buying the domain:
    sitemap, structured data and social metadata all use the new domain.
 3. Add the domain in the repository's GitHub Pages settings. For an apex domain,
    configure GitHub's four `A` records (and optionally the four `AAAA` records)
-   at the registrar. Point `www` to `torim98.github.io` with a `CNAME`.
+   at the registrar. Point `www` to `kiebitz-dev.github.io` with a `CNAME`.
 4. Keep the `CNAME` file GitHub creates, enable **Enforce HTTPS**, and verify
    both the apex and `www` variants.
 5. Update the website/privacy URL in Google Play Console, Search Console, Bing
