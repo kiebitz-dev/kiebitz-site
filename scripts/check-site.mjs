@@ -101,10 +101,10 @@ for (const language of codes) {
     report(/<script src="[^"]*assets\/plus\.js" defer><\/script>/.test(html), `${relative}: plus.js not loaded`);
   }
 
-  // Die Matrix nennt genau die zehn Funktionen aus docs/KIEBITZ_PLUS.md.
+  // Die Matrix nennt genau die elf Funktionen aus docs/KIEBITZ_PLUS.md.
   const plusPage = await readFile(path.join(root, ...fileFor(language, "plus").split("/")), "utf8");
   const rows = (plusPage.match(/<tr><th scope="row">/g) || []).length;
-  report(rows === 10, `${fileFor(language, "plus")}: feature matrix has ${rows} rows, expected 10`);
+  report(rows === 11, `${fileFor(language, "plus")}: feature matrix has ${rows} rows, expected 11`);
 
   // Auf der Startseite ist Kiebitz Plus kaufbar, nicht „bald".
   const home = await readFile(path.join(root, ...fileFor(language, "home").split("/")), "utf8");
