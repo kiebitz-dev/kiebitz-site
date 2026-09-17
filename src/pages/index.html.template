@@ -316,7 +316,7 @@
           <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/insights.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Insights"></button>
           <figcaption>
             <span lang="de">Insights · Spielstärke, Auffälligkeiten und Fehler nach Spielphase</span><span lang="en">Insights · playing strength, what stands out, errors by phase</span><span lang="fr">Insights · niveau de jeu, points saillants, erreurs par phase</span><span lang="es">Insights · nivel de juego, lo que destaca y errores por fase</span><span lang="zh">Insights · 棋力、突出问题与各阶段失误</span><span lang="hi">Insights · खेल-स्तर, ख़ास बातें और चरण के अनुसार ग़लतियाँ</span><span lang="ar">Insights · مستوى اللعب وما يلفت النظر والأخطاء حسب الطور</span>
-            <span><span lang="de">96 Partien · Verwertung 75 %</span><span lang="en">96 games · 75 % conversion</span><span lang="fr">96 parties · conversion 75 %</span><span lang="es">96 partidas · 75 % de conversión</span><span lang="zh">96 局 · 转化率 75 %</span><span lang="hi">96 बाज़ियाँ · 75 % बढ़त भुनाई</span><span lang="ar">96 مباراة · تحويل 75 %</span></span>
+            <span><span lang="de">1.509 Partien</span><span lang="en">1,509 games</span><span lang="fr">1 509 parties</span><span lang="es">1509 partidas</span><span lang="zh">1,509 局</span><span lang="hi">1,509 बाज़ियाँ</span><span lang="ar">1509 مباراة</span></span>
           </figcaption>
         </figure>
       </div>
@@ -336,7 +336,7 @@
           <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/repertoire.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Repertoire"></button>
           <figcaption>
             <span lang="de">Repertoire · Varianten als Weiß und Schwarz</span><span lang="en">Repertoire · variations as white and black</span><span lang="fr">Répertoire · variantes aux blancs et aux noirs</span><span lang="es">Repertorio · variantes con blancas y negras</span><span lang="zh">Repertoire · 执白与执黑的变例</span><span lang="hi">Repertoire · सफ़ेद और काले की वैरिएशन</span><span lang="ar">Repertoire · التنويعات بالأبيض والأسود</span>
-            <span><span lang="de">217 Stellungen · 88 % Trainingserfolg</span><span lang="en">217 positions · 88 % training success</span><span lang="fr">217 positions · 88 % de réussite</span><span lang="es">217 posiciones · 88 % de acierto</span><span lang="zh">217 个局面 · 训练成功率 88 %</span><span lang="hi">217 पोज़ीशन · 88 % ट्रेनिंग सफलता</span><span lang="ar">217 وضعية · نجاح التدريب 88 %</span></span>
+            <span><span lang="de">Abdeckung 56 % der letzten 50 Partien</span><span lang="en">56 % coverage of the last 50 games</span><span lang="fr">couverture de 56 % sur les 50 dernières parties</span><span lang="es">56 % de cobertura en las últimas 50 partidas</span><span lang="zh">最近 50 局覆盖率 56 %</span><span lang="hi">पिछली 50 बाज़ियों में 56 % कवरेज</span><span lang="ar">تغطية 56 % من آخر 50 مباراة</span></span>
           </figcaption>
         </figure>
       </div>
@@ -355,8 +355,8 @@
         <figure class="shot">
           <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/puzzles.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Puzzles"></button>
           <figcaption>
-            <span lang="de">Puzzles · Tagesziel, Serie und Puzzle-Wertung</span><span lang="en">Puzzles · daily goal, streak and puzzle rating</span><span lang="fr">Puzzles · objectif du jour, série et classement puzzles</span><span lang="es">Puzzles · objetivo diario, racha y rating de puzzles</span><span lang="zh">Puzzles · 每日目标、连续天数与谜题等级分</span><span lang="hi">Puzzles · दैनिक लक्ष्य, सिलसिला और पहेली रेटिंग</span><span lang="ar">Puzzles · هدف اليوم وسلسلة الأيام وتصنيف الألغاز</span>
-            <span><span lang="de">Wertung 1.850 · +120 in 3 Monaten</span><span lang="en">rating 1,850 · +120 in 3 months</span><span lang="fr">classement 1 850 · +120 en 3 mois</span><span lang="es">rating 1850 · +120 en 3 meses</span><span lang="zh">等级分 1,850 · 3 个月 +120</span><span lang="hi">रेटिंग 1,850 · 3 महीनों में +120</span><span lang="ar">التصنيف 1850 · ‎+120 خلال 3 أشهر</span></span>
+            <span lang="de">Puzzles · Trefferquote pro Motiv</span><span lang="en">Puzzles · hit rate per theme</span><span lang="fr">Puzzles · taux de réussite par thème</span><span lang="es">Puzzles · acierto por tema</span><span lang="zh">Puzzles · 各主题命中率</span><span lang="hi">Puzzles · हर थीम की सफलता-दर</span><span lang="ar">Puzzles · نسبة الإصابة لكل موضوع</span>
+            <span><span lang="de">1.701 Aufgaben aus eigenen Partien</span><span lang="en">1,701 puzzles from your own games</span><span lang="fr">1 701 exercices tirés de vos parties</span><span lang="es">1701 ejercicios de tus propias partidas</span><span lang="zh">1,701 道来自自己对局的习题</span><span lang="hi">अपनी बाज़ियों से 1,701 पहेलियाँ</span><span lang="ar">1701 تمرينًا من مبارياتك</span></span>
           </figcaption>
         </figure>
       </div>
