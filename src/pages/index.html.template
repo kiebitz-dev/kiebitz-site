@@ -137,123 +137,11 @@
     </div>
   </section>
 
-  <!-- ── Banner: Neuigkeiten ───────────────────────────────────────────── -->
-  <section class="band" aria-labelledby="band-title">
-    <div class="band-grid" aria-hidden="true"></div>
-    <div class="wrap band-in rv">
-      <div class="band-text">
-        <p class="badge"><span class="dot" aria-hidden="true"></span><span lang="de">Neuigkeiten · Google Play</span><span lang="en">News · Google Play</span><span lang="fr">Actualités · Google Play</span><span lang="es">Novedades · Google Play</span><span lang="zh">最新动态 · Google Play</span><span lang="hi">ताज़ा ख़बरें · Google Play</span><span lang="ar">أخبار · Google Play</span></p>
-        <h2 id="band-title">
-          <span lang="de">Kiebitz ist im Play Store.</span>
-          <span lang="en">Kiebitz is live on the Play Store.</span>
-          <span lang="fr">Kiebitz est en ligne sur le Play Store.</span>
-          <span lang="es">Kiebitz ya está en Play Store.</span>
-          <span lang="zh">Kiebitz 已上架 Play 商店。</span>
-          <span lang="hi">Kiebitz अब Play Store पर है।</span>
-          <span lang="ar">أصبح Kiebitz في متجر Play.</span>
-        </h2>
-        <p class="band-sub">
-          <span lang="de">Der geschlossene Test ist vorbei: Die Android-App steht öffentlich bei Google Play, ohne Gruppe und ohne Freischaltung. Damit Kiebitz weiterkommt, helfen jetzt vor allem zwei Dinge – weitersagen und Feedback geben.</span>
-          <span lang="en">The closed test is over: the Android app is publicly available on Google Play, no group and no invitation needed. Two things now help Kiebitz most – spreading the word and sending feedback.</span>
-          <span lang="fr">Le test fermé est terminé : l’application Android est publiquement disponible sur Google Play, sans groupe ni invitation. Deux choses aident désormais le plus Kiebitz : en parler autour de vous et envoyer vos retours.</span>
-          <span lang="es">La prueba cerrada ha terminado: la app de Android está disponible para todo el mundo en Google Play, sin grupo ni invitación. Ahora hay dos cosas que ayudan más que nada: recomendarlo y mandar comentarios.</span>
-          <span lang="zh">封闭测试已经结束：Android 应用已在 Google Play 公开上架，不必加入群组，也不必申请资格。现在最能帮到 Kiebitz 的是两件事——推荐给别人，以及给出反馈。</span>
-          <span lang="hi">क्लोज़्ड टेस्ट ख़त्म: Android ऐप अब Google Play पर सबके लिए उपलब्ध है — न कोई ग्रुप, न कोई मंज़ूरी। अब Kiebitz की सबसे ज़्यादा मदद दो चीज़ें करती हैं: दूसरों को बताना और फ़ीडबैक भेजना।</span>
-          <span lang="ar">انتهى الاختبار المغلق: صار تطبيق Android متاحًا للجميع على Google Play، بلا مجموعة ولا دعوة. وأكثر ما يساعد Kiebitz الآن أمران: أن تُخبر غيرك عنه، وأن ترسل ملاحظاتك.</span>
-        </p>
-        <div class="band-cta">
-          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=de.torim.kiebitz" target="_blank" rel="noopener">
-            <span lang="de">Bei Google Play öffnen</span><span lang="en">Open on Google Play</span><span lang="fr">Ouvrir sur Google Play</span><span lang="es">Abrir en Google Play</span><span lang="zh">在 Google Play 打开</span><span lang="hi">Google Play पर खोलें</span><span lang="ar">افتحه في Google Play</span>
-          </a>
-          <a class="band-alt" href="https://github.com/kiebitz-dev/Kiebitz/releases" rel="noopener">
-            <span lang="de">oder direkt die APK</span><span lang="en">or just the APK</span><span lang="fr">ou simplement l’APK</span><span lang="es">o solo el APK</span><span lang="zh">或者直接下载 APK</span><span lang="hi">या सीधे APK लें</span><span lang="ar">أو ملف APK مباشرة</span>
-          </a>
-        </div>
-        <p class="band-note">
-          <span lang="de">Kiebitz bleibt local-first: keine Konten, keine Cloud.</span>
-          <span lang="en">Kiebitz stays local-first: no accounts, no cloud.</span>
-          <span lang="fr">Kiebitz reste local-first : pas de comptes, pas de cloud.</span>
-          <span lang="es">Kiebitz sigue siendo local-first: sin cuentas y sin nube.</span>
-          <span lang="zh">Kiebitz 依然本地优先：没有账号，也没有云端。</span>
-          <span lang="hi">Kiebitz लोकल-फ़र्स्ट ही रहता है: न खाते, न क्लाउड।</span>
-          <span lang="ar">يبقى Kiebitz محليًا أولًا: بلا حسابات ولا سحابة.</span>
-        </p>
-      </div>
-
-      <ol class="route">
-        <li>
-          <span class="route-n">1</span>
-          <span class="route-txt">
-            <b><span lang="de">Veröffentlicht bei Google Play</span><span lang="en">Released on Google Play</span><span lang="fr">Publié sur Google Play</span><span lang="es">Publicado en Google Play</span><span lang="zh">已在 Google Play 发布</span><span lang="hi">Google Play पर जारी</span><span lang="ar">صدر على Google Play</span></b>
-            <span><span lang="de">Die Android-App lässt sich ab sofort ganz normal installieren</span><span lang="en">The Android app can now be installed like any other</span><span lang="fr">L’application Android s’installe désormais tout à fait normalement</span><span lang="es">La app de Android ya se instala como cualquier otra</span><span lang="zh">Android 应用现在可以像其他应用一样直接安装</span><span lang="hi">Android ऐप अब किसी भी आम ऐप की तरह इंस्टॉल हो जाता है</span><span lang="ar">صار بالإمكان تثبيت تطبيق Android مثل أي تطبيق آخر</span></span>
-          </span>
-        </li>
-        <li>
-          <span class="route-n">2</span>
-          <span class="route-txt">
-            <b><span lang="de">Weiterempfehlen hilft enorm</span><span lang="en">Recommending it helps enormously</span><span lang="fr">Recommander Kiebitz aide énormément</span><span lang="es">Recomendarlo ayuda muchísimo</span><span lang="zh">推荐给别人帮助极大</span><span lang="hi">दूसरों को बताना बहुत मदद करता है</span><span lang="ar">التوصية به تساعد كثيرًا</span></b>
-            <span><span lang="de">Freunde, Verein, Schachgruppe: jede Empfehlung zählt für eine kleine App</span><span lang="en">Friends, club, chess group: every recommendation counts for a small app</span><span lang="fr">Amis, club, groupe d’échecs : chaque recommandation compte pour une petite application</span><span lang="es">Amistades, club, grupo de ajedrez: cada recomendación cuenta para una app pequeña</span><span lang="zh">朋友、俱乐部、棋友群：对一个小应用来说，每一次推荐都算数</span><span lang="hi">दोस्त, क्लब, शतरंज समूह: एक छोटे ऐप के लिए हर सिफ़ारिश मायने रखती है</span><span lang="ar">الأصدقاء والنادي ومجموعة الشطرنج: كل توصية مهمّة لتطبيق صغير</span></span>
-          </span>
-        </li>
-        <li>
-          <span class="route-n">3</span>
-          <span class="route-txt">
-            <b><span lang="de">Feedback macht Kiebitz besser</span><span lang="en">Feedback makes Kiebitz better</span><span lang="fr">Vos retours améliorent Kiebitz</span><span lang="es">Tus comentarios mejoran Kiebitz</span><span lang="zh">反馈让 Kiebitz 变得更好</span><span lang="hi">फ़ीडबैक Kiebitz को बेहतर बनाता है</span><span lang="ar">الملاحظات تجعل Kiebitz أفضل</span></b>
-            <span><span lang="de">Über diese Website, durch Schütteln der Android-App oder in den Einstellungen von Android und Desktop</span><span lang="en">Via this website, by shaking the Android app, or from the settings on Android and desktop</span><span lang="fr">Via ce site, en secouant l’application Android ou depuis les réglages sur Android et ordinateur</span><span lang="es">Desde esta web, agitando la app de Android o en los ajustes de Android y escritorio</span><span lang="zh">通过本网站、摇一摇 Android 应用，或在 Android 与桌面端的设置里</span><span lang="hi">इस वेबसाइट से, Android ऐप को हिलाकर, या Android और डेस्कटॉप की सेटिंग्स से</span><span lang="ar">عبر هذا الموقع، أو بهزّ تطبيق Android، أو من الإعدادات على Android وسطح المكتب</span></span>
-          </span>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ── 01 Local-first ────────────────────────────────────────────────── -->
-  <section class="section" id="local">
-    <div class="wrap">
-      <p class="eyebrow"><b>01</b> <span lang="de">Local-first</span><span lang="en">Local-first</span><span lang="fr">Local-first</span><span lang="es">Local-first</span><span lang="zh">本地优先</span><span lang="hi">लोकल-फ़र्स्ट</span><span lang="ar">محلي أولًا</span></p>
-      <h2 style="font-size:clamp(24px,3vw,36px);max-width:26ch">
-        <span lang="de">Deine Partien sind deine Partien.</span>
-        <span lang="en">Your games are your games.</span>
-        <span lang="fr">Vos parties sont vos parties.</span>
-        <span lang="es">Tus partidas son tuyas.</span>
-        <span lang="zh">你的对局，就是你的对局。</span>
-        <span lang="hi">आपकी बाज़ियाँ आपकी हैं।</span>
-        <span lang="ar">مبارياتك مبارياتك وحدك.</span>
-      </h2>
-      <p class="lede" style="margin-top:18px">
-        <span lang="de">Kiebitz hat keinen Server für Konten oder Schachdaten. Nichts muss hochgeladen werden und jede Analyse läuft auf deinem Gerät. Partien, Analysen und Fortschritt bleiben auf deinen Geräten.</span>
-        <span lang="en">Kiebitz has no server for accounts or chess data. Nothing has to be uploaded and every analysis runs on your device. Games, analyses and progress stay on your devices.</span>
-        <span lang="fr">Kiebitz n’a aucun serveur pour les comptes ou les données d’échecs. Rien ne doit être téléversé et chaque analyse s’exécute sur votre appareil. Les parties, analyses et progrès restent sur vos appareils.</span>
-        <span lang="es">Kiebitz no tiene servidor para cuentas ni datos de ajedrez. No hay que subir nada y todos los análisis se ejecutan en tu dispositivo. Las partidas, los análisis y el progreso permanecen en tus dispositivos.</span>
-        <span lang="zh">Kiebitz 没有账号或棋局数据服务器。无需上传任何内容，所有分析都在你的设备上运行。对局、分析和进度保留在你的设备上。</span>
-        <span lang="hi">Kiebitz के पास खातों या शतरंज डेटा के लिए कोई सर्वर नहीं है। कुछ भी अपलोड करने की जरूरत नहीं और हर विश्लेषण आपके उपकरण पर चलता है। बाज़ियाँ, विश्लेषण और प्रगति आपके उपकरणों पर रहते हैं।</span>
-        <span lang="ar">لا يملك Kiebitz خادمًا للحسابات أو بيانات الشطرنج. لا يلزم رفع أي شيء، وكل تحليل يجري على جهازك. وتبقى المباريات والتحليلات والتقدّم على أجهزتك.</span>
-      </p>
-      <dl class="promise rv" style="margin-top:32px">
-        <div>
-          <dt><span lang="de">Kein Konto</span><span lang="en">No account</span><span lang="fr">Pas de compte</span><span lang="es">Sin cuenta</span><span lang="zh">无需账号</span><span lang="hi">कोई खाता नहीं</span><span lang="ar">بلا حساب</span></dt>
-          <dd><span lang="de">Keine Registrierung, keine E-Mail, kein Login.</span><span lang="en">No sign-up, no email, no login.</span><span lang="fr">Pas d’inscription, pas d’e-mail, pas de connexion.</span><span lang="es">Sin registro, sin correo, sin inicio de sesión.</span><span lang="zh">不注册、不留邮箱、不登录。</span><span lang="hi">न रजिस्ट्रेशन, न ई-मेल, न लॉग-इन।</span><span lang="ar">لا تسجيل ولا بريد إلكتروني ولا ولوج.</span></dd>
-        </div>
-        <div>
-          <dt><span lang="de">Keine Cloud</span><span lang="en">No cloud</span><span lang="fr">Pas de cloud</span><span lang="es">Sin nube</span><span lang="zh">无云端</span><span lang="hi">कोई क्लाउड नहीं</span><span lang="ar">بلا سحابة</span></dt>
-          <dd><span lang="de">Partien, Analysen und Fortschritt liegen lokal.</span><span lang="en">Games, analyses and progress stay local.</span><span lang="fr">Parties, analyses et progression restent en local.</span><span lang="es">Partidas, análisis y progreso se quedan en local.</span><span lang="zh">对局、分析和进度都留在本地。</span><span lang="hi">बाज़ियाँ, विश्लेषण और प्रगति स्थानीय रहते हैं।</span><span lang="ar">المباريات والتحليلات والتقدّم تبقى محليًا.</span></dd>
-        </div>
-        <div>
-          <dt><span lang="de">Kein Kiebitz-Backend</span><span lang="en">No Kiebitz backend</span><span lang="fr">Aucun backend Kiebitz</span><span lang="es">Sin backend de Kiebitz</span><span lang="zh">无 Kiebitz 后端</span><span lang="hi">कोई Kiebitz बैकएंड नहीं</span><span lang="ar">بلا خادم خلفي لـ Kiebitz</span></dt>
-          <dd><span lang="de">Keine Konten, kein Schachdaten-Server, keine automatischen Absturzberichte.</span><span lang="en">No accounts, no chess-data server, no automatic crash reports.</span><span lang="fr">Aucun compte, aucun serveur de données d’échecs, aucun rapport de plantage automatique.</span><span lang="es">Sin cuentas, sin servidor de datos de ajedrez y sin informes automáticos de fallos.</span><span lang="zh">无账号、无棋局数据服务器、无自动崩溃报告。</span><span lang="hi">न खाते, न शतरंज-डेटा सर्वर, न स्वचालित क्रैश रिपोर्ट।</span><span lang="ar">لا حسابات ولا خادم لبيانات الشطرنج ولا تقارير أعطال تلقائية.</span></dd>
-        </div>
-        <div>
-          <dt><span lang="de">Sync im eigenen Netz</span><span lang="en">Sync on your own network</span><span lang="fr">Sync sur votre réseau</span><span lang="es">Sync en tu propia red</span><span lang="zh">在自家网络内同步</span><span lang="hi">अपने ही नेटवर्क में सिंक</span><span lang="ar">مزامنة داخل شبكتك</span></dt>
-          <dd><span lang="de">Handy und Desktop reden verschlüsselt direkt miteinander.</span><span lang="en">Phone and desktop talk to each other directly, encrypted.</span><span lang="fr">Le téléphone et l’ordinateur se parlent directement, chiffrés.</span><span lang="es">El móvil y el escritorio hablan entre sí directamente y cifrados.</span><span lang="zh">手机和桌面端加密后直接通信。</span><span lang="hi">फ़ोन और डेस्कटॉप सीधे, एन्क्रिप्टेड बात करते हैं।</span><span lang="ar">يتواصل الهاتف والحاسوب مباشرة وبتشفير.</span></dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- ── 02 Ablauf ─────────────────────────────────────────────────────── -->
+  <!-- ── 01 Ablauf ─────────────────────────────────────────────────────── -->
   <section class="section section-alt">
     <div class="wrap">
-      <p class="eyebrow"><b>02</b> <span lang="de">Ablauf</span><span lang="en">How it works</span><span lang="fr">Déroulé</span><span lang="es">Cómo funciona</span><span lang="zh">使用流程</span><span lang="hi">यह कैसे काम करता है</span><span lang="ar">آلية العمل</span></p>
-      <h2 style="font-size:clamp(24px,3vw,36px);max-width:24ch">
+      <p class="eyebrow"><b>01</b> <span lang="de">Ablauf</span><span lang="en">How it works</span><span lang="fr">Déroulé</span><span lang="es">Cómo funciona</span><span lang="zh">使用流程</span><span lang="hi">यह कैसे काम करता है</span><span lang="ar">آلية العمل</span></p>
+      <h2 class="section-title">
         <span lang="de">Importieren, analysieren, verstehen.</span>
         <span lang="en">Import, analyze, understand.</span>
         <span lang="fr">Importer, analyser, comprendre.</span>
@@ -262,7 +150,7 @@
         <span lang="hi">आयात करें, विश्लेषण करें, समझें।</span>
         <span lang="ar">استورد، حلّل، افهم.</span>
       </h2>
-      <div class="flow rv" style="margin-top:34px">
+      <div class="flow rv">
         <article class="step">
           <p class="step-n">01</p>
           <h3><span lang="de">Importieren</span><span lang="en">Import</span><span lang="fr">Importer</span><span lang="es">Importar</span><span lang="zh">导入</span><span lang="hi">आयात</span><span lang="ar">الاستيراد</span></h3>
@@ -296,10 +184,10 @@
     </div>
   </section>
 
-  <!-- ── 03 Funktionen ─────────────────────────────────────────────────── -->
+  <!-- ── 02 Funktionen ─────────────────────────────────────────────────── -->
   <section class="section" id="features">
     <div class="wrap">
-      <p class="eyebrow"><b>03</b> <span lang="de">Funktionen</span><span lang="en">Features</span><span lang="fr">Fonctions</span><span lang="es">Funciones</span><span lang="zh">功能</span><span lang="hi">विशेषताएँ</span><span lang="ar">المزايا</span></p>
+      <p class="eyebrow"><b>02</b> <span lang="de">Funktionen</span><span lang="en">Features</span><span lang="fr">Fonctions</span><span lang="es">Funciones</span><span lang="zh">功能</span><span lang="hi">विशेषताएँ</span><span lang="ar">المزايا</span></p>
 
       <div class="feature rv">
         <div class="feature-text">
@@ -381,6 +269,24 @@
         </figure>
       </div>
 
+      <div class="feature rv">
+        <div class="feature-text">
+          <p class="feature-kicker"><span lang="de">Geräte-Sync</span><span lang="en">Device sync</span><span lang="fr">Sync entre appareils</span><span lang="es">Sync entre dispositivos</span><span lang="zh">设备同步</span><span lang="hi">डिवाइस सिंक</span><span lang="ar">مزامنة الأجهزة</span></p>
+          <h3><span lang="de">Zwei Geräte, ein Netz, kein Dazwischen</span><span lang="en">Two devices, one network, nothing in between</span><span lang="fr">Deux appareils, un réseau, rien entre les deux</span><span lang="es">Dos dispositivos, una red, nada en medio</span><span lang="zh">两台设备，一个网络，中间什么都没有</span><span lang="hi">दो उपकरण, एक नेटवर्क, बीच में कुछ नहीं</span><span lang="ar">جهازان وشبكة واحدة ولا شيء بينهما</span></h3>
+          <p><span lang="de">Der Desktop ist der Hub, das Handy koppelt sich per QR-Code. Danach synchronisieren beide verschlüsselt direkt über dein Heimnetz oder VPN; Adresse, Code und Zertifikats-Fingerprint stecken im QR. Kein Server dazwischen, weil es keinen gibt.</span><span lang="en">The desktop is the hub; the phone pairs with a QR code. From then on both sync encrypted, directly over your home network or VPN; address, code and certificate fingerprint are inside the QR. No server in between, because there isn’t one.</span><span lang="fr">L’ordinateur fait office de hub, le téléphone s’appaire par QR code. Ensuite, les deux se synchronisent de façon chiffrée, directement via votre réseau domestique ou votre VPN ; adresse, code et empreinte du certificat sont dans le QR. Aucun serveur entre les deux, puisqu’il n’en existe aucun.</span><span lang="es">El escritorio es el hub y el móvil se empareja con un código QR. A partir de ahí los dos se sincronizan cifrados, directamente por tu red doméstica o tu VPN; dirección, código y huella del certificado van dentro del QR. Ningún servidor en medio, porque no existe.</span><span lang="zh">桌面端是枢纽，手机通过二维码配对。之后两端加密后直接经由你的家庭网络或 VPN 同步；地址、配对码和证书指纹都在二维码里。中间没有服务器，因为根本就没有。</span><span lang="hi">डेस्कटॉप हब है, फ़ोन QR कोड से जुड़ता है। उसके बाद दोनों एन्क्रिप्टेड ढंग से सीधे आपके घरेलू नेटवर्क या VPN पर सिंक होते हैं; पता, कोड और सर्टिफ़िकेट फ़िंगरप्रिंट QR में ही होते हैं। बीच में कोई सर्वर नहीं, क्योंकि है ही नहीं।</span><span lang="ar">الحاسوب هو المحور، والهاتف يقترن برمز QR. بعدها يتزامن الجهازان بتشفير ومباشرة عبر شبكتك المنزلية أو شبكتك الافتراضية الخاصة؛ العنوان ورمز الاقتران وبصمة الشهادة كلها داخل رمز QR. لا خادم بينهما، لأنه ببساطة غير موجود.</span></p>
+          <ul class="ticks">
+            <li><span lang="de">Unterwegs auf dem Handy trainieren, am Abend am Desktop analysieren</span><span lang="en">Train on the phone on the move, analyze on the desktop in the evening</span><span lang="fr">S’entraîner sur le téléphone en déplacement, analyser le soir sur l’ordinateur</span><span lang="es">Entrena en el móvil de camino y analiza por la noche en el escritorio</span><span lang="zh">路上用手机练，晚上回到桌面端分析</span><span lang="hi">रास्ते में फ़ोन पर अभ्यास, शाम को डेस्कटॉप पर विश्लेषण</span><span lang="ar">تدرّب على الهاتف في تنقّلك، وحلّل مساءً على الحاسوب</span></li>
+            <li><span lang="de">Die Kamera wird ausschließlich für das QR-Scannen benutzt</span><span lang="en">The camera is used for QR scanning and nothing else</span><span lang="fr">La caméra ne sert qu’à scanner le QR code</span><span lang="es">La cámara solo se usa para escanear el QR</span><span lang="zh">摄像头只用于扫描二维码</span><span lang="hi">कैमरा सिर्फ़ QR स्कैन के लिए इस्तेमाल होता है</span><span lang="ar">لا تُستخدم الكاميرا إلا لمسح رمز QR</span></li>
+            <li><span lang="de">Ohne Kopplung läuft jedes Gerät völlig eigenständig</span><span lang="en">Without pairing, each device works entirely on its own</span><span lang="fr">Sans appairage, chaque appareil fonctionne de façon totalement autonome</span><span lang="es">Sin emparejar, cada dispositivo funciona por completo por su cuenta</span><span lang="zh">不配对时，每台设备都完全独立运行</span><span lang="hi">बिना जोड़े हर उपकरण पूरी तरह अपने आप चलता है</span><span lang="ar">من دون اقتران، يعمل كل جهاز باستقلال تام</span></li>
+          </ul>
+        </div>
+        <div class="sync-viz" aria-hidden="true">
+          <div class="device"><span>Desktop<br>Hub</span></div>
+          <div class="wire"><span class="wire-label">LAN · TLS</span></div>
+          <div class="device phone"><span>Android</span></div>
+        </div>
+      </div>
+
       <div class="more rv" style="margin-top:clamp(48px,6vw,84px)">
         <div>
           <h4><span lang="de">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="es">Panel</span><span lang="zh">仪表盘</span><span lang="hi">डैशबोर्ड</span><span lang="ar">لوحة المعلومات</span></h4>
@@ -410,42 +316,28 @@
     </div>
   </section>
 
-  <!-- ── 04 Sync ───────────────────────────────────────────────────────── -->
-  <section class="section section-alt">
+  <!-- ── 03 Local-first ────────────────────────────────────────────────── -->
+  <section class="section section-alt" id="local">
     <div class="wrap">
-      <p class="eyebrow"><b>04</b> <span lang="de">Geräte-Sync</span><span lang="en">Device sync</span><span lang="fr">Sync entre appareils</span><span lang="es">Sync entre dispositivos</span><span lang="zh">设备同步</span><span lang="hi">डिवाइस सिंक</span><span lang="ar">مزامنة الأجهزة</span></p>
-      <div class="feature rv">
-        <div class="feature-text">
-          <h3><span lang="de">Zwei Geräte, ein Netz, kein Dazwischen</span><span lang="en">Two devices, one network, nothing in between</span><span lang="fr">Deux appareils, un réseau, rien entre les deux</span><span lang="es">Dos dispositivos, una red, nada en medio</span><span lang="zh">两台设备，一个网络，中间什么都没有</span><span lang="hi">दो उपकरण, एक नेटवर्क, बीच में कुछ नहीं</span><span lang="ar">جهازان وشبكة واحدة ولا شيء بينهما</span></h3>
-          <p><span lang="de">Der Desktop ist der Hub, das Handy koppelt sich per QR-Code. Danach synchronisieren beide verschlüsselt direkt über dein Heimnetz oder VPN; Adresse, Code und Zertifikats-Fingerprint stecken im QR. Kein Server dazwischen, weil es keinen gibt.</span><span lang="en">The desktop is the hub; the phone pairs with a QR code. From then on both sync encrypted, directly over your home network or VPN; address, code and certificate fingerprint are inside the QR. No server in between, because there isn’t one.</span><span lang="fr">L’ordinateur fait office de hub, le téléphone s’appaire par QR code. Ensuite, les deux se synchronisent de façon chiffrée, directement via votre réseau domestique ou votre VPN ; adresse, code et empreinte du certificat sont dans le QR. Aucun serveur entre les deux, puisqu’il n’en existe aucun.</span><span lang="es">El escritorio es el hub y el móvil se empareja con un código QR. A partir de ahí los dos se sincronizan cifrados, directamente por tu red doméstica o tu VPN; dirección, código y huella del certificado van dentro del QR. Ningún servidor en medio, porque no existe.</span><span lang="zh">桌面端是枢纽，手机通过二维码配对。之后两端加密后直接经由你的家庭网络或 VPN 同步；地址、配对码和证书指纹都在二维码里。中间没有服务器，因为根本就没有。</span><span lang="hi">डेस्कटॉप हब है, फ़ोन QR कोड से जुड़ता है। उसके बाद दोनों एन्क्रिप्टेड ढंग से सीधे आपके घरेलू नेटवर्क या VPN पर सिंक होते हैं; पता, कोड और सर्टिफ़िकेट फ़िंगरप्रिंट QR में ही होते हैं। बीच में कोई सर्वर नहीं, क्योंकि है ही नहीं।</span><span lang="ar">الحاسوب هو المحور، والهاتف يقترن برمز QR. بعدها يتزامن الجهازان بتشفير ومباشرة عبر شبكتك المنزلية أو شبكتك الافتراضية الخاصة؛ العنوان ورمز الاقتران وبصمة الشهادة كلها داخل رمز QR. لا خادم بينهما، لأنه ببساطة غير موجود.</span></p>
-          <ul class="ticks">
-            <li><span lang="de">Unterwegs auf dem Handy trainieren, am Abend am Desktop analysieren</span><span lang="en">Train on the phone on the move, analyze on the desktop in the evening</span><span lang="fr">S’entraîner sur le téléphone en déplacement, analyser le soir sur l’ordinateur</span><span lang="es">Entrena en el móvil de camino y analiza por la noche en el escritorio</span><span lang="zh">路上用手机练，晚上回到桌面端分析</span><span lang="hi">रास्ते में फ़ोन पर अभ्यास, शाम को डेस्कटॉप पर विश्लेषण</span><span lang="ar">تدرّب على الهاتف في تنقّلك، وحلّل مساءً على الحاسوب</span></li>
-            <li><span lang="de">Die Kamera wird ausschließlich für das QR-Scannen benutzt</span><span lang="en">The camera is used for QR scanning and nothing else</span><span lang="fr">La caméra ne sert qu’à scanner le QR code</span><span lang="es">La cámara solo se usa para escanear el QR</span><span lang="zh">摄像头只用于扫描二维码</span><span lang="hi">कैमरा सिर्फ़ QR स्कैन के लिए इस्तेमाल होता है</span><span lang="ar">لا تُستخدم الكاميرا إلا لمسح رمز QR</span></li>
-            <li><span lang="de">Ohne Kopplung läuft jedes Gerät völlig eigenständig</span><span lang="en">Without pairing, each device works entirely on its own</span><span lang="fr">Sans appairage, chaque appareil fonctionne de façon totalement autonome</span><span lang="es">Sin emparejar, cada dispositivo funciona por completo por su cuenta</span><span lang="zh">不配对时，每台设备都完全独立运行</span><span lang="hi">बिना जोड़े हर उपकरण पूरी तरह अपने आप चलता है</span><span lang="ar">من دون اقتران، يعمل كل جهاز باستقلال تام</span></li>
-          </ul>
-        </div>
-        <div class="sync-viz" aria-hidden="true">
-          <div class="device"><span>Desktop<br>Hub</span></div>
-          <div class="wire"><span class="wire-label">LAN · TLS</span></div>
-          <div class="device phone"><span>Android</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 05 Datenschutz ────────────────────────────────────────────────── -->
-  <section class="section">
-    <div class="wrap">
-      <p class="eyebrow"><b>05</b> <span lang="de">Datenschutz</span><span lang="en">Privacy</span><span lang="fr">Confidentialité</span><span lang="es">Privacidad</span><span lang="zh">隐私</span><span lang="hi">गोपनीयता</span><span lang="ar">الخصوصية</span></p>
-      <h2 style="font-size:clamp(24px,3vw,36px);max-width:28ch">
-        <span lang="de">Was Kiebitz sendet, und was nicht.</span>
-        <span lang="en">What Kiebitz sends, and what it doesn’t.</span>
-        <span lang="fr">Ce que Kiebitz envoie, et ce qu’il n’envoie pas.</span>
-        <span lang="es">Lo que Kiebitz envía y lo que no.</span>
-        <span lang="zh">Kiebitz 会发送什么，不会发送什么。</span>
-        <span lang="hi">Kiebitz क्या भेजता है, और क्या नहीं।</span>
-        <span lang="ar">ما الذي يرسله Kiebitz وما الذي لا يرسله.</span>
+      <p class="eyebrow"><b>03</b> <span lang="de">Local-first</span><span lang="en">Local-first</span><span lang="fr">Local-first</span><span lang="es">Local-first</span><span lang="zh">本地优先</span><span lang="hi">लोकल-फ़र्स्ट</span><span lang="ar">محلي أولًا</span></p>
+      <h2 class="section-title">
+        <span lang="de">Deine Partien sind deine Partien.</span>
+        <span lang="en">Your games are your games.</span>
+        <span lang="fr">Vos parties sont vos parties.</span>
+        <span lang="es">Tus partidas son tuyas.</span>
+        <span lang="zh">你的对局，就是你的对局。</span>
+        <span lang="hi">आपकी बाज़ियाँ आपकी हैं।</span>
+        <span lang="ar">مبارياتك مبارياتك وحدك.</span>
       </h2>
+      <p class="lede">
+        <span lang="de">Partien, Analysen und Trainingsfortschritt bleiben auf deinen Geräten, und jede Analyse läuft lokal. Kiebitz Free kommt ohne Konto aus; das Konto von Kiebitz Plus trägt nur Anmeldung, Abrechnung und Freischaltung.</span>
+        <span lang="en">Games, analyses and training progress stay on your devices, and every analysis runs locally. Kiebitz Free needs no account; the Kiebitz Plus account only carries sign-in, billing and the unlock.</span>
+        <span lang="fr">Les parties, analyses et progrès restent sur vos appareils, et chaque analyse s’exécute en local. Kiebitz Free se passe de compte ; le compte Kiebitz Plus ne porte que la connexion, la facturation et le déblocage.</span>
+        <span lang="es">Las partidas, los análisis y el progreso se quedan en tus dispositivos, y cada análisis se ejecuta en local. Kiebitz Free no necesita cuenta; la cuenta de Kiebitz Plus solo sirve para el acceso, la facturación y el desbloqueo.</span>
+        <span lang="zh">对局、分析和训练进度都保留在你的设备上，所有分析都在本地运行。Kiebitz Free 无需账号；Kiebitz Plus 的账号只承担登录、计费和解锁。</span>
+        <span lang="hi">बाज़ियाँ, विश्लेषण और प्रशिक्षण प्रगति आपके उपकरणों पर रहते हैं, और हर विश्लेषण स्थानीय रूप से चलता है। Kiebitz Free के लिए किसी खाते की ज़रूरत नहीं; Kiebitz Plus का खाता केवल साइन-इन, बिलिंग और अनलॉक संभालता है।</span>
+        <span lang="ar">تبقى المباريات والتحليلات وتقدّم التدريب على أجهزتك، وكل تحليل يجري محليًا. لا يحتاج Kiebitz Free إلى حساب؛ أما حساب Kiebitz Plus فلا يحمل سوى تسجيل الدخول والفوترة والتفعيل.</span>
+      </p>
       <div class="privacy-grid rv">
         <div>
           <h4><span lang="de">Schachdaten bleiben lokal</span><span lang="en">Chess data stays local</span><span lang="fr">Les données d’échecs restent locales</span><span lang="es">Los datos de ajedrez quedan locales</span><span lang="zh">棋局数据保留在本地</span><span lang="hi">शतरंज डेटा स्थानीय रहता है</span><span lang="ar">بيانات الشطرنج تبقى محلية</span></h4>
@@ -470,11 +362,11 @@
     </div>
   </section>
 
-  <!-- ── 06 Preise ─────────────────────────────────────────────────────── -->
-  <section class="section section-alt" id="pricing">
+  <!-- ── 04 Preise ─────────────────────────────────────────────────────── -->
+  <section class="section" id="pricing">
     <div class="wrap">
-      <p class="eyebrow"><b>06</b> <span lang="de">Preise</span><span lang="en">Pricing</span><span lang="fr">Tarifs</span><span lang="es">Precios</span><span lang="zh">价格</span><span lang="hi">क़ीमत</span><span lang="ar">الأسعار</span></p>
-      <h2 style="font-size:clamp(24px,3vw,36px);max-width:28ch">
+      <p class="eyebrow"><b>04</b> <span lang="de">Preise</span><span lang="en">Pricing</span><span lang="fr">Tarifs</span><span lang="es">Precios</span><span lang="zh">价格</span><span lang="hi">क़ीमत</span><span lang="ar">الأسعار</span></p>
+      <h2 class="section-title">
         <span lang="de">Kiebitz Free und Kiebitz Plus.</span>
         <span lang="en">Kiebitz Free and Kiebitz Plus.</span>
         <span lang="fr">Kiebitz Free et Kiebitz Plus.</span>
@@ -483,17 +375,17 @@
         <span lang="hi">Kiebitz Free और Kiebitz Plus।</span>
         <span lang="ar">‏Kiebitz Free وKiebitz Plus.</span>
       </h2>
-      <p class="lede" style="margin-top:16px">
-        <span lang="de">Kiebitz Free bleibt kostenlos und wird auf Desktop und Android über Werbung finanziert. Kiebitz Plus ist die werbefreie Stufe mit den Funktionen, die dauerhaft für dich mitlaufen. Beide Stufen bleiben local-first: Das Konto trägt nur Anmeldung, Abrechnung und Freischaltung.</span>
-        <span lang="en">Kiebitz Free stays free of charge and is funded by ads on desktop and Android. Kiebitz Plus is the ad-free tier with the features that keep running for you. Both tiers stay local-first: the account only carries sign-in, billing and the unlock.</span>
-        <span lang="fr">Kiebitz Free reste gratuit et est financé par la publicité sur ordinateur et Android. Kiebitz Plus est le niveau sans publicité, avec les fonctions qui tournent en continu pour vous. Les deux niveaux restent local-first : le compte ne porte que la connexion, la facturation et le déblocage.</span>
-        <span lang="es">Kiebitz Free sigue siendo gratuito y se financia con anuncios en escritorio y Android. Kiebitz Plus es el nivel sin anuncios, con las funciones que trabajan de forma continua para ti. Ambos niveles siguen siendo local-first: la cuenta solo sirve para el acceso, la facturación y el desbloqueo.</span>
-        <span lang="zh">Kiebitz Free 保持免费，靠桌面端与 Android 上的广告来支撑。Kiebitz Plus 是无广告的档位，包含那些持续替你运转的功能。两个档位都依旧本地优先：账号只承担登录、计费和解锁。</span>
-        <span lang="hi">Kiebitz Free मुफ़्त ही रहता है और डेस्कटॉप व Android पर विज्ञापनों से चलता है। Kiebitz Plus विज्ञापन-मुक्त स्तर है, जिसमें वे सुविधाएँ हैं जो लगातार आपके लिए चलती रहती हैं। दोनों स्तर लोकल-फ़र्स्ट ही रहते हैं: खाता केवल साइन-इन, बिलिंग और अनलॉक संभालता है।</span>
-        <span lang="ar">يبقى Kiebitz Free مجانيًا ويُموَّل بالإعلانات على سطح المكتب وAndroid. أما Kiebitz Plus فهو المستوى الخالي من الإعلانات، بالمزايا التي تعمل باستمرار من أجلك. ويبقى المستويان محليَّين أولًا: الحساب لا يحمل سوى تسجيل الدخول والفوترة والتفعيل.</span>
+      <p class="lede">
+        <span lang="de">Kiebitz Free bleibt kostenlos und wird auf Desktop und Android über Werbung finanziert. Kiebitz Plus ist die werbefreie Stufe mit den Funktionen, die dauerhaft für dich mitlaufen.</span>
+        <span lang="en">Kiebitz Free stays free of charge and is funded by ads on desktop and Android. Kiebitz Plus is the ad-free tier with the features that keep running for you.</span>
+        <span lang="fr">Kiebitz Free reste gratuit et est financé par la publicité sur ordinateur et Android. Kiebitz Plus est le niveau sans publicité, avec les fonctions qui tournent en continu pour vous.</span>
+        <span lang="es">Kiebitz Free sigue siendo gratuito y se financia con anuncios en escritorio y Android. Kiebitz Plus es el nivel sin anuncios, con las funciones que trabajan de forma continua para ti.</span>
+        <span lang="zh">Kiebitz Free 保持免费，靠桌面端与 Android 上的广告来支撑。Kiebitz Plus 是无广告的档位，包含那些持续替你运转的功能。</span>
+        <span lang="hi">Kiebitz Free मुफ़्त ही रहता है और डेस्कटॉप व Android पर विज्ञापनों से चलता है। Kiebitz Plus विज्ञापन-मुक्त स्तर है, जिसमें वे सुविधाएँ हैं जो लगातार आपके लिए चलती रहती हैं।</span>
+        <span lang="ar">يبقى Kiebitz Free مجانيًا ويُموَّل بالإعلانات على سطح المكتب وAndroid. أما Kiebitz Plus فهو المستوى الخالي من الإعلانات، بالمزايا التي تعمل باستمرار من أجلك.</span>
       </p>
 
-      <div class="plans rv" style="margin-top:34px">
+      <div class="plans rv">
         <article class="plan">
           <p class="plan-flag plan-flag-live"><span class="dot" aria-hidden="true"></span><span lang="de">Verfügbar</span><span lang="en">Available</span><span lang="fr">Disponible</span><span lang="es">Disponible</span><span lang="zh">现已可用</span><span lang="hi">उपलब्ध</span><span lang="ar">متاح</span></p>
           <h3>Kiebitz Free</h3>
@@ -566,11 +458,11 @@
     </div>
   </section>
 
-  <!-- ── 07 Download ───────────────────────────────────────────────────── -->
-  <section class="section" id="download">
+  <!-- ── 05 Download ───────────────────────────────────────────────────── -->
+  <section class="section section-alt" id="download">
     <div class="wrap">
-      <p class="eyebrow"><b>07</b> <span lang="de">Download</span><span lang="en">Download</span><span lang="fr">Téléchargement</span><span lang="es">Descarga</span><span lang="zh">下载</span><span lang="hi">डाउनलोड</span><span lang="ar">التنزيل</span></p>
-      <h2 style="font-size:clamp(24px,3vw,36px);max-width:26ch">
+      <p class="eyebrow"><b>05</b> <span lang="de">Download</span><span lang="en">Download</span><span lang="fr">Téléchargement</span><span lang="es">Descarga</span><span lang="zh">下载</span><span lang="hi">डाउनलोड</span><span lang="ar">التنزيل</span></p>
+      <h2 class="section-title">
         <span lang="de">Laden und loslegen.</span>
         <span lang="en">Download and start.</span>
         <span lang="fr">Téléchargez et lancez-vous.</span>
@@ -579,16 +471,7 @@
         <span lang="hi">डाउनलोड कीजिए और शुरू कीजिए।</span>
         <span lang="ar">نزّله وابدأ.</span>
       </h2>
-      <p class="lede" style="margin-top:16px">
-        <span lang="de">Kiebitz Free ist kostenlos. Die Desktop-Versionen für Windows, macOS und Linux kannst du direkt laden; die Android-App steht bei Google Play. Alle Desktop-Builds und die APK findest du in den Releases des App-Repositorys.</span>
-        <span lang="en">Kiebitz Free costs nothing. The desktop builds for Windows, macOS and Linux are ready to download, and the Android app is on Google Play. All desktop builds and the APK are in the app repository’s releases.</span>
-        <span lang="fr">Kiebitz Free est gratuit. Les versions pour Windows, macOS et Linux se téléchargent directement ; l’application Android est sur Google Play. Tous les builds de bureau et l’APK se trouvent dans les releases du dépôt de l’application.</span>
-        <span lang="es">Kiebitz Free no cuesta nada. Las versiones para Windows, macOS y Linux se pueden descargar ya; la app de Android está en Google Play. Todas las compilaciones de escritorio y el APK están en las releases del repositorio.</span>
-        <span lang="zh">Kiebitz Free 完全免费。Windows、macOS 和 Linux 桌面版可以直接下载，Android 应用已在 Google Play 上架。所有桌面构建和 APK 都可在应用仓库的 Releases 页面找到。</span>
-        <span lang="hi">Kiebitz Free मुफ़्त है। Windows, macOS और Linux के डेस्कटॉप बिल्ड सीधे डाउनलोड किए जा सकते हैं; Android ऐप Google Play पर है। सभी डेस्कटॉप बिल्ड और APK ऐप रिपॉज़िटरी के Releases पेज पर मिलेंगे।</span>
-        <span lang="ar">‏Kiebitz Free مجاني. إصدارات سطح المكتب لأنظمة Windows وmacOS وLinux جاهزة للتنزيل، وتطبيق Android متاح على Google Play. وستجد جميع إصدارات سطح المكتب وملف APK في صفحة Releases بمستودع التطبيق.</span>
-      </p>
-      <div class="dl rv" style="margin-top:32px">
+      <div class="dl rv">
         <article class="dl-card">
           <h3>Desktop</h3>
           <p><span lang="de">Versionen für Windows, macOS und Linux. Enthalten den nativen Stockfish und unterstützen automatische Updates.</span><span lang="en">Builds for Windows, macOS and Linux. They ship native Stockfish and support automatic updates.</span><span lang="fr">Versions pour Windows, macOS et Linux. Elles intègrent Stockfish en natif et prennent en charge les mises à jour automatiques.</span><span lang="es">Versiones para Windows, macOS y Linux. Incluyen Stockfish nativo y admiten actualizaciones automáticas.</span><span lang="zh">提供 Windows、macOS 和 Linux 版本，内置原生 Stockfish，并支持自动更新。</span><span lang="hi">Windows, macOS और Linux के लिए बिल्ड। इनमें नेटिव Stockfish शामिल है और ऑटो-अपडेट समर्थित हैं।</span><span lang="ar">إصدارات لأنظمة Windows وmacOS وLinux، تتضمن Stockfish أصليًا وتدعم التحديثات التلقائية.</span></p>
@@ -618,10 +501,10 @@
     </div>
   </section>
 
-  <!-- ── 08 Feedback ─────────────────────────────────────────────────────── -->
+  <!-- ── 06 Feedback ─────────────────────────────────────────────────────── -->
   <section class="section feedback-section" id="feedback">
     <div class="wrap">
-      <p class="eyebrow"><b>08</b> <span lang="de">Feedback</span><span lang="en">Feedback</span><span lang="fr">Retours</span><span lang="es">Comentarios</span><span lang="zh">反馈</span><span lang="hi">फ़ीडबैक</span><span lang="ar">الملاحظات</span></p>
+      <p class="eyebrow"><b>06</b> <span lang="de">Feedback</span><span lang="en">Feedback</span><span lang="fr">Retours</span><span lang="es">Comentarios</span><span lang="zh">反馈</span><span lang="hi">फ़ीडबैक</span><span lang="ar">الملاحظات</span></p>
       <div class="feedback-grid">
         <div class="feedback-copy">
           <h2>
