@@ -279,11 +279,10 @@ function choreograph(gsap, ScrollTrigger, stage) {
   const reveal = $$([
     ".xp-how-head .eyebrow",
     ".xp-features-head .eyebrow",
-    ".xp-local .eyebrow", ".xp-local .lede", ".xp-local-link", ".xp-local .privacy-grid > div",
+    ".xp-local .eyebrow", ".xp-local .lede", ".xp-local-link",
     ".xp-pricing .eyebrow", ".xp-pricing .lede", ".xp-pricing .plan",
     ".xp-download .eyebrow", ".xp-download .dl-card", ".xp-download .small",
-    ".feedback-copy .eyebrow", ".feedback-copy .lede", ".feedback-notes > p", ".feedback-package",
-    ".xp-more .more > div"
+    ".feedback-copy .eyebrow", ".feedback-copy .lede", ".feedback-notes > p", ".feedback-package"
   ].join(",")).filter((el) => el.getBoundingClientRect().top > window.innerHeight);
   gsap.set(reveal, { opacity: 0, y: 40 });
   ScrollTrigger.batch(reveal, {
@@ -309,8 +308,8 @@ function choreograph(gsap, ScrollTrigger, stage) {
         trigger: pin,
         pin: true,
         start: "top top",
-        // Die Bahn läuft doppelt so schnell wie der Scroll: fünf Tafeln ohne
-        // fünf Bildschirmhöhen Fingerarbeit.
+        // Die Bahn läuft doppelt so schnell wie der Scroll: sechs Tafeln ohne
+        // sechs Bildschirmhöhen Fingerarbeit.
         end: () => `+=${distance() * 0.5}`,
         scrub: 0.9,
         invalidateOnRefresh: true,
@@ -322,7 +321,7 @@ function choreograph(gsap, ScrollTrigger, stage) {
       }
     });
     for (const panel of panels.slice(1)) {
-      const visual = $(".shot, .sync-viz", panel);
+      const visual = $(".shot, .sync-viz, .more", panel);
       const text = $(".feature-text", panel);
       const scroll = RTL
         ? { start: "right 2%", end: "right 55%" }

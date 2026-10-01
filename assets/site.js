@@ -196,6 +196,28 @@
     }
   }
 
+  /* ── Funktionen als Wischleiste (schmale Bildschirme): Zähler und Linie ── */
+  var rail = document.querySelector(".xp-rail");
+  if (rail) {
+    var railPanels = rail.querySelectorAll(".xp-panel");
+    var railNumber = document.querySelector("[data-xp-panel-n]");
+    var railBar = document.querySelector(".xp-rail-bar i");
+    var railFrame = 0;
+    var paintRail = function () {
+      railFrame = 0;
+      var max = rail.scrollWidth - rail.clientWidth;
+      if (max <= 0 || !railPanels.length) return;
+      // Im RTL-Layout zählt scrollLeft von 0 ins Negative.
+      var progress = Math.min(1, Math.abs(rail.scrollLeft) / max);
+      var index = Math.round(progress * (railPanels.length - 1));
+      if (railNumber) railNumber.textContent = "0" + (index + 1);
+      if (railBar) railBar.style.transform = "scaleX(" + ((index + 1) / railPanels.length) + ")";
+    };
+    rail.addEventListener("scroll", function () {
+      if (!railFrame) railFrame = requestAnimationFrame(paintRail);
+    }, { passive: true });
+  }
+
   /* ── Eval-Balken: läuft durch eine Partie, solange er sichtbar ist ─────── */
   var evalFill = document.querySelector(".evalbar .w");
   if (evalFill) {

@@ -128,7 +128,6 @@ html[data-lang="ar"] .xp-display { line-height: 1.18; }
 .xp-track .feature + .feature { margin-top: 0; }
 .xp-rail { padding-inline: 24px; max-width: 1120px; margin: 0 auto; }
 .xp-rail-foot { display: none; }
-.xp-more { margin-top: clamp(48px, 6vw, 84px); }
 
 .xp-local {
   border-top: 1px solid var(--line);
@@ -324,8 +323,6 @@ html.xp .xp-track .shot {
   transform-style: preserve-3d;
   will-change: transform;
 }
-html.xp .xp-more { padding-bottom: 8vh; }
-html.xp .more > div { background: rgb(23 23 22 / 0.88); }
 
 @media (min-width: 960px) {
   html.xp .xp-pin {
@@ -376,7 +373,6 @@ html.xp .more > div { background: rgb(23 23 22 / 0.88); }
     transform-origin: left center;
   }
   html.xp[dir="rtl"] .xp-rail-bar i { transform-origin: right center; }
-  html.xp .xp-more { margin-top: 0; padding-top: 8vh; }
 }
 
 /* Local-first: Text links, die Kuppel schließt sich rechts. */
@@ -501,6 +497,70 @@ html.xp .section-alt::before { display: none; }
 
 @media (max-width: 900px) {
   .xp-track .feature { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Schmale Bildschirme: die Funktionen als Wischleiste mit Einrasten. Gilt
+   in beiden Fassungen; den Zähler pflegt assets/site.js. */
+@media (max-width: 959px) {
+  .xp-rail {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+  .xp-rail::-webkit-scrollbar { display: none; }
+  .xp-track {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    padding-inline: 16px;
+  }
+  .xp-track .feature {
+    flex: none;
+    width: min(86vw, 560px);
+    margin: 0;
+    padding: 22px 20px 24px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--panel);
+    align-content: start;
+    gap: 22px;
+    scroll-snap-align: start;
+  }
+  html.xp .xp-track .feature { padding: 22px 20px 24px; }
+  .xp-track .feature .ticks { margin-top: 16px; }
+  .xp-track .more { grid-template-columns: minmax(0, 1fr); }
+  .xp-track .more > div { padding: 12px 0 13px; }
+  .xp-rail-foot {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 18px;
+    font: 500 11.5px/1 var(--mono);
+    letter-spacing: 0.12em;
+    color: var(--ink3);
+  }
+  .xp-rail-count b { color: var(--accent); font-weight: 500; }
+  .xp-rail-bar {
+    position: relative;
+    flex: 1;
+    max-width: 220px;
+    height: 1px;
+    background: var(--line2);
+  }
+  .xp-rail-bar i {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0.1667);
+    transform-origin: left center;
+  }
+  html[dir="rtl"] .xp-rail-bar i { transform-origin: right center; }
+  html.xp .xp-features { padding-bottom: 8vh; }
 }
 
 @media print {
