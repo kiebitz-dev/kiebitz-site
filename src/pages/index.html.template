@@ -167,7 +167,7 @@
     <div class="wrap xp-hero-foot" aria-hidden="true">
       <span class="xp-scroll"><i></i></span>
       <span class="xp-readout">
-        <b data-xp-route>♘ b1</b>
+        <b data-xp-route>9. h3</b>
         <span><span lang="de">Stockfish · nativ</span><span lang="en">Stockfish · native</span><span lang="fr">Stockfish · natif</span><span lang="es">Stockfish · nativo</span><span lang="zh">Stockfish · 原生</span><span lang="hi">Stockfish · नेटिव</span><span lang="ar">Stockfish · أصلي</span></span>
         <span><span lang="de">Die Analyse läuft auf deinem Gerät.</span><span lang="en">Analysis runs on your device.</span><span lang="fr">L’analyse tourne sur votre appareil.</span><span lang="es">El análisis se ejecuta en tu dispositivo.</span><span lang="zh">分析在你的设备上运行。</span><span lang="hi">विश्लेषण आपके डिवाइस पर चलता है।</span><span lang="ar">يجري التحليل على جهازك.</span></span>
       </span>

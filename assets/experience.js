@@ -435,19 +435,36 @@ const COLORS = {
 
 // Mittelspiel aus einer Spanischen Partie; Weiß unten, die Kamera schaut über seine Schulter.
 const FEN = "r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N1P/PP1P1PP1/RNBQR1K1";
-// Im Hero zieht immer wieder eine zufällige Figur eine kurze, regelgerechte
-// Rundreise über freie Felder und landet wieder auf ihrem Ausgangsfeld, damit
-// die Stellung erhalten bleibt. Bauern fehlen: Sie können nicht zurück.
-const STEPS = {
-  r: [[1, 0], [-1, 0], [0, 1], [0, -1]],
-  b: [[1, 1], [1, -1], [-1, 1], [-1, -1]],
-  n: [[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]]
-};
-STEPS.q = STEPS.r.concat(STEPS.b);
-STEPS.k = STEPS.q;
-const SLIDES = { r: true, b: true, q: true };
-const GLYPHS = { k: ["♔", "♚"], q: ["♕", "♛"], r: ["♖", "♜"], b: ["♗", "♝"], n: ["♘", "♞"] };
-const squareName = (file, rank) => String.fromCharCode(97 + file) + (rank + 1);
+// Im Hero laufen Hauptvarianten, die aus genau dieser Stellung (Schwarz am Zug
+// nach 9.h3) in der Großmeisterpraxis gespielt werden. Je Halbzug: von+nach
+// und SAN. Geprüft mit chess.js; Schlagzüge erkennt die Wiedergabe am Zielfeld.
+const LINES = [
+  { name: { de: "Breyer", en: "Breyer" }, moves: "c6b8 Nb8 d2d4 d4 b8d7 Nbd7 b1d2 Nbd2 c8b7 Bb7 b3c2 Bc2 f8e8 Re8 d2f1 Nf1 e7f8 Bf8 f1g3 Ng3 g7g6 g6" },
+  { name: { de: "Saizew", en: "Zaitsev" }, moves: "c8b7 Bb7 d2d4 d4 f8e8 Re8 b1d2 Nbd2 e7f8 Bf8 a2a4 a4 h7h6 h6 b3c2 Bc2 e5d4 exd4 c3d4 cxd4 c6b4 Nb4 c2b1 Bb1 c7c5 c5" },
+  { name: { de: "Tschigorin", en: "Chigorin" }, moves: "c6a5 Na5 b3c2 Bc2 c7c5 c5 d2d4 d4 d8c7 Qc7 b1d2 Nbd2 c5d4 cxd4 c3d4 cxd4 a5c6 Nc6" },
+  { name: { de: "Smyslow", en: "Smyslov" }, moves: "h7h6 h6 d2d4 d4 f8e8 Re8 b1d2 Nbd2 e7f8 Bf8 d2f1 Nf1 c8d7 Bd7 f1g3 Ng3 c6a5 Na5 b3c2 Bc2 c7c5 c5" },
+  { name: { de: "Karpow", en: "Karpov" }, moves: "f6d7 Nd7 d2d4 d4 e7f6 Bf6 a2a4 a4 c8b7 Bb7" },
+  { name: { de: "Cholmow", en: "Kholmov" }, moves: "c8e6 Be6 d2d4 d4 e6b3 Bxb3 a2b3 axb3 e5d4 exd4 c3d4 cxd4 d6d5 d5 e4e5 e5 f6e4 Ne4" }
+].map((line) => {
+  const parts = line.moves.split(" ");
+  const moves = [];
+  for (let i = 0; i < parts.length; i += 2) {
+    const square = (name) => [name.charCodeAt(0) - 97, Number(name[1]) - 1];
+    const from = square(parts[i].slice(0, 2));
+    const to = square(parts[i].slice(2));
+    moves.push({ from, to, san: parts[i + 1] });
+  }
+  return { name: line.name, moves };
+});
+const GLYPHS = { K: ["♔", "♚"], Q: ["♕", "♛"], R: ["♖", "♜"], B: ["♗", "♝"], N: ["♘", "♞"] };
+// Figurinen statt Buchstaben: sprachunabhängig. Halbzug 0 ist 9… (Schwarz).
+function notation(san, ply) {
+  const black = ply % 2 === 0;
+  const number = 9 + Math.floor((ply + 1) / 2);
+  const glyph = GLYPHS[san[0]];
+  const move = glyph ? glyph[black ? 1 : 0] + san.slice(1) : san;
+  return `${number}${black ? "…" : "."} ${move}`;
+}
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const smooth = (v) => v * v * (3 - 2 * v);
@@ -635,11 +652,10 @@ function createStage(THREE, canvas) {
       else group.rotation.y = random() * Math.PI;
       group.position.set(squareX(file), 0, squareZ(rank));
       scene.add(group);
-      pieces.push({ group, type, white, file, rank, delay: random(), lift: 0 });
+      pieces.push({ group, type, white, file, rank, delay: random(), pos: { x: squareX(file), y: 0, z: squareZ(rank) }, gone: 0 });
       file += 1;
     }
   });
-  const occupied = new Set(pieces.map((piece) => piece.file * 8 + piece.rank));
 
   /* ── Markierungen: letzter Zug, Blunder, bester Zug ──────────────────────── */
   const markFrom = squareMark(THREE, COLORS.accent);
@@ -883,9 +899,9 @@ function createStage(THREE, canvas) {
   let tSmooth = 0;
   let snapNext = true;
   let lastChapter = -1;
-  const hop = { piece: null, x: 0, z: 0, y: 0 };
-  let tourTimeline = null;
-  let lastMover = null;
+  let lineTimeline = null;
+  let lastLine = -1;
+  const lang = root.getAttribute("data-lang");
   const veil = document.querySelector(".xp-veil");
   const routeLabel = document.querySelector("[data-xp-route]");
 
@@ -921,122 +937,63 @@ function createStage(THREE, canvas) {
   }
   resize();
 
-  /* ── Zugketten im Hero (GSAP) ───────────────────────────────────────────── */
-  // Ziele eines Zuges über freie Felder; das Ausgangsfeld der Rundreise gilt
-  // als frei, weil die Figur es gerade verlassen hat.
-  function targets(type, file, rank, home) {
-    const free = (f, r) => f >= 0 && f < 8 && r >= 0 && r < 8 && (!occupied.has(f * 8 + r) || f * 8 + r === home);
-    const out = [];
-    for (const [df, dr] of STEPS[type]) {
-      let f = file + df;
-      let r = rank + dr;
-      while (free(f, r)) {
-        out.push([f, r]);
-        if (!SLIDES[type]) break;
-        f += df;
-        r += dr;
-      }
-    }
-    return out;
-  }
+  /* ── Hauptvarianten im Hero (GSAP) ────────────────────────────────────────── */
+  const home = (piece) => ({ x: squareX(piece.file), y: 0, z: squareZ(piece.rank) });
 
-  // Sucht per Tiefensuche in zufälliger Reihenfolge eine Rundreise aus
-  // 3 bis 6 Zügen, die kein Feld doppelt betritt.
-  function findTour(piece) {
-    const home = piece.file * 8 + piece.rank;
-    const length = 3 + Math.floor(Math.random() * 4);
-    const path = [[piece.file, piece.rank]];
-    const seen = new Set([home]);
-    let budget = 3000;
-    const walk = () => {
-      if (--budget < 0) return false;
-      const [f, r] = path[path.length - 1];
-      const next = targets(piece.type, f, r, home);
-      if (path.length === length) return next.some(([nf, nr]) => nf * 8 + nr === home);
-      for (let i = next.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [next[i], next[j]] = [next[j], next[i]];
-      }
-      for (const square of next) {
-        const key = square[0] * 8 + square[1];
-        if (seen.has(key)) continue;
-        seen.add(key);
-        path.push(square);
-        if (walk()) return true;
-        path.pop();
-        seen.delete(key);
-      }
-      return false;
-    };
-    if (!walk()) return null;
-    path.push([piece.file, piece.rank]);
-    return path;
-  }
-
-  function chooseTour() {
-    const shuffled = (list) => {
-      for (let i = list.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [list[i], list[j]] = [list[j], list[i]];
-      }
-      return list;
-    };
-    const movers = pieces.filter((piece) => piece.type !== "p" && piece !== lastMover);
-    // Weiß steht vorn zur Kamera und ist zu zwei Dritteln am Zug.
-    const white = shuffled(movers.filter((piece) => piece.white));
-    const black = shuffled(movers.filter((piece) => !piece.white));
-    const order = Math.random() < 0.66 ? white.concat(black) : black.concat(white);
-    for (const piece of order) {
-      const path = findTour(piece);
-      if (path) return { piece, path };
-    }
-    return null;
-  }
-
-  function playTour() {
+  function playLine() {
     const gsap = window.gsap;
-    const tour = chooseTour();
-    if (!tour) return;
-    const { piece, path } = tour;
-    lastMover = piece;
-    hop.piece = piece;
-    hop.x = squareX(piece.file);
-    hop.z = squareZ(piece.rank);
-    hop.y = 0;
-    const glyph = GLYPHS[piece.type][piece.white ? 0 : 1];
-    tourTimeline = gsap.timeline({
-      delay: 0.9,
-      onComplete: () => {
-        piece.group.position.x = squareX(piece.file);
-        piece.group.position.z = squareZ(piece.rank);
-        hop.piece = null;
-        playTour();
-      }
-    });
-    for (let i = 1; i < path.length; i++) {
-      const [ff, fr] = path[i - 1];
-      const [file, rank] = path[i];
-      const distance = Math.hypot(file - ff, rank - fr);
+    let index = Math.floor(Math.random() * LINES.length);
+    if (index === lastLine) index = (index + 1) % LINES.length;
+    lastLine = index;
+    const line = LINES[index];
+    const name = line.name[lang] || line.name.en;
+    const board = new Map(pieces.map((piece) => [piece.file * 8 + piece.rank, piece]));
+    const tl = gsap.timeline({ delay: 0.8, onComplete: () => { if (lineTimeline === tl) playLine(); } });
+    lineTimeline = tl;
+    line.moves.forEach(({ from, to, san }, ply) => {
+      const mover = board.get(from[0] * 8 + from[1]);
+      const victim = board.get(to[0] * 8 + to[1]);
+      board.delete(from[0] * 8 + from[1]);
+      board.set(to[0] * 8 + to[1], mover);
+      const distance = Math.hypot(to[0] - from[0], to[1] - from[1]);
       // Springer springen im Bogen, alle anderen gleiten knapp über dem Brett.
-      const jump = piece.type === "n" ? 0.95 : 0.22;
-      const duration = piece.type === "n" ? 0.62 : 0.42 + 0.09 * distance;
-      tourTimeline
-        .add(() => {
-          markFrom.position.set(squareX(ff), 0.006, squareZ(fr));
-          markTo.position.set(squareX(file), 0.006, squareZ(rank));
-          markTo.userData.flash = 1;
-          if (routeLabel) routeLabel.textContent = `${glyph} ${squareName(ff, fr)} → ${squareName(file, rank)}`;
-        })
-        .to(hop, { x: squareX(file), z: squareZ(rank), duration, ease: "power2.inOut" })
-        .to(hop, { y: jump, duration: duration / 2, ease: "power2.out" }, "<")
-        .to(hop, { y: 0, duration: duration / 2, ease: "power2.in" }, ">")
-        .to({}, { duration: 1.1 });
+      const jump = mover.type === "n" ? 0.95 : 0.2;
+      const duration = mover.type === "n" ? 0.62 : 0.4 + 0.08 * distance;
+      tl.add(() => {
+        markFrom.position.set(squareX(from[0]), 0.006, squareZ(from[1]));
+        markTo.position.set(squareX(to[0]), 0.006, squareZ(to[1]));
+        markTo.userData.flash = 1;
+        if (routeLabel) routeLabel.textContent = `${name} · ${notation(san, ply)}`;
+      })
+        .to(mover.pos, { x: squareX(to[0]), z: squareZ(to[1]), duration, ease: "power2.inOut" })
+        .to(mover.pos, { y: jump, duration: duration / 2, ease: "power2.out" }, "<")
+        .to(mover.pos, { y: 0, duration: duration / 2, ease: "power2.in" }, ">");
+      if (victim) tl.to(victim, { gone: 1, duration: 0.3, ease: "power2.in" }, "<");
+      tl.to({}, { duration: 0.95 });
+    });
+    // Nachklang, dann gleitet alles zurück in die Ausgangsstellung.
+    tl.to({}, { duration: 1.6 });
+    tl.add(() => settle(0.9));
+    tl.to({}, { duration: 1.1 });
+  }
+
+  // Alle Figuren zurück auf ihr Feld; Geschlagene wachsen dort wieder heraus.
+  function settle(duration) {
+    const gsap = window.gsap;
+    for (const piece of pieces) {
+      const target = home(piece);
+      if (piece.gone > 0.01) {
+        gsap.killTweensOf(piece.pos);
+        gsap.set(piece.pos, target);
+        gsap.to(piece, { gone: 0, duration, ease: "power2.out", overwrite: true });
+      } else if (piece.pos.x !== target.x || piece.pos.z !== target.z || piece.pos.y !== 0) {
+        gsap.to(piece.pos, { ...target, duration, ease: "power3.inOut", overwrite: true });
+      }
     }
   }
 
   /* ── Bild für Bild ───────────────────────────────────────────────────────── */
   function frameStep(time, dt) {
-    if (!tourTimeline && window.gsap) playTour();
 
     t = stage.pin !== null ? stage.pin : stage.scroll ? stage.scroll() : 0;
     if (snapNext) {
@@ -1052,10 +1009,15 @@ function createStage(THREE, canvas) {
       stage.onChapter(chapter);
     }
 
-    // Zugketten laufen nur, solange der Hero die Bühne hat.
-    if (tourTimeline) {
-      if (state.tour > 0.5 && tourTimeline.paused()) tourTimeline.resume();
-      if (state.tour < 0.5 && !tourTimeline.paused() && hop.y === 0) tourTimeline.pause();
+    // Varianten laufen nur, solange der Hero die Bühne hat. Danach steht die
+    // Ausgangsstellung wieder, damit Analyse-Pfeil und Blunder-Feld stimmen.
+    if (window.gsap) {
+      if (state.tour > 0.5 && !lineTimeline) playLine();
+      if (state.tour < 0.5 && lineTimeline) {
+        lineTimeline.kill();
+        lineTimeline = null;
+        settle(0.6);
+      }
     }
 
     lagPointer.x += (pointer.x - lagPointer.x) * (1 - Math.exp(-dt * 2.5));
@@ -1148,15 +1110,14 @@ function createStage(THREE, canvas) {
   }
 
   function updatePieces(time) {
-    if (hop.piece) hop.piece.group.position.set(hop.x, 0, hop.z);
     for (const piece of pieces) {
       const amount = smooth(clamp01(state.pieces * 1.5 - piece.delay * 0.5));
-      const visible = amount > 0.002;
+      const size = amount * (1 - piece.gone);
+      const visible = size > 0.002;
       piece.group.visible = visible;
       if (!visible) continue;
-      piece.group.scale.setScalar(amount);
-      const baseY = piece === hop.piece ? hop.y : 0;
-      piece.group.position.y = baseY - (1 - amount) * 0.4;
+      piece.group.scale.setScalar(size);
+      piece.group.position.set(piece.pos.x, piece.pos.y - (1 - amount) * 0.4 - piece.gone * 0.3, piece.pos.z);
     }
     const hero = state.tour;
     markFrom.material.opacity = 0.16 * hero;

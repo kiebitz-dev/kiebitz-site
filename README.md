@@ -100,9 +100,11 @@ off as a flock of lapwings — *Zug um Zugvogel*.
   for the round pieces, extruded silhouettes for the knight's head and mane,
   the rook's battlements and the king's cross. Colours follow the app's piece
   palette.
-- In the hero a random piece (never a pawn) plays a short legal round trip
-  of three to six moves over free squares and returns to its square, so the
-  position stays intact; then the next piece follows.
+- The hero board shows the Closed Ruy Lopez after 9.h3 and plays real main
+  lines from there (Breyer, Zaitsev, Chigorin, Smyslov, Karpov, Kholmov),
+  one after another in random order, with figurine notation in the readout.
+  After each line the pieces glide back. `LINES` in `assets/experience.js`
+  holds them as from-to squares plus SAN; check new lines with chess.js.
 - The intro shows the wordmark, the tagline and a thin loading line; the
   download section opens with the tagline in large type while the flock
   takes off.
