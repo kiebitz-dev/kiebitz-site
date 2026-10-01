@@ -402,7 +402,7 @@ function choreograph(gsap, ScrollTrigger, stage) {
 // shift schiebt das Bild zur Seite, damit links (RTL: rechts) Platz für Text bleibt.
 const KEYS = [
   // 00 Hero: über die Schulter von Weiß
-  { r: 19, el: 22, az: -30, tx: 0.2, ty: 0.3, tz: 0.4, fov: 32, shift: 0.35, side: 1, pieces: 1, knight: 1 },
+  { r: 19, el: 22, az: -30, tx: 0.2, ty: 0.3, tz: 0.4, fov: 32, shift: 0.35, side: 1, pieces: 1, tour: 1 },
   // 01 Importieren: Partien strömen aus drei Quellen ein
   { r: 20, el: 40, az: 16, tx: 0, ty: 0.6, tz: -1.6, fov: 34, shift: 0.26, side: 1, pieces: 1, streams: 1 },
   // 02 Analysieren: Stockfish tastet das Brett ab
@@ -420,7 +420,7 @@ const KEYS = [
   // 08 Feedback: der Schwarm zieht weiter
   { r: 17, el: 2, az: 396, tx: 0, ty: 10.5, tz: -13, fov: 44, shift: 0, side: 0, veil: 0.8, flock: 1 }
 ];
-const CHANNELS = ["r", "el", "az", "tx", "ty", "tz", "fov", "shift", "side", "veil", "pieces", "knight", "streams", "scan", "terrain", "dome", "orbit", "glow", "flock"];
+const CHANNELS = ["r", "el", "az", "tx", "ty", "tz", "fov", "shift", "side", "veil", "pieces", "tour", "streams", "scan", "terrain", "dome", "orbit", "glow", "flock"];
 for (const key of KEYS) for (const channel of CHANNELS) if (key[channel] === undefined) key[channel] = 0;
 
 const COLORS = {
@@ -435,8 +435,19 @@ const COLORS = {
 
 // Mittelspiel aus einer Spanischen Partie; Weiß unten, die Kamera schaut über seine Schulter.
 const FEN = "r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N1P/PP1P1PP1/RNBQR1K1";
-// Der Springer hüpft im Hero über freie Felder und kehrt nach b1 zurück.
-const KNIGHT_TOUR = ["b1", "a3", "c4", "e3", "c2", "a3", "b1"];
+// Im Hero zieht immer wieder eine zufällige Figur eine kurze, regelgerechte
+// Rundreise über freie Felder und landet wieder auf ihrem Ausgangsfeld, damit
+// die Stellung erhalten bleibt. Bauern fehlen: Sie können nicht zurück.
+const STEPS = {
+  r: [[1, 0], [-1, 0], [0, 1], [0, -1]],
+  b: [[1, 1], [1, -1], [-1, 1], [-1, -1]],
+  n: [[1, 2], [2, 1], [2, -1], [1, -2], [-1, -2], [-2, -1], [-2, 1], [-1, 2]]
+};
+STEPS.q = STEPS.r.concat(STEPS.b);
+STEPS.k = STEPS.q;
+const SLIDES = { r: true, b: true, q: true };
+const GLYPHS = { k: ["♔", "♚"], q: ["♕", "♛"], r: ["♖", "♜"], b: ["♗", "♝"], n: ["♘", "♞"] };
+const squareName = (file, rank) => String.fromCharCode(97 + file) + (rank + 1);
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const smooth = (v) => v * v * (3 - 2 * v);
@@ -628,7 +639,7 @@ function createStage(THREE, canvas) {
       file += 1;
     }
   });
-  const knight = pieces.find((piece) => piece.type === "n" && piece.white && piece.file === 1 && piece.rank === 0);
+  const occupied = new Set(pieces.map((piece) => piece.file * 8 + piece.rank));
 
   /* ── Markierungen: letzter Zug, Blunder, bester Zug ──────────────────────── */
   const markFrom = squareMark(THREE, COLORS.accent);
@@ -872,8 +883,9 @@ function createStage(THREE, canvas) {
   let tSmooth = 0;
   let snapNext = true;
   let lastChapter = -1;
-  const knightHop = { x: knight.group.position.x, z: knight.group.position.z, y: 0, weight: 1 };
-  let knightTimeline = null;
+  const hop = { piece: null, x: 0, z: 0, y: 0 };
+  let tourTimeline = null;
+  let lastMover = null;
   const veil = document.querySelector(".xp-veil");
   const routeLabel = document.querySelector("[data-xp-route]");
 
@@ -909,32 +921,122 @@ function createStage(THREE, canvas) {
   }
   resize();
 
-  /* ── Springer-Tour im Hero (GSAP) ────────────────────────────────────────── */
-  function startKnight() {
+  /* ── Zugketten im Hero (GSAP) ───────────────────────────────────────────── */
+  // Ziele eines Zuges über freie Felder; das Ausgangsfeld der Rundreise gilt
+  // als frei, weil die Figur es gerade verlassen hat.
+  function targets(type, file, rank, home) {
+    const free = (f, r) => f >= 0 && f < 8 && r >= 0 && r < 8 && (!occupied.has(f * 8 + r) || f * 8 + r === home);
+    const out = [];
+    for (const [df, dr] of STEPS[type]) {
+      let f = file + df;
+      let r = rank + dr;
+      while (free(f, r)) {
+        out.push([f, r]);
+        if (!SLIDES[type]) break;
+        f += df;
+        r += dr;
+      }
+    }
+    return out;
+  }
+
+  // Sucht per Tiefensuche in zufälliger Reihenfolge eine Rundreise aus
+  // 3 bis 6 Zügen, die kein Feld doppelt betritt.
+  function findTour(piece) {
+    const home = piece.file * 8 + piece.rank;
+    const length = 3 + Math.floor(Math.random() * 4);
+    const path = [[piece.file, piece.rank]];
+    const seen = new Set([home]);
+    let budget = 3000;
+    const walk = () => {
+      if (--budget < 0) return false;
+      const [f, r] = path[path.length - 1];
+      const next = targets(piece.type, f, r, home);
+      if (path.length === length) return next.some(([nf, nr]) => nf * 8 + nr === home);
+      for (let i = next.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [next[i], next[j]] = [next[j], next[i]];
+      }
+      for (const square of next) {
+        const key = square[0] * 8 + square[1];
+        if (seen.has(key)) continue;
+        seen.add(key);
+        path.push(square);
+        if (walk()) return true;
+        path.pop();
+        seen.delete(key);
+      }
+      return false;
+    };
+    if (!walk()) return null;
+    path.push([piece.file, piece.rank]);
+    return path;
+  }
+
+  function chooseTour() {
+    const shuffled = (list) => {
+      for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+      }
+      return list;
+    };
+    const movers = pieces.filter((piece) => piece.type !== "p" && piece !== lastMover);
+    // Weiß steht vorn zur Kamera und ist zu zwei Dritteln am Zug.
+    const white = shuffled(movers.filter((piece) => piece.white));
+    const black = shuffled(movers.filter((piece) => !piece.white));
+    const order = Math.random() < 0.66 ? white.concat(black) : black.concat(white);
+    for (const piece of order) {
+      const path = findTour(piece);
+      if (path) return { piece, path };
+    }
+    return null;
+  }
+
+  function playTour() {
     const gsap = window.gsap;
-    knightTimeline = gsap.timeline({ repeat: -1, delay: 1.6, repeatDelay: 0.6 });
-    for (let i = 1; i < KNIGHT_TOUR.length; i++) {
-      const from = KNIGHT_TOUR[i - 1];
-      const to = KNIGHT_TOUR[i];
-      const [file, rank] = parseSquare(to);
-      const [ff, fr] = parseSquare(from);
-      knightTimeline
+    const tour = chooseTour();
+    if (!tour) return;
+    const { piece, path } = tour;
+    lastMover = piece;
+    hop.piece = piece;
+    hop.x = squareX(piece.file);
+    hop.z = squareZ(piece.rank);
+    hop.y = 0;
+    const glyph = GLYPHS[piece.type][piece.white ? 0 : 1];
+    tourTimeline = gsap.timeline({
+      delay: 0.9,
+      onComplete: () => {
+        piece.group.position.x = squareX(piece.file);
+        piece.group.position.z = squareZ(piece.rank);
+        hop.piece = null;
+        playTour();
+      }
+    });
+    for (let i = 1; i < path.length; i++) {
+      const [ff, fr] = path[i - 1];
+      const [file, rank] = path[i];
+      const distance = Math.hypot(file - ff, rank - fr);
+      // Springer springen im Bogen, alle anderen gleiten knapp über dem Brett.
+      const jump = piece.type === "n" ? 0.95 : 0.22;
+      const duration = piece.type === "n" ? 0.62 : 0.42 + 0.09 * distance;
+      tourTimeline
         .add(() => {
           markFrom.position.set(squareX(ff), 0.006, squareZ(fr));
           markTo.position.set(squareX(file), 0.006, squareZ(rank));
           markTo.userData.flash = 1;
-          if (routeLabel) routeLabel.textContent = `♘ ${from} → ${to}`;
+          if (routeLabel) routeLabel.textContent = `${glyph} ${squareName(ff, fr)} → ${squareName(file, rank)}`;
         })
-        .to(knightHop, { x: squareX(file), z: squareZ(rank), duration: 0.62, ease: "power2.inOut" })
-        .to(knightHop, { y: 0.95, duration: 0.31, ease: "power2.out" }, "<")
-        .to(knightHop, { y: 0, duration: 0.31, ease: "power2.in" }, ">")
-        .to({}, { duration: 1.25 });
+        .to(hop, { x: squareX(file), z: squareZ(rank), duration, ease: "power2.inOut" })
+        .to(hop, { y: jump, duration: duration / 2, ease: "power2.out" }, "<")
+        .to(hop, { y: 0, duration: duration / 2, ease: "power2.in" }, ">")
+        .to({}, { duration: 1.1 });
     }
   }
 
   /* ── Bild für Bild ───────────────────────────────────────────────────────── */
   function frameStep(time, dt) {
-    if (!knightTimeline && window.gsap) startKnight();
+    if (!tourTimeline && window.gsap) playTour();
 
     t = stage.pin !== null ? stage.pin : stage.scroll ? stage.scroll() : 0;
     if (snapNext) {
@@ -950,10 +1052,10 @@ function createStage(THREE, canvas) {
       stage.onChapter(chapter);
     }
 
-    // Springer: läuft nur, solange der Hero die Bühne hat.
-    if (knightTimeline) {
-      if (state.knight > 0.5 && knightTimeline.paused()) knightTimeline.resume();
-      if (state.knight < 0.5 && !knightTimeline.paused() && knightHop.y === 0) knightTimeline.pause();
+    // Zugketten laufen nur, solange der Hero die Bühne hat.
+    if (tourTimeline) {
+      if (state.tour > 0.5 && tourTimeline.paused()) tourTimeline.resume();
+      if (state.tour < 0.5 && !tourTimeline.paused() && hop.y === 0) tourTimeline.pause();
     }
 
     lagPointer.x += (pointer.x - lagPointer.x) * (1 - Math.exp(-dt * 2.5));
@@ -1046,17 +1148,17 @@ function createStage(THREE, canvas) {
   }
 
   function updatePieces(time) {
-    knight.group.position.set(knightHop.x, 0, knightHop.z);
+    if (hop.piece) hop.piece.group.position.set(hop.x, 0, hop.z);
     for (const piece of pieces) {
       const amount = smooth(clamp01(state.pieces * 1.5 - piece.delay * 0.5));
       const visible = amount > 0.002;
       piece.group.visible = visible;
       if (!visible) continue;
       piece.group.scale.setScalar(amount);
-      const baseY = piece === knight ? knightHop.y : 0;
+      const baseY = piece === hop.piece ? hop.y : 0;
       piece.group.position.y = baseY - (1 - amount) * 0.4;
     }
-    const hero = state.knight;
+    const hero = state.tour;
     markFrom.material.opacity = 0.16 * hero;
     markTo.userData.flash = (markTo.userData.flash || 0) * 0.97;
     markTo.material.opacity = (0.24 + 0.3 * markTo.userData.flash) * hero;
