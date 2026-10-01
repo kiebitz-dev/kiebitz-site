@@ -15,6 +15,7 @@
 <meta property="og:image" content="https://kiebitz.dev/assets/icon.png">
 <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/experience.css">
 <script>
 (function () {
   var LANGS = { de: 1, en: 1, fr: 1, es: 1, zh: 1, hi: 1, ar: 1 };
@@ -44,8 +45,40 @@
   } catch (e) { /* egal */ }
 })();
 </script>
+<script>
+// Die 3D-Erzählung nur dort, wo Bewegung erwünscht ist und WebGL 2 bereitsteht.
+// Ohne diese Klasse bleibt die Seite ein ruhiges, vollständiges Dokument.
+!function () {
+  var d = document.documentElement, m = null;
+  try { m = localStorage.getItem("kiebitz-motion"); } catch (e) { /* egal */ }
+  var still = m === "off" || (m !== "on" && window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  if (still) return;
+  try {
+    var gl = document.createElement("canvas").getContext("webgl2");
+    if (!gl) return;
+    var lose = gl.getExtension("WEBGL_lose_context");
+    if (lose) lose.loseContext();
+    d.classList.add("xp");
+  } catch (e) { /* egal */ }
+}();
+</script>
 </head>
 <body>
+<div class="xp-stage" aria-hidden="true">
+  <canvas class="xp-canvas" data-xp-canvas></canvas>
+  <div class="xp-veil"></div>
+  <div class="xp-grain"></div>
+</div>
+<div class="xp-intro" aria-hidden="true">
+  <div class="xp-intro-mark">
+    <img src="assets/icon-128.png" width="44" height="44" alt="">
+    <span>Kiebitz</span>
+  </div>
+  <div class="xp-intro-meta">
+    <span><span lang="de">Zug um Zugvogel</span><span lang="en">Moves take flight</span><span lang="fr">Coup d’aile</span><span lang="es">Jugadas que vuelan</span><span lang="zh">步步高飞</span><span lang="hi">हर चाल, एक उड़ान</span><span lang="ar">نقلة تُحلّق</span></span>
+  </div>
+  <div class="xp-intro-line"><i data-xp-bar></i></div>
+</div>
 <a class="skip" href="#main"><span lang="de">Zum Inhalt springen</span><span lang="en">Skip to content</span><span lang="fr">Aller au contenu</span><span lang="es">Ir al contenido</span><span lang="zh">跳到主要内容</span><span lang="hi">सामग्री पर जाएँ</span><span lang="ar">تخطَّ إلى المحتوى</span></a>
 
 <header class="top">
@@ -85,22 +118,34 @@
   </div>
 </header>
 
+<nav class="xp-hud" aria-hidden="true">
+  <a href="#top" tabindex="-1" data-xp-hud="top"><i></i><span>Kiebitz</span></a>
+  <a href="#import" tabindex="-1" data-xp-hud="import"><i></i><span><span lang="de">Importieren</span><span lang="en">Import</span><span lang="fr">Importer</span><span lang="es">Importar</span><span lang="zh">导入</span><span lang="hi">आयात</span><span lang="ar">الاستيراد</span></span></a>
+  <a href="#analyze" tabindex="-1" data-xp-hud="analyze"><i></i><span><span lang="de">Analysieren</span><span lang="en">Analyze</span><span lang="fr">Analyser</span><span lang="es">Analizar</span><span lang="zh">分析</span><span lang="hi">विश्लेषण</span><span lang="ar">التحليل</span></span></a>
+  <a href="#understand" tabindex="-1" data-xp-hud="understand"><i></i><span><span lang="de">Verstehen</span><span lang="en">Understand</span><span lang="fr">Comprendre</span><span lang="es">Entender</span><span lang="zh">看懂</span><span lang="hi">समझें</span><span lang="ar">الفهم</span></span></a>
+  <a href="#features" tabindex="-1" data-xp-hud="features"><i></i><span><span lang="de">Funktionen</span><span lang="en">Features</span><span lang="fr">Fonctions</span><span lang="es">Funciones</span><span lang="zh">功能</span><span lang="hi">विशेषताएँ</span><span lang="ar">المزايا</span></span></a>
+  <a href="#local" tabindex="-1" data-xp-hud="local"><i></i><span><span lang="de">Local-first</span><span lang="en">Local-first</span><span lang="fr">Local-first</span><span lang="es">Local-first</span><span lang="zh">本地优先</span><span lang="hi">लोकल-फ़र्स्ट</span><span lang="ar">محلي أولًا</span></span></a>
+  <a href="#pricing" tabindex="-1" data-xp-hud="pricing"><i></i><span><span lang="de">Preise</span><span lang="en">Pricing</span><span lang="fr">Tarifs</span><span lang="es">Precios</span><span lang="zh">价格</span><span lang="hi">क़ीमत</span><span lang="ar">الأسعار</span></span></a>
+  <a href="#download" tabindex="-1" data-xp-hud="download"><i></i><span><span lang="de">Download</span><span lang="en">Download</span><span lang="fr">Téléchargement</span><span lang="es">Descarga</span><span lang="zh">下载</span><span lang="hi">डाउनलोड</span><span lang="ar">التنزيل</span></span></a>
+  <a href="#feedback" tabindex="-1" data-xp-hud="feedback"><i></i><span><span lang="de">Feedback</span><span lang="en">Feedback</span><span lang="fr">Retours</span><span lang="es">Comentarios</span><span lang="zh">反馈</span><span lang="hi">फ़ीडबैक</span><span lang="ar">الملاحظات</span></span></a>
+</nav>
+
 <main id="main">
 
   <!-- ── Hero ──────────────────────────────────────────────────────────── -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="badge"><span class="dot" aria-hidden="true"></span><span lang="de">Neu · jetzt bei Google Play</span><span lang="en">New · now on Google Play</span><span lang="fr">Nouveau · désormais sur Google Play</span><span lang="es">Nuevo · ya en Google Play</span><span lang="zh">新 · 现已上架 Google Play</span><span lang="hi">नया · अब Google Play पर</span><span lang="ar">جديد · متوفّر الآن على Google Play</span></p>
-        <h1>
-          <span lang="de">Kiebitz <span class="flight">kiebitzt</span> bei deinen Partien.</span>
-          <span lang="en">Kiebitz <span class="flight">looks over</span> your shoulder.</span>
-          <span lang="fr">Kiebitz <span class="flight">regarde</span> par-dessus votre épaule.</span>
-          <span lang="es">Kiebitz <span class="flight">mira</span> por encima de tu hombro.</span>
-          <span lang="zh">Kiebitz 在你身后<span class="flight">观棋</span>。</span>
-          <span lang="hi">Kiebitz आपके कंधे के ऊपर से <span class="flight">देखता</span> है।</span>
-          <span lang="ar">يراقب Kiebitz مبارياتك <span class="flight">من فوق كتفك</span>.</span>
-        </h1>
+  <section class="xp-hero" id="top">
+    <div class="wrap xp-hero-in">
+      <p class="badge" data-xp-intro><span class="dot" aria-hidden="true"></span><span lang="de">Neu · jetzt bei Google Play</span><span lang="en">New · now on Google Play</span><span lang="fr">Nouveau · désormais sur Google Play</span><span lang="es">Nuevo · ya en Google Play</span><span lang="zh">新 · 现已上架 Google Play</span><span lang="hi">नया · अब Google Play पर</span><span lang="ar">جديد · متوفّر الآن على Google Play</span></p>
+      <h1 class="xp-title" data-xp-split>
+        <span lang="de">Kiebitz <span class="flight">kiebitzt</span> bei deinen Partien.</span>
+        <span lang="en">Kiebitz <span class="flight">looks over</span> your shoulder.</span>
+        <span lang="fr">Kiebitz <span class="flight">regarde</span> par-dessus votre épaule.</span>
+        <span lang="es">Kiebitz <span class="flight">mira</span> por encima de tu hombro.</span>
+        <span lang="zh">Kiebitz 在你身后<span class="flight">观棋</span>。</span>
+        <span lang="hi">Kiebitz आपके कंधे के ऊपर से <span class="flight">देखता</span> है।</span>
+        <span lang="ar">يراقب Kiebitz مبارياتك <span class="flight">من فوق كتفك</span>.</span>
+      </h1>
+      <div class="xp-hero-copy" data-xp-intro>
         <p class="hero-sub" lang="de">Ein Kiebitz ist ein Vogel, und im Deutschen der Zuschauer, der beim Spiel über die Schulter sieht. Diese App importiert deine Partien von chess.com und Lichess, lässt einen nativen Stockfish durch die ganze Historie laufen und sagt dir, wo du wirklich schlecht spielst. <strong>Alles bleibt auf deinen Geräten.</strong></p>
         <p class="hero-sub" lang="en">A <i>Kiebitz</i> is a bird, and in German the onlooker who watches your game over your shoulder. This app imports your chess.com and Lichess games, runs a native Stockfish across your whole history and tells you where you lose games, not where you think you do. <strong>Everything stays on your own devices.</strong></p>
         <p class="hero-sub" lang="fr">Un <i>Kiebitz</i> est un vanneau, et en allemand le curieux qui suit la partie par-dessus votre épaule. Cette application importe vos parties de chess.com et de Lichess, fait passer un Stockfish natif sur tout votre historique et vous dit où vous perdez vraiment, pas où vous croyez perdre. <strong>Tout reste sur vos appareils.</strong></p>
@@ -108,40 +153,32 @@
         <p class="hero-sub" lang="zh"><i>Kiebitz</i> 是一种鸟，在德语里也指在旁边看棋的人。这款应用会导入你在 chess.com 和 Lichess 上的对局，用原生 Stockfish 跑完整个对局历史，告诉你棋究竟坏在哪里，而不是你以为的地方。<strong>所有数据都留在你自己的设备上。</strong></p>
         <p class="hero-sub" lang="hi"><i>Kiebitz</i> एक पक्षी है, और जर्मन में वह दर्शक भी जो कंधे के ऊपर से खेल देखता है। यह ऐप chess.com और Lichess से आपकी बाज़ियाँ आयात करता है, पूरे इतिहास पर नेटिव Stockfish चलाता है और बताता है कि आप असल में कहाँ बाज़ी गँवाते हैं — वहाँ नहीं जहाँ आप समझते हैं। <strong>सब कुछ आपके अपने उपकरणों पर रहता है।</strong></p>
         <p class="hero-sub" lang="ar">‏<i>Kiebitz</i> طائر القَطقاط، وهو بالألمانية أيضًا المتفرّج الذي يتابع المباراة من فوق كتفك. يستورد هذا التطبيق مبارياتك من chess.com وLichess، ويشغّل محرّك Stockfish أصليًا على تاريخك كاملًا، ويخبرك أين تخسر فعلًا لا أين تظن أنك تخسر. <strong>كل شيء يبقى على أجهزتك.</strong></p>
-        <div class="cta">
-          <a class="btn btn-primary" href="https://github.com/kiebitz-dev/Kiebitz/releases" rel="noopener">
-            <span lang="de">Für Desktop laden</span><span lang="en">Get it for desktop</span><span lang="fr">Télécharger pour ordinateur</span><span lang="es">Descargar para escritorio</span><span lang="zh">下载桌面版</span><span lang="hi">डेस्कटॉप के लिए पाएँ</span><span lang="ar">التنزيل لسطح المكتب</span>
-          </a>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=de.torim.kiebitz" target="_blank" rel="noopener">
-            <span lang="de">Bei Google Play laden</span><span lang="en">Get it on Google Play</span><span lang="fr">Disponible sur Google Play</span><span lang="es">Consíguelo en Google Play</span><span lang="zh">在 Google Play 下载</span><span lang="hi">Google Play से पाएँ</span><span lang="ar">نزّله من Google Play</span>
-          </a>
-        </div>
-        <p class="cta-note"><span lang="de">Kostenlos · Desktop über GitHub · Android bei Google Play</span><span lang="en">Free · desktop via GitHub · Android on Google Play</span><span lang="fr">Gratuit · ordinateur via GitHub · Android sur Google Play</span><span lang="es">Gratis · escritorio en GitHub · Android en Google Play</span><span lang="zh">免费 · 桌面版通过 GitHub · Android 在 Google Play</span><span lang="hi">मुफ़्त · डेस्कटॉप GitHub से · Android Google Play पर</span><span lang="ar">مجاني · سطح المكتب عبر GitHub · ‏Android على Google Play</span></p>
       </div>
-
-      <div class="board-card" aria-hidden="true">
-        <div class="board-head">
-          <span data-route-label>Knight · b1 → e8</span>
-          <span data-square-label>b1</span>
-        </div>
-        <div class="board-stage">
-          <div class="board-lattice"></div>
-          <svg class="board-path" viewBox="0 0 8 8" preserveAspectRatio="none" focusable="false"></svg>
-        </div>
-        <div class="board-coords"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
-        <div class="board-foot">
-          <span class="pill"><span lang="de">Stockfish · nativ</span><span lang="en">Stockfish · native</span><span lang="fr">Stockfish · natif</span><span lang="es">Stockfish · nativo</span><span lang="zh">Stockfish · 原生</span><span lang="hi">Stockfish · नेटिव</span><span lang="ar">Stockfish · أصلي</span></span>
-          <span><span lang="de">Die Analyse läuft auf deinem Gerät.</span><span lang="en">Analysis runs on your device.</span><span lang="fr">L’analyse tourne sur votre appareil.</span><span lang="es">El análisis se ejecuta en tu dispositivo.</span><span lang="zh">分析在你的设备上运行。</span><span lang="hi">विश्लेषण आपके डिवाइस पर चलता है।</span><span lang="ar">يجري التحليل على جهازك.</span></span>
-        </div>
+      <div class="cta" data-xp-intro>
+        <a class="btn btn-primary" href="https://github.com/kiebitz-dev/Kiebitz/releases" rel="noopener" data-xp-magnet>
+          <span lang="de">Für Desktop laden</span><span lang="en">Get it for desktop</span><span lang="fr">Télécharger pour ordinateur</span><span lang="es">Descargar para escritorio</span><span lang="zh">下载桌面版</span><span lang="hi">डेस्कटॉप के लिए पाएँ</span><span lang="ar">التنزيل لسطح المكتب</span>
+        </a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=de.torim.kiebitz" target="_blank" rel="noopener" data-xp-magnet>
+          <span lang="de">Bei Google Play laden</span><span lang="en">Get it on Google Play</span><span lang="fr">Disponible sur Google Play</span><span lang="es">Consíguelo en Google Play</span><span lang="zh">在 Google Play 下载</span><span lang="hi">Google Play से पाएँ</span><span lang="ar">نزّله من Google Play</span>
+        </a>
       </div>
+      <p class="cta-note" data-xp-intro><span lang="de">Kostenlos · Desktop über GitHub · Android bei Google Play</span><span lang="en">Free · desktop via GitHub · Android on Google Play</span><span lang="fr">Gratuit · ordinateur via GitHub · Android sur Google Play</span><span lang="es">Gratis · escritorio en GitHub · Android en Google Play</span><span lang="zh">免费 · 桌面版通过 GitHub · Android 在 Google Play</span><span lang="hi">मुफ़्त · डेस्कटॉप GitHub से · Android Google Play पर</span><span lang="ar">مجاني · سطح المكتب عبر GitHub · ‏Android على Google Play</span></p>
+    </div>
+    <div class="wrap xp-hero-foot" aria-hidden="true">
+      <span class="xp-scroll"><i></i></span>
+      <span class="xp-readout">
+        <b data-xp-route>♘ b1</b>
+        <span><span lang="de">Stockfish · nativ</span><span lang="en">Stockfish · native</span><span lang="fr">Stockfish · natif</span><span lang="es">Stockfish · nativo</span><span lang="zh">Stockfish · 原生</span><span lang="hi">Stockfish · नेटिव</span><span lang="ar">Stockfish · أصلي</span></span>
+        <span><span lang="de">Die Analyse läuft auf deinem Gerät.</span><span lang="en">Analysis runs on your device.</span><span lang="fr">L’analyse tourne sur votre appareil.</span><span lang="es">El análisis se ejecuta en tu dispositivo.</span><span lang="zh">分析在你的设备上运行。</span><span lang="hi">विश्लेषण आपके डिवाइस पर चलता है।</span><span lang="ar">يجري التحليل على جهازك.</span></span>
+      </span>
     </div>
   </section>
 
-  <!-- ── 01 Ablauf ─────────────────────────────────────────────────────── -->
-  <section class="section section-alt">
-    <div class="wrap">
+  <!-- ── 01 Ablauf: drei Kapitel, die Kamera fliegt mit ─────────────────── -->
+  <section class="xp-how" id="how" aria-labelledby="how-title">
+    <div class="wrap xp-how-head">
       <p class="eyebrow"><b>01</b> <span lang="de">Ablauf</span><span lang="en">How it works</span><span lang="fr">Déroulé</span><span lang="es">Cómo funciona</span><span lang="zh">使用流程</span><span lang="hi">यह कैसे काम करता है</span><span lang="ar">آلية العمل</span></p>
-      <h2 class="section-title">
+      <h2 class="xp-display" id="how-title" data-xp-split>
         <span lang="de">Importieren, analysieren, verstehen.</span>
         <span lang="en">Import, analyze, understand.</span>
         <span lang="fr">Importer, analyser, comprendre.</span>
@@ -150,144 +187,182 @@
         <span lang="hi">आयात करें, विश्लेषण करें, समझें।</span>
         <span lang="ar">استورد، حلّل، افهم.</span>
       </h2>
-      <div class="flow rv">
-        <article class="step">
-          <p class="step-n">01</p>
-          <h3><span lang="de">Importieren</span><span lang="en">Import</span><span lang="fr">Importer</span><span lang="es">Importar</span><span lang="zh">导入</span><span lang="hi">आयात</span><span lang="ar">الاستيراد</span></h3>
-          <p><span lang="de">Benutzername eintragen, fertig. Kiebitz holt die komplette Historie: duplikatsicher, auch als PGN für Brettpartien.</span><span lang="en">Enter your username, that’s it. Kiebitz pulls your whole history: duplicate-safe, and PGN for over-the-board games.</span><span lang="fr">Saisissez votre pseudo, c’est tout. Kiebitz récupère tout l’historique, sans doublons, et accepte le PGN pour les parties sur échiquier.</span><span lang="es">Escribe tu nombre de usuario y listo. Kiebitz trae todo el historial, sin duplicados, y acepta PGN para las partidas sobre el tablero.</span><span lang="zh">填上用户名就行。Kiebitz 会取回完整历史，自动去重，也支持 PGN 导入实地对局。</span><span lang="hi">यूज़रनेम डालिए, बस। Kiebitz पूरा इतिहास ले आता है — बिना डुप्लिकेट, और बोर्ड पर खेली बाज़ियों के लिए PGN भी।</span><span lang="ar">أدخل اسم المستخدم، وهذا كل شيء. يجلب Kiebitz تاريخك كاملًا دون تكرار، ويقبل ملفات PGN لمباريات الرقعة.</span></p>
-          <div class="step-viz srcrow">
-            <span class="srcpill cc">chess.com</span>
-            <span class="srcpill li">lichess</span>
-            <span class="srcpill pgn">PGN</span>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-n">02</p>
-          <h3><span lang="de">Analysieren</span><span lang="en">Analyze</span><span lang="fr">Analyser</span><span lang="es">Analizar</span><span lang="zh">分析</span><span lang="hi">विश्लेषण</span><span lang="ar">التحليل</span></h3>
-          <p><span lang="de">Ein nativer Stockfish arbeitet die Warteschlange im Hintergrund ab: Bewertung pro Zug, Ungenauigkeit, Fehler, Blunder, Genauigkeit.</span><span lang="en">A native Stockfish works through the queue in the background: eval per move, inaccuracy, mistake, blunder, accuracy.</span><span lang="fr">Un Stockfish natif traite la file d’attente en arrière-plan : évaluation par coup, imprécision, erreur, gaffe, précision.</span><span lang="es">Un Stockfish nativo procesa la cola en segundo plano: evaluación por jugada, imprecisión, error, error grave, precisión.</span><span lang="zh">原生 Stockfish 在后台处理队列：逐着评分，标出不精确、失误、严重失误与准确率。</span><span lang="hi">नेटिव Stockfish पृष्ठभूमि में कतार निपटाता है: हर चाल का मूल्यांकन, अशुद्धि, ग़लती, ब्लंडर, सटीकता।</span><span lang="ar">يعالج محرّك Stockfish أصلي قائمة الانتظار في الخلفية: تقييم لكل نقلة، وعدم دقة، وخطأ، وخطأ فادح، ونسبة دقة.</span></p>
-          <div class="step-viz">
-            <div class="evalbar" aria-hidden="true"><span class="w" style="width:52%"></span><span class="b"></span></div>
-            <div class="evalticks" aria-hidden="true"><span>1. e4</span><span class="bad">24. Nf3?? −3.1</span><span>41. Kg2</span></div>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-n">03</p>
-          <h3><span lang="de">Verstehen</span><span lang="en">Understand</span><span lang="fr">Comprendre</span><span lang="es">Entender</span><span lang="zh">看懂</span><span lang="hi">समझें</span><span lang="ar">الفهم</span></h3>
-          <p><span lang="de">Nicht „gut gespielt“, sondern: in welcher Phase, in welcher Eröffnung, unter welcher Bedenkzeit es kippt.</span><span lang="en">Not “well played”, but: which phase, which opening, which time control is where it falls apart.</span><span lang="fr">Pas « bien joué », mais : à quelle phase, dans quelle ouverture, sous quelle cadence ça bascule.</span><span lang="es">No «bien jugado», sino: en qué fase, en qué apertura y con qué ritmo se te viene abajo.</span><span lang="zh">不是“下得不错”，而是：在哪个阶段、哪个开局、哪种用时规则下崩盘。</span><span lang="hi">“अच्छा खेले” नहीं, बल्कि: किस चरण में, किस ओपनिंग में, किस टाइम कंट्रोल में बात बिगड़ती है।</span><span lang="ar">ليس «أحسنتَ اللعب»، بل: في أي طور، وفي أي افتتاح، وتحت أي توقيت ينهار أداؤك.</span></p>
-          <div class="step-viz bars" aria-hidden="true">
-            <div class="bar"><span class="bar-l"><span lang="de">Eröffnung</span><span lang="en">Opening</span><span lang="fr">Ouverture</span><span lang="es">Apertura</span><span lang="zh">开局</span><span lang="hi">ओपनिंग</span><span lang="ar">الافتتاح</span></span><span class="bar-t"><i data-w="22"></i></span><span class="bar-v">0.4</span></div>
-            <div class="bar hot"><span class="bar-l"><span lang="de">Mittelspiel</span><span lang="en">Middlegame</span><span lang="fr">Milieu de partie</span><span lang="es">Medio juego</span><span lang="zh">中局</span><span lang="hi">मध्य खेल</span><span lang="ar">وسط المباراة</span></span><span class="bar-t"><i data-w="78"></i></span><span class="bar-v">1.9</span></div>
-            <div class="bar"><span class="bar-l"><span lang="de">Endspiel</span><span lang="en">Endgame</span><span lang="fr">Finale</span><span lang="es">Final</span><span lang="zh">残局</span><span lang="hi">अंतिम खेल</span><span lang="ar">نهاية المباراة</span></span><span class="bar-t"><i data-w="46"></i></span><span class="bar-v">0.9</span></div>
-          </div>
-        </article>
-      </div>
     </div>
+
+    <article class="xp-chapter" id="import" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>01</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="de">Importieren</span><span lang="en">Import</span><span lang="fr">Importer</span><span lang="es">Importar</span><span lang="zh">导入</span><span lang="hi">आयात</span><span lang="ar">الاستيراد</span></h3>
+            <p class="xp-step-copy"><span lang="de">Benutzername eintragen, fertig. Kiebitz holt die komplette Historie: duplikatsicher, auch als PGN für Brettpartien.</span><span lang="en">Enter your username, that’s it. Kiebitz pulls your whole history: duplicate-safe, and PGN for over-the-board games.</span><span lang="fr">Saisissez votre pseudo, c’est tout. Kiebitz récupère tout l’historique, sans doublons, et accepte le PGN pour les parties sur échiquier.</span><span lang="es">Escribe tu nombre de usuario y listo. Kiebitz trae todo el historial, sin duplicados, y acepta PGN para las partidas sobre el tablero.</span><span lang="zh">填上用户名就行。Kiebitz 会取回完整历史，自动去重，也支持 PGN 导入实地对局。</span><span lang="hi">यूज़रनेम डालिए, बस। Kiebitz पूरा इतिहास ले आता है — बिना डुप्लिकेट, और बोर्ड पर खेली बाज़ियों के लिए PGN भी।</span><span lang="ar">أدخل اسم المستخدم، وهذا كل شيء. يجلب Kiebitz تاريخك كاملًا دون تكرار، ويقبل ملفات PGN لمباريات الرقعة.</span></p>
+            <div class="step-viz srcrow">
+              <span class="srcpill cc">chess.com</span>
+              <span class="srcpill li">lichess</span>
+              <span class="srcpill pgn">PGN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-chapter" id="analyze" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>02</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="de">Analysieren</span><span lang="en">Analyze</span><span lang="fr">Analyser</span><span lang="es">Analizar</span><span lang="zh">分析</span><span lang="hi">विश्लेषण</span><span lang="ar">التحليل</span></h3>
+            <p class="xp-step-copy"><span lang="de">Ein nativer Stockfish arbeitet die Warteschlange im Hintergrund ab: Bewertung pro Zug, Ungenauigkeit, Fehler, Blunder, Genauigkeit.</span><span lang="en">A native Stockfish works through the queue in the background: eval per move, inaccuracy, mistake, blunder, accuracy.</span><span lang="fr">Un Stockfish natif traite la file d’attente en arrière-plan : évaluation par coup, imprécision, erreur, gaffe, précision.</span><span lang="es">Un Stockfish nativo procesa la cola en segundo plano: evaluación por jugada, imprecisión, error, error grave, precisión.</span><span lang="zh">原生 Stockfish 在后台处理队列：逐着评分，标出不精确、失误、严重失误与准确率。</span><span lang="hi">नेटिव Stockfish पृष्ठभूमि में कतार निपटाता है: हर चाल का मूल्यांकन, अशुद्धि, ग़लती, ब्लंडर, सटीकता।</span><span lang="ar">يعالج محرّك Stockfish أصلي قائمة الانتظار في الخلفية: تقييم لكل نقلة، وعدم دقة، وخطأ، وخطأ فادح، ونسبة دقة.</span></p>
+            <div class="step-viz">
+              <div class="evalbar" aria-hidden="true"><span class="w" style="width:52%"></span><span class="b"></span></div>
+              <div class="evalticks" aria-hidden="true"><span>1. e4</span><span class="bad">24. Nf3?? −3.1</span><span>41. Kg2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-chapter" id="understand" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>03</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="de">Verstehen</span><span lang="en">Understand</span><span lang="fr">Comprendre</span><span lang="es">Entender</span><span lang="zh">看懂</span><span lang="hi">समझें</span><span lang="ar">الفهم</span></h3>
+            <p class="xp-step-copy"><span lang="de">Nicht „gut gespielt“, sondern: in welcher Phase, in welcher Eröffnung, unter welcher Bedenkzeit es kippt.</span><span lang="en">Not “well played”, but: which phase, which opening, which time control is where it falls apart.</span><span lang="fr">Pas « bien joué », mais : à quelle phase, dans quelle ouverture, sous quelle cadence ça bascule.</span><span lang="es">No «bien jugado», sino: en qué fase, en qué apertura y con qué ritmo se te viene abajo.</span><span lang="zh">不是“下得不错”，而是：在哪个阶段、哪个开局、哪种用时规则下崩盘。</span><span lang="hi">“अच्छा खेले” नहीं, बल्कि: किस चरण में, किस ओपनिंग में, किस टाइम कंट्रोल में बात बिगड़ती है।</span><span lang="ar">ليس «أحسنتَ اللعب»، بل: في أي طور، وفي أي افتتاح، وتحت أي توقيت ينهار أداؤك.</span></p>
+            <div class="step-viz bars" aria-hidden="true">
+              <div class="bar"><span class="bar-l"><span lang="de">Eröffnung</span><span lang="en">Opening</span><span lang="fr">Ouverture</span><span lang="es">Apertura</span><span lang="zh">开局</span><span lang="hi">ओपनिंग</span><span lang="ar">الافتتاح</span></span><span class="bar-t"><i data-w="22"></i></span><span class="bar-v">0.4</span></div>
+              <div class="bar hot"><span class="bar-l"><span lang="de">Mittelspiel</span><span lang="en">Middlegame</span><span lang="fr">Milieu de partie</span><span lang="es">Medio juego</span><span lang="zh">中局</span><span lang="hi">मध्य खेल</span><span lang="ar">وسط المباراة</span></span><span class="bar-t"><i data-w="78"></i></span><span class="bar-v">1.9</span></div>
+              <div class="bar"><span class="bar-l"><span lang="de">Endspiel</span><span lang="en">Endgame</span><span lang="fr">Finale</span><span lang="es">Final</span><span lang="zh">残局</span><span lang="hi">अंतिम खेल</span><span lang="ar">نهاية المباراة</span></span><span class="bar-t"><i data-w="46"></i></span><span class="bar-v">0.9</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   </section>
 
-  <!-- ── 02 Funktionen ─────────────────────────────────────────────────── -->
-  <section class="section" id="features">
-    <div class="wrap">
-      <p class="eyebrow"><b>02</b> <span lang="de">Funktionen</span><span lang="en">Features</span><span lang="fr">Fonctions</span><span lang="es">Funciones</span><span lang="zh">功能</span><span lang="hi">विशेषताएँ</span><span lang="ar">المزايا</span></p>
-
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Insights</p>
-          <h3><span lang="de">Wo du wirklich schlecht spielst</span><span lang="en">Where your play breaks down</span><span lang="fr">Là où votre jeu craque</span><span lang="es">Dónde se te rompe el juego</span><span lang="zh">你的棋究竟坏在哪里</span><span lang="hi">आपका खेल असल में कहाँ बिगड़ता है</span><span lang="ar">أين ينهار مستوى لعبك فعلًا</span></h3>
-          <p><span lang="de">Vier Auswertungsseiten über die ganze Historie statt einer Zahl pro Partie: Spielstärke, Eröffnungen getrennt nach Farbe, Verhaltensmuster und die Phasen, in denen deine Fehler passieren.</span><span lang="en">Four in-depth pages across your whole history instead of one number per game: playing strength, openings by colour, behavioural patterns, and the phases where your errors happen.</span><span lang="fr">Quatre pages d’analyse sur tout l’historique plutôt qu’un chiffre par partie : force de jeu, ouvertures séparées par couleur, schémas de comportement et phases où surviennent vos erreurs.</span><span lang="es">Cuatro páginas de análisis sobre todo el historial en vez de un número por partida: fuerza de juego, aperturas separadas por color, patrones de conducta y las fases en las que cometes los errores.</span><span lang="zh">四个覆盖全部历史的分析页面，而不是每局给一个数字：棋力、按执棋方分开的开局、行为模式，以及失误集中的阶段。</span><span lang="hi">हर बाज़ी पर एक आँकड़े के बजाय पूरे इतिहास पर चार विश्लेषण पृष्ठ: खेल-शक्ति, रंग के हिसाब से अलग ओपनिंग, व्यवहार के पैटर्न, और वे चरण जहाँ ग़लतियाँ होती हैं।</span><span lang="ar">أربع صفحات تحليل تغطي تاريخك كاملًا بدل رقم واحد لكل مباراة: قوة اللعب، والافتتاحات مفصولة حسب اللون، وأنماط السلوك، والأطوار التي تقع فيها أخطاؤك.</span></p>
-          <ul class="ticks">
-            <li><span lang="de">Genauigkeit und Fehlerrate über Monate, nicht über eine Partie</span><span lang="en">Accuracy and error rate over months, not over one game</span><span lang="fr">Précision et taux d’erreur sur des mois, pas sur une partie</span><span lang="es">Precisión y tasa de error a lo largo de meses, no de una partida</span><span lang="zh">以月为跨度的准确率与失误率，而不是单局数据</span><span lang="hi">महीनों की सटीकता और ग़लती-दर, न कि एक बाज़ी की</span><span lang="ar">الدقة ومعدّل الخطأ عبر شهور، لا عبر مباراة واحدة</span></li>
-            <li><span lang="de">Eröffnungen mit Ergebnis, Abweichung und Trefferquote</span><span lang="en">Openings with results, deviation and hit rate</span><span lang="fr">Ouvertures avec résultat, écart et taux de réussite</span><span lang="es">Aperturas con resultado, desviación y acierto</span><span lang="zh">开局的胜负结果、偏离点与命中率</span><span lang="hi">ओपनिंग के परिणाम, विचलन और सफलता-दर</span><span lang="ar">الافتتاحات مع النتيجة والانحراف ونسبة الإصابة</span></li>
-            <li><span lang="de">Muster: Zeitnot, lange Serien, Revanche-Partien</span><span lang="en">Patterns: time trouble, long sessions, revenge games</span><span lang="fr">Schémas : zeitnot, longues séries, parties revanche</span><span lang="es">Patrones: apuros de tiempo, sesiones largas, partidas de revancha</span><span lang="zh">行为模式：时间紧张、连场久战、复仇局</span><span lang="hi">पैटर्न: समय-संकट, लंबे सत्र, बदले की बाज़ियाँ</span><span lang="ar">الأنماط: ضيق الوقت، والجلسات الطويلة، ومباريات الثأر</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/insights.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Insights"></button>
-          <figcaption>
-            <span lang="de">Insights · Spielstärke, Auffälligkeiten und Fehler nach Spielphase</span><span lang="en">Insights · playing strength, what stands out, errors by phase</span><span lang="fr">Insights · niveau de jeu, points saillants, erreurs par phase</span><span lang="es">Insights · nivel de juego, lo que destaca y errores por fase</span><span lang="zh">Insights · 棋力、突出问题与各阶段失误</span><span lang="hi">Insights · खेल-स्तर, ख़ास बातें और चरण के अनुसार ग़लतियाँ</span><span lang="ar">Insights · مستوى اللعب وما يلفت النظر والأخطاء حسب الطور</span>
-            <span><span lang="de">1.509 Partien</span><span lang="en">1,509 games</span><span lang="fr">1 509 parties</span><span lang="es">1509 partidas</span><span lang="zh">1,509 局</span><span lang="hi">1,509 बाज़ियाँ</span><span lang="ar">1509 مباراة</span></span>
-          </figcaption>
-        </figure>
+  <!-- ── 02 Funktionen: horizontale Bahn, angeheftet ───────────────────── -->
+  <section class="xp-features" id="features" data-xp-scene>
+    <div class="xp-pin">
+      <div class="wrap xp-features-head">
+        <p class="eyebrow"><b>02</b> <span lang="de">Funktionen</span><span lang="en">Features</span><span lang="fr">Fonctions</span><span lang="es">Funciones</span><span lang="zh">功能</span><span lang="hi">विशेषताएँ</span><span lang="ar">المزايا</span></p>
+        <h2 class="xp-display" data-xp-split>
+          <span lang="de">Fünf Werkzeuge, eine Historie.</span>
+          <span lang="en">Five tools, one history.</span>
+          <span lang="fr">Cinq outils, un seul historique.</span>
+          <span lang="es">Cinco herramientas, un solo historial.</span>
+          <span lang="zh">五件工具，一份对局历史。</span>
+          <span lang="hi">पाँच औज़ार, एक इतिहास।</span>
+          <span lang="ar">خمس أدوات وتاريخ واحد.</span>
+        </h2>
       </div>
+      <div class="xp-rail">
+        <div class="xp-track">
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Insights</p>
+              <h3><span lang="de">Wo du wirklich schlecht spielst</span><span lang="en">Where your play breaks down</span><span lang="fr">Là où votre jeu craque</span><span lang="es">Dónde se te rompe el juego</span><span lang="zh">你的棋究竟坏在哪里</span><span lang="hi">आपका खेल असल में कहाँ बिगड़ता है</span><span lang="ar">أين ينهار مستوى لعبك فعلًا</span></h3>
+              <p><span lang="de">Vier Auswertungsseiten über die ganze Historie statt einer Zahl pro Partie: Spielstärke, Eröffnungen getrennt nach Farbe, Verhaltensmuster und die Phasen, in denen deine Fehler passieren.</span><span lang="en">Four in-depth pages across your whole history instead of one number per game: playing strength, openings by colour, behavioural patterns, and the phases where your errors happen.</span><span lang="fr">Quatre pages d’analyse sur tout l’historique plutôt qu’un chiffre par partie : force de jeu, ouvertures séparées par couleur, schémas de comportement et phases où surviennent vos erreurs.</span><span lang="es">Cuatro páginas de análisis sobre todo el historial en vez de un número por partida: fuerza de juego, aperturas separadas por color, patrones de conducta y las fases en las que cometes los errores.</span><span lang="zh">四个覆盖全部历史的分析页面，而不是每局给一个数字：棋力、按执棋方分开的开局、行为模式，以及失误集中的阶段。</span><span lang="hi">हर बाज़ी पर एक आँकड़े के बजाय पूरे इतिहास पर चार विश्लेषण पृष्ठ: खेल-शक्ति, रंग के हिसाब से अलग ओपनिंग, व्यवहार के पैटर्न, और वे चरण जहाँ ग़लतियाँ होती हैं।</span><span lang="ar">أربع صفحات تحليل تغطي تاريخك كاملًا بدل رقم واحد لكل مباراة: قوة اللعب، والافتتاحات مفصولة حسب اللون، وأنماط السلوك، والأطوار التي تقع فيها أخطاؤك.</span></p>
+              <ul class="ticks">
+                <li><span lang="de">Genauigkeit und Fehlerrate über Monate, nicht über eine Partie</span><span lang="en">Accuracy and error rate over months, not over one game</span><span lang="fr">Précision et taux d’erreur sur des mois, pas sur une partie</span><span lang="es">Precisión y tasa de error a lo largo de meses, no de una partida</span><span lang="zh">以月为跨度的准确率与失误率，而不是单局数据</span><span lang="hi">महीनों की सटीकता और ग़लती-दर, न कि एक बाज़ी की</span><span lang="ar">الدقة ومعدّل الخطأ عبر شهور، لا عبر مباراة واحدة</span></li>
+                <li><span lang="de">Eröffnungen mit Ergebnis, Abweichung und Trefferquote</span><span lang="en">Openings with results, deviation and hit rate</span><span lang="fr">Ouvertures avec résultat, écart et taux de réussite</span><span lang="es">Aperturas con resultado, desviación y acierto</span><span lang="zh">开局的胜负结果、偏离点与命中率</span><span lang="hi">ओपनिंग के परिणाम, विचलन और सफलता-दर</span><span lang="ar">الافتتاحات مع النتيجة والانحراف ونسبة الإصابة</span></li>
+                <li><span lang="de">Muster: Zeitnot, lange Serien, Revanche-Partien</span><span lang="en">Patterns: time trouble, long sessions, revenge games</span><span lang="fr">Schémas : zeitnot, longues séries, parties revanche</span><span lang="es">Patrones: apuros de tiempo, sesiones largas, partidas de revancha</span><span lang="zh">行为模式：时间紧张、连场久战、复仇局</span><span lang="hi">पैटर्न: समय-संकट, लंबे सत्र, बदले की बाज़ियाँ</span><span lang="ar">الأنماط: ضيق الوقت، والجلسات الطويلة، ومباريات الثأر</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/insights.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Insights"></button>
+              <figcaption>
+                <span lang="de">Insights · Spielstärke, Auffälligkeiten und Fehler nach Spielphase</span><span lang="en">Insights · playing strength, what stands out, errors by phase</span><span lang="fr">Insights · niveau de jeu, points saillants, erreurs par phase</span><span lang="es">Insights · nivel de juego, lo que destaca y errores por fase</span><span lang="zh">Insights · 棋力、突出问题与各阶段失误</span><span lang="hi">Insights · खेल-स्तर, ख़ास बातें और चरण के अनुसार ग़लतियाँ</span><span lang="ar">Insights · مستوى اللعب وما يلفت النظر والأخطاء حسب الطور</span>
+                <span><span lang="de">1.509 Partien</span><span lang="en">1,509 games</span><span lang="fr">1 509 parties</span><span lang="es">1509 partidas</span><span lang="zh">1,509 局</span><span lang="hi">1,509 बाज़ियाँ</span><span lang="ar">1509 مباراة</span></span>
+              </figcaption>
+            </figure>
+          </article>
 
-      <div class="feature flip rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Repertoire · FSRS</p>
-          <h3><span lang="de">Eröffnungen, die tatsächlich sitzen</span><span lang="en">An opening book that actually sticks</span><span lang="fr">Un répertoire qui rentre vraiment</span><span lang="es">Un repertorio que de verdad se queda</span><span lang="zh">真正记得住的开局库</span><span lang="hi">ऐसी ओपनिंग जो वाकई याद रहें</span><span lang="ar">مرجع افتتاحات يرسخ فعلًا</span></h3>
-          <p><span lang="de">Dein Repertoire ist ein Stellungsbaum, der mit FSRS wiederholt wird, derselbe Ansatz wie bei guten Vokabeltrainern. Jeder Zug hat sein eigenes Intervall, fällige Wiederholungen stehen morgens auf dem Dashboard.</span><span lang="en">Your repertoire is a position tree trained with FSRS spaced repetition, the same approach good flashcard apps use. Every move has its own interval; due reviews are on the dashboard each morning.</span><span lang="fr">Votre répertoire est un arbre de positions révisé avec FSRS, la même approche que les bonnes applications de cartes mémoire. Chaque coup a son propre intervalle et les révisions dues apparaissent chaque matin sur le tableau de bord.</span><span lang="es">Tu repertorio es un árbol de posiciones que se repasa con FSRS, el mismo método de las buenas apps de tarjetas. Cada jugada tiene su propio intervalo y los repasos pendientes aparecen cada mañana en el panel.</span><span lang="zh">你的开局库是一棵局面树，用 FSRS 间隔重复来复习，跟好用的记忆卡应用是同一套办法。每一着都有自己的间隔，到期复习每天早上出现在仪表盘上。</span><span lang="hi">आपका रेपर्टवार एक पोज़िशन-ट्री है जिसे FSRS स्पेस्ड रिपिटिशन से दोहराया जाता है — वही तरीक़ा जो अच्छे फ़्लैशकार्ड ऐप इस्तेमाल करते हैं। हर चाल का अपना अंतराल है, और बकाया दोहराव हर सुबह डैशबोर्ड पर दिखते हैं।</span><span lang="ar">مرجعك شجرة أوضاع تُراجَع بنظام FSRS للتكرار المتباعد، وهو الأسلوب نفسه في تطبيقات البطاقات الجيدة. لكل نقلة فاصلها الزمني، والمراجعات المستحقّة تظهر كل صباح على لوحة المعلومات.</span></p>
-          <ul class="ticks">
-            <li><span lang="de">Züge aus eigenen Partien direkt ins Buch übernehmen</span><span lang="en">Add moves from your own games straight into the book</span><span lang="fr">Ajouter au répertoire des coups tirés de vos parties</span><span lang="es">Añade al repertorio jugadas de tus propias partidas</span><span lang="zh">把自己对局里的着法直接收进开局库</span><span lang="hi">अपनी बाज़ियों की चालें सीधे बुक में जोड़ें</span><span lang="ar">أضف نقلات من مبارياتك مباشرة إلى المرجع</span></li>
-            <li><span lang="de">Abdeckung pro Eröffnung, getrennt nach Weiß und Schwarz</span><span lang="en">Coverage per opening, split by white and black</span><span lang="fr">Couverture par ouverture, séparée blancs et noirs</span><span lang="es">Cobertura por apertura, separada por blancas y negras</span><span lang="zh">按开局统计覆盖率，白方黑方分开</span><span lang="hi">हर ओपनिंग की कवरेज, सफ़ेद और काले के लिए अलग</span><span lang="ar">نسبة التغطية لكل افتتاح، مفصولة بين الأبيض والأسود</span></li>
-            <li><span lang="de">Serie und fällige Karten statt Dauerbeschäftigung</span><span lang="en">Streak and due cards instead of endless drilling</span><span lang="fr">Série en cours et cartes dues plutôt qu’un bachotage sans fin</span><span lang="es">Racha y tarjetas pendientes en vez de machaque infinito</span><span lang="zh">连续天数和到期卡片，而不是没完没了地刷</span><span lang="hi">लगातार सिलसिला और बकाया कार्ड, न कि अंतहीन रटाई</span><span lang="ar">سلسلة الأيام والبطاقات المستحقّة بدل التدريب بلا نهاية</span></li>
-          </ul>
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Repertoire · FSRS</p>
+              <h3><span lang="de">Eröffnungen, die tatsächlich sitzen</span><span lang="en">An opening book that actually sticks</span><span lang="fr">Un répertoire qui rentre vraiment</span><span lang="es">Un repertorio que de verdad se queda</span><span lang="zh">真正记得住的开局库</span><span lang="hi">ऐसी ओपनिंग जो वाकई याद रहें</span><span lang="ar">مرجع افتتاحات يرسخ فعلًا</span></h3>
+              <p><span lang="de">Dein Repertoire ist ein Stellungsbaum, der mit FSRS wiederholt wird, derselbe Ansatz wie bei guten Vokabeltrainern. Jeder Zug hat sein eigenes Intervall, fällige Wiederholungen stehen morgens auf dem Dashboard.</span><span lang="en">Your repertoire is a position tree trained with FSRS spaced repetition, the same approach good flashcard apps use. Every move has its own interval; due reviews are on the dashboard each morning.</span><span lang="fr">Votre répertoire est un arbre de positions révisé avec FSRS, la même approche que les bonnes applications de cartes mémoire. Chaque coup a son propre intervalle et les révisions dues apparaissent chaque matin sur le tableau de bord.</span><span lang="es">Tu repertorio es un árbol de posiciones que se repasa con FSRS, el mismo método de las buenas apps de tarjetas. Cada jugada tiene su propio intervalo y los repasos pendientes aparecen cada mañana en el panel.</span><span lang="zh">你的开局库是一棵局面树，用 FSRS 间隔重复来复习，跟好用的记忆卡应用是同一套办法。每一着都有自己的间隔，到期复习每天早上出现在仪表盘上。</span><span lang="hi">आपका रेपर्टवार एक पोज़िशन-ट्री है जिसे FSRS स्पेस्ड रिपिटिशन से दोहराया जाता है — वही तरीक़ा जो अच्छे फ़्लैशकार्ड ऐप इस्तेमाल करते हैं। हर चाल का अपना अंतराल है, और बकाया दोहराव हर सुबह डैशबोर्ड पर दिखते हैं।</span><span lang="ar">مرجعك شجرة أوضاع تُراجَع بنظام FSRS للتكرار المتباعد، وهو الأسلوب نفسه في تطبيقات البطاقات الجيدة. لكل نقلة فاصلها الزمني، والمراجعات المستحقّة تظهر كل صباح على لوحة المعلومات.</span></p>
+              <ul class="ticks">
+                <li><span lang="de">Züge aus eigenen Partien direkt ins Buch übernehmen</span><span lang="en">Add moves from your own games straight into the book</span><span lang="fr">Ajouter au répertoire des coups tirés de vos parties</span><span lang="es">Añade al repertorio jugadas de tus propias partidas</span><span lang="zh">把自己对局里的着法直接收进开局库</span><span lang="hi">अपनी बाज़ियों की चालें सीधे बुक में जोड़ें</span><span lang="ar">أضف نقلات من مبارياتك مباشرة إلى المرجع</span></li>
+                <li><span lang="de">Abdeckung pro Eröffnung, getrennt nach Weiß und Schwarz</span><span lang="en">Coverage per opening, split by white and black</span><span lang="fr">Couverture par ouverture, séparée blancs et noirs</span><span lang="es">Cobertura por apertura, separada por blancas y negras</span><span lang="zh">按开局统计覆盖率，白方黑方分开</span><span lang="hi">हर ओपनिंग की कवरेज, सफ़ेद और काले के लिए अलग</span><span lang="ar">نسبة التغطية لكل افتتاح، مفصولة بين الأبيض والأسود</span></li>
+                <li><span lang="de">Serie und fällige Karten statt Dauerbeschäftigung</span><span lang="en">Streak and due cards instead of endless drilling</span><span lang="fr">Série en cours et cartes dues plutôt qu’un bachotage sans fin</span><span lang="es">Racha y tarjetas pendientes en vez de machaque infinito</span><span lang="zh">连续天数和到期卡片，而不是没完没了地刷</span><span lang="hi">लगातार सिलसिला और बकाया कार्ड, न कि अंतहीन रटाई</span><span lang="ar">سلسلة الأيام والبطاقات المستحقّة بدل التدريب بلا نهاية</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/repertoire.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Repertoire"></button>
+              <figcaption>
+                <span lang="de">Repertoire · Varianten als Weiß und Schwarz</span><span lang="en">Repertoire · variations as white and black</span><span lang="fr">Répertoire · variantes aux blancs et aux noirs</span><span lang="es">Repertorio · variantes con blancas y negras</span><span lang="zh">Repertoire · 执白与执黑的变例</span><span lang="hi">Repertoire · सफ़ेद और काले की वैरिएशन</span><span lang="ar">Repertoire · التنويعات بالأبيض والأسود</span>
+                <span><span lang="de">Abdeckung 56 % der letzten 50 Partien</span><span lang="en">56 % coverage of the last 50 games</span><span lang="fr">couverture de 56 % sur les 50 dernières parties</span><span lang="es">56 % de cobertura en las últimas 50 partidas</span><span lang="zh">最近 50 局覆盖率 56 %</span><span lang="hi">पिछली 50 बाज़ियों में 56 % कवरेज</span><span lang="ar">تغطية 56 % من آخر 50 مباراة</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker"><span lang="de">Puzzles &amp; Endspiele</span><span lang="en">Puzzles &amp; endgames</span><span lang="fr">Problèmes &amp; finales</span><span lang="es">Ejercicios &amp; finales</span><span lang="zh">战术题与残局</span><span lang="hi">पहेलियाँ और अंतिम खेल</span><span lang="ar">الألغاز والنهايات</span></p>
+              <h3><span lang="de">Taktik aus deinen eigenen Fehlern</span><span lang="en">Tactics made from your own mistakes</span><span lang="fr">De la tactique tirée de vos propres erreurs</span><span lang="es">Táctica hecha con tus propios errores</span><span lang="zh">用你自己的失误做成的战术题</span><span lang="hi">आपकी अपनी ग़लतियों से बनी टैक्टिक्स</span><span lang="ar">تكتيكات مصنوعة من أخطائك أنت</span></h3>
+              <p><span lang="de">Neben der offline verfügbaren Lichess-Puzzledatenbank baut Kiebitz Aufgaben aus den Stellungen, in denen du selbst den Gewinnzug übersehen hast. Dazu kuratierte Endspiel-Drills gegen die Engine, optional mit Syzygy-Tabellen.</span><span lang="en">Alongside the offline Lichess puzzle database, Kiebitz builds problems from the positions where you missed the winning move yourself. Plus curated endgame drills against the engine, optionally with Syzygy tablebases.</span><span lang="fr">En plus de la base de problèmes Lichess disponible hors ligne, Kiebitz fabrique des exercices à partir des positions où vous avez laissé passer le coup gagnant. S’y ajoutent des finales sélectionnées contre le moteur, avec tables Syzygy en option.</span><span lang="es">Además de la base de ejercicios de Lichess disponible sin conexión, Kiebitz crea problemas con las posiciones en las que se te escapó la jugada ganadora. Y finales seleccionados contra el motor, con tablas Syzygy opcionales.</span><span lang="zh">除了可离线使用的 Lichess 战术题库，Kiebitz 还会用你漏掉制胜着法的局面生成习题。另有精选残局，可与引擎对练，并可选用 Syzygy 残局库。</span><span lang="hi">ऑफ़लाइन उपलब्ध Lichess पहेली-डेटाबेस के अलावा Kiebitz उन्हीं स्थितियों से सवाल बनाता है जहाँ आपसे जीतने वाली चाल छूट गई थी। साथ में इंजन के ख़िलाफ़ चुने हुए अंतिम-खेल अभ्यास, चाहें तो Syzygy टेबलबेस के साथ।</span><span lang="ar">إلى جانب قاعدة ألغاز Lichess المتاحة دون اتصال، يبني Kiebitz تمارين من الأوضاع التي فاتتك فيها النقلة الرابحة. تُضاف إليها تدريبات نهايات مختارة ضد المحرّك، مع جداول Syzygy اختياريًا.</span></p>
+              <ul class="ticks">
+                <li><span lang="de">Puzzle-Elo und Trefferquote pro Motiv</span><span lang="en">Puzzle Elo and hit rate per theme</span><span lang="fr">Elo de problèmes et taux de réussite par thème</span><span lang="es">Elo de ejercicios y acierto por tema</span><span lang="zh">战术题 Elo 与各主题命中率</span><span lang="hi">पहेली-Elo और हर थीम की सफलता-दर</span><span lang="ar">تصنيف الألغاز ونسبة الإصابة لكل موضوع</span></li>
+                <li><span lang="de">Endspiele: Bauernumwandlung, Turmendspiele, Mattführungen</span><span lang="en">Endgames: promotion, rook endings, forced mates</span><span lang="fr">Finales : promotion, finales de tours, mats forcés</span><span lang="es">Finales: coronación, finales de torre, mates forzados</span><span lang="zh">残局：升变、车残局、强制杀法</span><span lang="hi">अंतिम खेल: प्यादे का प्रोमोशन, रुख़ के अंत, ज़बरदस्ती मात</span><span lang="ar">النهايات: الترقية، ونهايات الرخّ، والمات الإجباري</span></li>
+                <li><span lang="de">Alles offline spielbar, auch ohne Netz</span><span lang="en">All playable offline, no connection needed</span><span lang="fr">Tout jouable hors ligne, sans connexion</span><span lang="es">Todo jugable sin conexión</span><span lang="zh">全部可离线练习，无需联网</span><span lang="hi">सब कुछ ऑफ़लाइन खेला जा सकता है, बिना नेटवर्क</span><span lang="ar">كل ذلك متاح دون اتصال بالإنترنت</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/puzzles.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Puzzles"></button>
+              <figcaption>
+                <span lang="de">Puzzles · Trefferquote pro Motiv</span><span lang="en">Puzzles · hit rate per theme</span><span lang="fr">Puzzles · taux de réussite par thème</span><span lang="es">Puzzles · acierto por tema</span><span lang="zh">Puzzles · 各主题命中率</span><span lang="hi">Puzzles · हर थीम की सफलता-दर</span><span lang="ar">Puzzles · نسبة الإصابة لكل موضوع</span>
+                <span><span lang="de">1.701 Aufgaben aus eigenen Partien</span><span lang="en">1,701 puzzles from your own games</span><span lang="fr">1 701 exercices tirés de vos parties</span><span lang="es">1701 ejercicios de tus propias partidas</span><span lang="zh">1,701 道来自自己对局的习题</span><span lang="hi">अपनी बाज़ियों से 1,701 पहेलियाँ</span><span lang="ar">1701 تمرينًا من مبارياتك</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Study</p>
+              <h3><span lang="de">Ein Plan, der aus deinen Daten kommt</span><span lang="en">A plan that comes out of your data</span><span lang="fr">Un plan qui sort de vos données</span><span lang="es">Un plan que sale de tus datos</span><span lang="zh">从你的数据里长出来的训练计划</span><span lang="hi">आपके अपने डेटा से निकली योजना</span><span lang="ar">خطة تخرج من بياناتك أنت</span></h3>
+              <p><span lang="de">Der Lernplaner liest deine Schwächen aus den Analysen und schlägt vor, was heute dran ist: Wiederholungen, ein Motiv, ein Endspiel. Als Tages-Checkliste und als Wochenplan, den du selbst umsortieren kannst.</span><span lang="en">The study planner reads your weaknesses from the analyses and suggests what to do today: reviews, one theme, one endgame. As a daily checklist and a weekly plan you can rearrange yourself.</span><span lang="fr">Le planificateur lit vos faiblesses dans les analyses et propose le programme du jour : révisions, un thème, une finale. Sous forme de liste quotidienne et de plan hebdomadaire que vous pouvez réorganiser.</span><span lang="es">El planificador lee tus debilidades en los análisis y propone qué toca hoy: repasos, un tema, un final. Como lista diaria y como plan semanal que puedes reordenar tú.</span><span lang="zh">学习计划器从分析里读出你的弱点，给出今天该做什么：复习、一个战术主题、一个残局。既是每日清单，也是可自行调整顺序的周计划。</span><span lang="hi">स्टडी प्लानर विश्लेषण से आपकी कमज़ोरियाँ पढ़ता है और बताता है कि आज क्या करना है: दोहराव, एक थीम, एक अंतिम खेल। दैनिक चेकलिस्ट के रूप में और ऐसे साप्ताहिक प्लान के रूप में जिसे आप ख़ुद क्रम में लगा सकते हैं।</span><span lang="ar">يقرأ مخطّط الدراسة نقاط ضعفك من التحليلات ويقترح ما يناسب اليوم: مراجعات، وموضوع تكتيكي واحد، ونهاية واحدة. على هيئة قائمة يومية وخطة أسبوعية تعيد ترتيبها بنفسك.</span></p>
+              <ul class="ticks">
+                <li><span lang="de">Empfehlungen mit Begründung aus deinen Partien</span><span lang="en">Recommendations with reasons taken from your games</span><span lang="fr">Des recommandations justifiées par vos parties</span><span lang="es">Recomendaciones justificadas con tus partidas</span><span lang="zh">建议都附带来自你对局的理由</span><span lang="hi">आपकी बाज़ियों से लिए गए कारणों के साथ सिफ़ारिशें</span><span lang="ar">توصيات مسبَّبة مأخوذة من مبارياتك</span></li>
+                <li><span lang="de">Drag-and-drop-Planer für die Woche</span><span lang="en">Drag-and-drop planner for the week</span><span lang="fr">Planificateur hebdomadaire en glisser-déposer</span><span lang="es">Planificador semanal con arrastrar y soltar</span><span lang="zh">可拖放的周计划表</span><span lang="hi">सप्ताह के लिए ड्रैग-एंड-ड्रॉप प्लानर</span><span lang="ar">مخطّط أسبوعي بالسحب والإفلات</span></li>
+                <li><span lang="de">Erinnerungen lokal auf dem Gerät</span><span lang="en">Reminders locally on the device</span><span lang="fr">Rappels locaux sur l’appareil</span><span lang="es">Recordatorios locales en el dispositivo</span><span lang="zh">提醒完全在设备本地产生</span><span lang="hi">डिवाइस पर ही स्थानीय रिमाइंडर</span><span lang="ar">تذكيرات محلية على الجهاز</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/study.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Study"></button>
+              <figcaption>
+                <span lang="de">Study · Coach-Empfehlungen und Wochenplan</span><span lang="en">Study · coach recommendations and weekly plan</span><span lang="fr">Study · recommandations du coach et plan hebdomadaire</span><span lang="es">Study · recomendaciones del entrenador y plan semanal</span><span lang="zh">Study · 教练建议与周计划</span><span lang="hi">Study · कोच की सिफ़ारिशें और साप्ताहिक प्लान</span><span lang="ar">Study · توصيات المدرّب والخطة الأسبوعية</span>
+                <span><span lang="de">Tagesziel und Serie</span><span lang="en">daily goal and streak</span><span lang="fr">objectif du jour et série</span><span lang="es">objetivo diario y racha</span><span lang="zh">每日目标与连续天数</span><span lang="hi">दैनिक लक्ष्य और सिलसिला</span><span lang="ar">هدف اليوم وسلسلة الأيام</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature xp-panel-sync">
+            <div class="feature-text">
+              <p class="feature-kicker"><span lang="de">Geräte-Sync</span><span lang="en">Device sync</span><span lang="fr">Sync entre appareils</span><span lang="es">Sync entre dispositivos</span><span lang="zh">设备同步</span><span lang="hi">डिवाइस सिंक</span><span lang="ar">مزامنة الأجهزة</span></p>
+              <h3><span lang="de">Zwei Geräte, ein Netz, kein Dazwischen</span><span lang="en">Two devices, one network, nothing in between</span><span lang="fr">Deux appareils, un réseau, rien entre les deux</span><span lang="es">Dos dispositivos, una red, nada en medio</span><span lang="zh">两台设备，一个网络，中间什么都没有</span><span lang="hi">दो उपकरण, एक नेटवर्क, बीच में कुछ नहीं</span><span lang="ar">جهازان وشبكة واحدة ولا شيء بينهما</span></h3>
+              <p><span lang="de">Der Desktop ist der Hub, das Handy koppelt sich per QR-Code. Danach synchronisieren beide verschlüsselt direkt über dein Heimnetz oder VPN; Adresse, Code und Zertifikats-Fingerprint stecken im QR. Kein Server dazwischen, weil es keinen gibt.</span><span lang="en">The desktop is the hub; the phone pairs with a QR code. From then on both sync encrypted, directly over your home network or VPN; address, code and certificate fingerprint are inside the QR. No server in between, because there isn’t one.</span><span lang="fr">L’ordinateur fait office de hub, le téléphone s’appaire par QR code. Ensuite, les deux se synchronisent de façon chiffrée, directement via votre réseau domestique ou votre VPN ; adresse, code et empreinte du certificat sont dans le QR. Aucun serveur entre les deux, puisqu’il n’en existe aucun.</span><span lang="es">El escritorio es el hub y el móvil se empareja con un código QR. A partir de ahí los dos se sincronizan cifrados, directamente por tu red doméstica o tu VPN; dirección, código y huella del certificado van dentro del QR. Ningún servidor en medio, porque no existe.</span><span lang="zh">桌面端是枢纽，手机通过二维码配对。之后两端加密后直接经由你的家庭网络或 VPN 同步；地址、配对码和证书指纹都在二维码里。中间没有服务器，因为根本就没有。</span><span lang="hi">डेस्कटॉप हब है, फ़ोन QR कोड से जुड़ता है। उसके बाद दोनों एन्क्रिप्टेड ढंग से सीधे आपके घरेलू नेटवर्क या VPN पर सिंक होते हैं; पता, कोड और सर्टिफ़िकेट फ़िंगरप्रिंट QR में ही होते हैं। बीच में कोई सर्वर नहीं, क्योंकि है ही नहीं।</span><span lang="ar">الحاسوب هو المحور، والهاتف يقترن برمز QR. بعدها يتزامن الجهازان بتشفير ومباشرة عبر شبكتك المنزلية أو شبكتك الافتراضية الخاصة؛ العنوان ورمز الاقتران وبصمة الشهادة كلها داخل رمز QR. لا خادم بينهما، لأنه ببساطة غير موجود.</span></p>
+              <ul class="ticks">
+                <li><span lang="de">Unterwegs auf dem Handy trainieren, am Abend am Desktop analysieren</span><span lang="en">Train on the phone on the move, analyze on the desktop in the evening</span><span lang="fr">S’entraîner sur le téléphone en déplacement, analyser le soir sur l’ordinateur</span><span lang="es">Entrena en el móvil de camino y analiza por la noche en el escritorio</span><span lang="zh">路上用手机练，晚上回到桌面端分析</span><span lang="hi">रास्ते में फ़ोन पर अभ्यास, शाम को डेस्कटॉप पर विश्लेषण</span><span lang="ar">تدرّب على الهاتف في تنقّلك، وحلّل مساءً على الحاسوب</span></li>
+                <li><span lang="de">Die Kamera wird ausschließlich für das QR-Scannen benutzt</span><span lang="en">The camera is used for QR scanning and nothing else</span><span lang="fr">La caméra ne sert qu’à scanner le QR code</span><span lang="es">La cámara solo se usa para escanear el QR</span><span lang="zh">摄像头只用于扫描二维码</span><span lang="hi">कैमरा सिर्फ़ QR स्कैन के लिए इस्तेमाल होता है</span><span lang="ar">لا تُستخدم الكاميرا إلا لمسح رمز QR</span></li>
+                <li><span lang="de">Ohne Kopplung läuft jedes Gerät völlig eigenständig</span><span lang="en">Without pairing, each device works entirely on its own</span><span lang="fr">Sans appairage, chaque appareil fonctionne de façon totalement autonome</span><span lang="es">Sin emparejar, cada dispositivo funciona por completo por su cuenta</span><span lang="zh">不配对时，每台设备都完全独立运行</span><span lang="hi">बिना जोड़े हर उपकरण पूरी तरह अपने आप चलता है</span><span lang="ar">من دون اقتران، يعمل كل جهاز باستقلال تام</span></li>
+              </ul>
+            </div>
+            <div class="sync-viz" aria-hidden="true">
+              <div class="device"><span>Desktop<br>Hub</span></div>
+              <div class="wire"><span class="wire-label">LAN · TLS</span></div>
+              <div class="device phone"><span>Android</span></div>
+            </div>
+          </article>
         </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/repertoire.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Repertoire"></button>
-          <figcaption>
-            <span lang="de">Repertoire · Varianten als Weiß und Schwarz</span><span lang="en">Repertoire · variations as white and black</span><span lang="fr">Répertoire · variantes aux blancs et aux noirs</span><span lang="es">Repertorio · variantes con blancas y negras</span><span lang="zh">Repertoire · 执白与执黑的变例</span><span lang="hi">Repertoire · सफ़ेद और काले की वैरिएशन</span><span lang="ar">Repertoire · التنويعات بالأبيض والأسود</span>
-            <span><span lang="de">Abdeckung 56 % der letzten 50 Partien</span><span lang="en">56 % coverage of the last 50 games</span><span lang="fr">couverture de 56 % sur les 50 dernières parties</span><span lang="es">56 % de cobertura en las últimas 50 partidas</span><span lang="zh">最近 50 局覆盖率 56 %</span><span lang="hi">पिछली 50 बाज़ियों में 56 % कवरेज</span><span lang="ar">تغطية 56 % من آخر 50 مباراة</span></span>
-          </figcaption>
-        </figure>
       </div>
-
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker"><span lang="de">Puzzles &amp; Endspiele</span><span lang="en">Puzzles &amp; endgames</span><span lang="fr">Problèmes &amp; finales</span><span lang="es">Ejercicios &amp; finales</span><span lang="zh">战术题与残局</span><span lang="hi">पहेलियाँ और अंतिम खेल</span><span lang="ar">الألغاز والنهايات</span></p>
-          <h3><span lang="de">Taktik aus deinen eigenen Fehlern</span><span lang="en">Tactics made from your own mistakes</span><span lang="fr">De la tactique tirée de vos propres erreurs</span><span lang="es">Táctica hecha con tus propios errores</span><span lang="zh">用你自己的失误做成的战术题</span><span lang="hi">आपकी अपनी ग़लतियों से बनी टैक्टिक्स</span><span lang="ar">تكتيكات مصنوعة من أخطائك أنت</span></h3>
-          <p><span lang="de">Neben der offline verfügbaren Lichess-Puzzledatenbank baut Kiebitz Aufgaben aus den Stellungen, in denen du selbst den Gewinnzug übersehen hast. Dazu kuratierte Endspiel-Drills gegen die Engine, optional mit Syzygy-Tabellen.</span><span lang="en">Alongside the offline Lichess puzzle database, Kiebitz builds problems from the positions where you missed the winning move yourself. Plus curated endgame drills against the engine, optionally with Syzygy tablebases.</span><span lang="fr">En plus de la base de problèmes Lichess disponible hors ligne, Kiebitz fabrique des exercices à partir des positions où vous avez laissé passer le coup gagnant. S’y ajoutent des finales sélectionnées contre le moteur, avec tables Syzygy en option.</span><span lang="es">Además de la base de ejercicios de Lichess disponible sin conexión, Kiebitz crea problemas con las posiciones en las que se te escapó la jugada ganadora. Y finales seleccionados contra el motor, con tablas Syzygy opcionales.</span><span lang="zh">除了可离线使用的 Lichess 战术题库，Kiebitz 还会用你漏掉制胜着法的局面生成习题。另有精选残局，可与引擎对练，并可选用 Syzygy 残局库。</span><span lang="hi">ऑफ़लाइन उपलब्ध Lichess पहेली-डेटाबेस के अलावा Kiebitz उन्हीं स्थितियों से सवाल बनाता है जहाँ आपसे जीतने वाली चाल छूट गई थी। साथ में इंजन के ख़िलाफ़ चुने हुए अंतिम-खेल अभ्यास, चाहें तो Syzygy टेबलबेस के साथ।</span><span lang="ar">إلى جانب قاعدة ألغاز Lichess المتاحة دون اتصال، يبني Kiebitz تمارين من الأوضاع التي فاتتك فيها النقلة الرابحة. تُضاف إليها تدريبات نهايات مختارة ضد المحرّك، مع جداول Syzygy اختياريًا.</span></p>
-          <ul class="ticks">
-            <li><span lang="de">Puzzle-Elo und Trefferquote pro Motiv</span><span lang="en">Puzzle Elo and hit rate per theme</span><span lang="fr">Elo de problèmes et taux de réussite par thème</span><span lang="es">Elo de ejercicios y acierto por tema</span><span lang="zh">战术题 Elo 与各主题命中率</span><span lang="hi">पहेली-Elo और हर थीम की सफलता-दर</span><span lang="ar">تصنيف الألغاز ونسبة الإصابة لكل موضوع</span></li>
-            <li><span lang="de">Endspiele: Bauernumwandlung, Turmendspiele, Mattführungen</span><span lang="en">Endgames: promotion, rook endings, forced mates</span><span lang="fr">Finales : promotion, finales de tours, mats forcés</span><span lang="es">Finales: coronación, finales de torre, mates forzados</span><span lang="zh">残局：升变、车残局、强制杀法</span><span lang="hi">अंतिम खेल: प्यादे का प्रोमोशन, रुख़ के अंत, ज़बरदस्ती मात</span><span lang="ar">النهايات: الترقية، ونهايات الرخّ، والمات الإجباري</span></li>
-            <li><span lang="de">Alles offline spielbar, auch ohne Netz</span><span lang="en">All playable offline, no connection needed</span><span lang="fr">Tout jouable hors ligne, sans connexion</span><span lang="es">Todo jugable sin conexión</span><span lang="zh">全部可离线练习，无需联网</span><span lang="hi">सब कुछ ऑफ़लाइन खेला जा सकता है, बिना नेटवर्क</span><span lang="ar">كل ذلك متاح دون اتصال بالإنترنت</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/puzzles.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Puzzles"></button>
-          <figcaption>
-            <span lang="de">Puzzles · Trefferquote pro Motiv</span><span lang="en">Puzzles · hit rate per theme</span><span lang="fr">Puzzles · taux de réussite par thème</span><span lang="es">Puzzles · acierto por tema</span><span lang="zh">Puzzles · 各主题命中率</span><span lang="hi">Puzzles · हर थीम की सफलता-दर</span><span lang="ar">Puzzles · نسبة الإصابة لكل موضوع</span>
-            <span><span lang="de">1.701 Aufgaben aus eigenen Partien</span><span lang="en">1,701 puzzles from your own games</span><span lang="fr">1 701 exercices tirés de vos parties</span><span lang="es">1701 ejercicios de tus propias partidas</span><span lang="zh">1,701 道来自自己对局的习题</span><span lang="hi">अपनी बाज़ियों से 1,701 पहेलियाँ</span><span lang="ar">1701 تمرينًا من مبارياتك</span></span>
-          </figcaption>
-        </figure>
+      <div class="wrap xp-rail-foot" aria-hidden="true">
+        <span class="xp-rail-count"><b data-xp-panel-n>01</b> / 05</span>
+        <span class="xp-rail-bar"><i></i></span>
       </div>
-
-      <div class="feature flip rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Study</p>
-          <h3><span lang="de">Ein Plan, der aus deinen Daten kommt</span><span lang="en">A plan that comes out of your data</span><span lang="fr">Un plan qui sort de vos données</span><span lang="es">Un plan que sale de tus datos</span><span lang="zh">从你的数据里长出来的训练计划</span><span lang="hi">आपके अपने डेटा से निकली योजना</span><span lang="ar">خطة تخرج من بياناتك أنت</span></h3>
-          <p><span lang="de">Der Lernplaner liest deine Schwächen aus den Analysen und schlägt vor, was heute dran ist: Wiederholungen, ein Motiv, ein Endspiel. Als Tages-Checkliste und als Wochenplan, den du selbst umsortieren kannst.</span><span lang="en">The study planner reads your weaknesses from the analyses and suggests what to do today: reviews, one theme, one endgame. As a daily checklist and a weekly plan you can rearrange yourself.</span><span lang="fr">Le planificateur lit vos faiblesses dans les analyses et propose le programme du jour : révisions, un thème, une finale. Sous forme de liste quotidienne et de plan hebdomadaire que vous pouvez réorganiser.</span><span lang="es">El planificador lee tus debilidades en los análisis y propone qué toca hoy: repasos, un tema, un final. Como lista diaria y como plan semanal que puedes reordenar tú.</span><span lang="zh">学习计划器从分析里读出你的弱点，给出今天该做什么：复习、一个战术主题、一个残局。既是每日清单，也是可自行调整顺序的周计划。</span><span lang="hi">स्टडी प्लानर विश्लेषण से आपकी कमज़ोरियाँ पढ़ता है और बताता है कि आज क्या करना है: दोहराव, एक थीम, एक अंतिम खेल। दैनिक चेकलिस्ट के रूप में और ऐसे साप्ताहिक प्लान के रूप में जिसे आप ख़ुद क्रम में लगा सकते हैं।</span><span lang="ar">يقرأ مخطّط الدراسة نقاط ضعفك من التحليلات ويقترح ما يناسب اليوم: مراجعات، وموضوع تكتيكي واحد، ونهاية واحدة. على هيئة قائمة يومية وخطة أسبوعية تعيد ترتيبها بنفسك.</span></p>
-          <ul class="ticks">
-            <li><span lang="de">Empfehlungen mit Begründung aus deinen Partien</span><span lang="en">Recommendations with reasons taken from your games</span><span lang="fr">Des recommandations justifiées par vos parties</span><span lang="es">Recomendaciones justificadas con tus partidas</span><span lang="zh">建议都附带来自你对局的理由</span><span lang="hi">आपकी बाज़ियों से लिए गए कारणों के साथ सिफ़ारिशें</span><span lang="ar">توصيات مسبَّبة مأخوذة من مبارياتك</span></li>
-            <li><span lang="de">Drag-and-drop-Planer für die Woche</span><span lang="en">Drag-and-drop planner for the week</span><span lang="fr">Planificateur hebdomadaire en glisser-déposer</span><span lang="es">Planificador semanal con arrastrar y soltar</span><span lang="zh">可拖放的周计划表</span><span lang="hi">सप्ताह के लिए ड्रैग-एंड-ड्रॉप प्लानर</span><span lang="ar">مخطّط أسبوعي بالسحب والإفلات</span></li>
-            <li><span lang="de">Erinnerungen lokal auf dem Gerät</span><span lang="en">Reminders locally on the device</span><span lang="fr">Rappels locaux sur l’appareil</span><span lang="es">Recordatorios locales en el dispositivo</span><span lang="zh">提醒完全在设备本地产生</span><span lang="hi">डिवाइस पर ही स्थानीय रिमाइंडर</span><span lang="ar">تذكيرات محلية على الجهاز</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="assets/shots/study.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Study"></button>
-          <figcaption>
-            <span lang="de">Study · Coach-Empfehlungen und Wochenplan</span><span lang="en">Study · coach recommendations and weekly plan</span><span lang="fr">Study · recommandations du coach et plan hebdomadaire</span><span lang="es">Study · recomendaciones del entrenador y plan semanal</span><span lang="zh">Study · 教练建议与周计划</span><span lang="hi">Study · कोच की सिफ़ारिशें और साप्ताहिक प्लान</span><span lang="ar">Study · توصيات المدرّب والخطة الأسبوعية</span>
-            <span><span lang="de">Tagesziel und Serie</span><span lang="en">daily goal and streak</span><span lang="fr">objectif du jour et série</span><span lang="es">objetivo diario y racha</span><span lang="zh">每日目标与连续天数</span><span lang="hi">दैनिक लक्ष्य और सिलसिला</span><span lang="ar">هدف اليوم وسلسلة الأيام</span></span>
-          </figcaption>
-        </figure>
-      </div>
-
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker"><span lang="de">Geräte-Sync</span><span lang="en">Device sync</span><span lang="fr">Sync entre appareils</span><span lang="es">Sync entre dispositivos</span><span lang="zh">设备同步</span><span lang="hi">डिवाइस सिंक</span><span lang="ar">مزامنة الأجهزة</span></p>
-          <h3><span lang="de">Zwei Geräte, ein Netz, kein Dazwischen</span><span lang="en">Two devices, one network, nothing in between</span><span lang="fr">Deux appareils, un réseau, rien entre les deux</span><span lang="es">Dos dispositivos, una red, nada en medio</span><span lang="zh">两台设备，一个网络，中间什么都没有</span><span lang="hi">दो उपकरण, एक नेटवर्क, बीच में कुछ नहीं</span><span lang="ar">جهازان وشبكة واحدة ولا شيء بينهما</span></h3>
-          <p><span lang="de">Der Desktop ist der Hub, das Handy koppelt sich per QR-Code. Danach synchronisieren beide verschlüsselt direkt über dein Heimnetz oder VPN; Adresse, Code und Zertifikats-Fingerprint stecken im QR. Kein Server dazwischen, weil es keinen gibt.</span><span lang="en">The desktop is the hub; the phone pairs with a QR code. From then on both sync encrypted, directly over your home network or VPN; address, code and certificate fingerprint are inside the QR. No server in between, because there isn’t one.</span><span lang="fr">L’ordinateur fait office de hub, le téléphone s’appaire par QR code. Ensuite, les deux se synchronisent de façon chiffrée, directement via votre réseau domestique ou votre VPN ; adresse, code et empreinte du certificat sont dans le QR. Aucun serveur entre les deux, puisqu’il n’en existe aucun.</span><span lang="es">El escritorio es el hub y el móvil se empareja con un código QR. A partir de ahí los dos se sincronizan cifrados, directamente por tu red doméstica o tu VPN; dirección, código y huella del certificado van dentro del QR. Ningún servidor en medio, porque no existe.</span><span lang="zh">桌面端是枢纽，手机通过二维码配对。之后两端加密后直接经由你的家庭网络或 VPN 同步；地址、配对码和证书指纹都在二维码里。中间没有服务器，因为根本就没有。</span><span lang="hi">डेस्कटॉप हब है, फ़ोन QR कोड से जुड़ता है। उसके बाद दोनों एन्क्रिप्टेड ढंग से सीधे आपके घरेलू नेटवर्क या VPN पर सिंक होते हैं; पता, कोड और सर्टिफ़िकेट फ़िंगरप्रिंट QR में ही होते हैं। बीच में कोई सर्वर नहीं, क्योंकि है ही नहीं।</span><span lang="ar">الحاسوب هو المحور، والهاتف يقترن برمز QR. بعدها يتزامن الجهازان بتشفير ومباشرة عبر شبكتك المنزلية أو شبكتك الافتراضية الخاصة؛ العنوان ورمز الاقتران وبصمة الشهادة كلها داخل رمز QR. لا خادم بينهما، لأنه ببساطة غير موجود.</span></p>
-          <ul class="ticks">
-            <li><span lang="de">Unterwegs auf dem Handy trainieren, am Abend am Desktop analysieren</span><span lang="en">Train on the phone on the move, analyze on the desktop in the evening</span><span lang="fr">S’entraîner sur le téléphone en déplacement, analyser le soir sur l’ordinateur</span><span lang="es">Entrena en el móvil de camino y analiza por la noche en el escritorio</span><span lang="zh">路上用手机练，晚上回到桌面端分析</span><span lang="hi">रास्ते में फ़ोन पर अभ्यास, शाम को डेस्कटॉप पर विश्लेषण</span><span lang="ar">تدرّب على الهاتف في تنقّلك، وحلّل مساءً على الحاسوب</span></li>
-            <li><span lang="de">Die Kamera wird ausschließlich für das QR-Scannen benutzt</span><span lang="en">The camera is used for QR scanning and nothing else</span><span lang="fr">La caméra ne sert qu’à scanner le QR code</span><span lang="es">La cámara solo se usa para escanear el QR</span><span lang="zh">摄像头只用于扫描二维码</span><span lang="hi">कैमरा सिर्फ़ QR स्कैन के लिए इस्तेमाल होता है</span><span lang="ar">لا تُستخدم الكاميرا إلا لمسح رمز QR</span></li>
-            <li><span lang="de">Ohne Kopplung läuft jedes Gerät völlig eigenständig</span><span lang="en">Without pairing, each device works entirely on its own</span><span lang="fr">Sans appairage, chaque appareil fonctionne de façon totalement autonome</span><span lang="es">Sin emparejar, cada dispositivo funciona por completo por su cuenta</span><span lang="zh">不配对时，每台设备都完全独立运行</span><span lang="hi">बिना जोड़े हर उपकरण पूरी तरह अपने आप चलता है</span><span lang="ar">من دون اقتران، يعمل كل جهاز باستقلال تام</span></li>
-          </ul>
-        </div>
-        <div class="sync-viz" aria-hidden="true">
-          <div class="device"><span>Desktop<br>Hub</span></div>
-          <div class="wire"><span class="wire-label">LAN · TLS</span></div>
-          <div class="device phone"><span>Android</span></div>
-        </div>
-      </div>
-
-      <div class="more rv" style="margin-top:clamp(48px,6vw,84px)">
+    </div>
+    <div class="wrap xp-more">
+      <div class="more">
         <div>
           <h4><span lang="de">Dashboard</span><span lang="en">Dashboard</span><span lang="fr">Tableau de bord</span><span lang="es">Panel</span><span lang="zh">仪表盘</span><span lang="hi">डैशबोर्ड</span><span lang="ar">لوحة المعلومات</span></h4>
           <p><span lang="de">Rating-Verlauf, letzte Partien, fällige Wiederholungen, Analyse-Warteschlange auf einem Blick.</span><span lang="en">Rating history, recent games, due reviews and the analysis queue at a glance.</span><span lang="fr">Courbe de classement, dernières parties, révisions dues et file d’analyse d’un coup d’œil.</span><span lang="es">Evolución del rating, últimas partidas, repasos pendientes y la cola de análisis de un vistazo.</span><span lang="zh">等级分曲线、最近对局、到期复习和分析队列，一眼看全。</span><span lang="hi">रेटिंग का सफ़र, हाल की बाज़ियाँ, बकाया दोहराव और विश्लेषण-कतार — सब एक नज़र में।</span><span lang="ar">مسار التصنيف وآخر المباريات والمراجعات المستحقّة وقائمة التحليل في لمحة واحدة.</span></p>
@@ -316,29 +391,34 @@
     </div>
   </section>
 
-  <!-- ── 03 Local-first ────────────────────────────────────────────────── -->
-  <section class="section section-alt" id="local">
-    <div class="wrap">
-      <p class="eyebrow"><b>03</b> <span lang="de">Local-first</span><span lang="en">Local-first</span><span lang="fr">Local-first</span><span lang="es">Local-first</span><span lang="zh">本地优先</span><span lang="hi">लोकल-फ़र्स्ट</span><span lang="ar">محلي أولًا</span></p>
-      <h2 class="section-title">
-        <span lang="de">Deine Partien sind deine Partien.</span>
-        <span lang="en">Your games are your games.</span>
-        <span lang="fr">Vos parties sont vos parties.</span>
-        <span lang="es">Tus partidas son tuyas.</span>
-        <span lang="zh">你的对局，就是你的对局。</span>
-        <span lang="hi">आपकी बाज़ियाँ आपकी हैं।</span>
-        <span lang="ar">مبارياتك مبارياتك وحدك.</span>
-      </h2>
-      <p class="lede">
-        <span lang="de">Partien, Analysen und Trainingsfortschritt bleiben auf deinen Geräten, und jede Analyse läuft lokal. Kiebitz Free kommt ohne Konto aus; das Konto von Kiebitz Plus trägt nur Anmeldung, Abrechnung und Freischaltung.</span>
-        <span lang="en">Games, analyses and training progress stay on your devices, and every analysis runs locally. Kiebitz Free needs no account; the Kiebitz Plus account only carries sign-in, billing and the unlock.</span>
-        <span lang="fr">Les parties, analyses et progrès restent sur vos appareils, et chaque analyse s’exécute en local. Kiebitz Free se passe de compte ; le compte Kiebitz Plus ne porte que la connexion, la facturation et le déblocage.</span>
-        <span lang="es">Las partidas, los análisis y el progreso se quedan en tus dispositivos, y cada análisis se ejecuta en local. Kiebitz Free no necesita cuenta; la cuenta de Kiebitz Plus solo sirve para el acceso, la facturación y el desbloqueo.</span>
-        <span lang="zh">对局、分析和训练进度都保留在你的设备上，所有分析都在本地运行。Kiebitz Free 无需账号；Kiebitz Plus 的账号只承担登录、计费和解锁。</span>
-        <span lang="hi">बाज़ियाँ, विश्लेषण और प्रशिक्षण प्रगति आपके उपकरणों पर रहते हैं, और हर विश्लेषण स्थानीय रूप से चलता है। Kiebitz Free के लिए किसी खाते की ज़रूरत नहीं; Kiebitz Plus का खाता केवल साइन-इन, बिलिंग और अनलॉक संभालता है।</span>
-        <span lang="ar">تبقى المباريات والتحليلات وتقدّم التدريب على أجهزتك، وكل تحليل يجري محليًا. لا يحتاج Kiebitz Free إلى حساب؛ أما حساب Kiebitz Plus فلا يحمل سوى تسجيل الدخول والفوترة والتفعيل.</span>
-      </p>
-      <div class="privacy-grid rv">
+  <!-- ── 03 Local-first: die Kuppel schließt sich ──────────────────────── -->
+  <section class="xp-local" id="local" data-xp-scene>
+    <div class="wrap xp-local-in">
+      <div class="xp-local-copy">
+        <p class="eyebrow"><b>03</b> <span lang="de">Local-first</span><span lang="en">Local-first</span><span lang="fr">Local-first</span><span lang="es">Local-first</span><span lang="zh">本地优先</span><span lang="hi">लोकल-फ़र्स्ट</span><span lang="ar">محلي أولًا</span></p>
+        <h2 class="xp-display" data-xp-split>
+          <span lang="de">Deine Partien sind deine Partien.</span>
+          <span lang="en">Your games are your games.</span>
+          <span lang="fr">Vos parties sont vos parties.</span>
+          <span lang="es">Tus partidas son tuyas.</span>
+          <span lang="zh">你的对局，就是你的对局。</span>
+          <span lang="hi">आपकी बाज़ियाँ आपकी हैं।</span>
+          <span lang="ar">مبارياتك مبارياتك وحدك.</span>
+        </h2>
+        <p class="lede">
+          <span lang="de">Partien, Analysen und Trainingsfortschritt bleiben auf deinen Geräten, und jede Analyse läuft lokal. Kiebitz Free kommt ohne Konto aus; das Konto von Kiebitz Plus trägt nur Anmeldung, Abrechnung und Freischaltung.</span>
+          <span lang="en">Games, analyses and training progress stay on your devices, and every analysis runs locally. Kiebitz Free needs no account; the Kiebitz Plus account only carries sign-in, billing and the unlock.</span>
+          <span lang="fr">Les parties, analyses et progrès restent sur vos appareils, et chaque analyse s’exécute en local. Kiebitz Free se passe de compte ; le compte Kiebitz Plus ne porte que la connexion, la facturation et le déblocage.</span>
+          <span lang="es">Las partidas, los análisis y el progreso se quedan en tus dispositivos, y cada análisis se ejecuta en local. Kiebitz Free no necesita cuenta; la cuenta de Kiebitz Plus solo sirve para el acceso, la facturación y el desbloqueo.</span>
+          <span lang="zh">对局、分析和训练进度都保留在你的设备上，所有分析都在本地运行。Kiebitz Free 无需账号；Kiebitz Plus 的账号只承担登录、计费和解锁。</span>
+          <span lang="hi">बाज़ियाँ, विश्लेषण और प्रशिक्षण प्रगति आपके उपकरणों पर रहते हैं, और हर विश्लेषण स्थानीय रूप से चलता है। Kiebitz Free के लिए किसी खाते की ज़रूरत नहीं; Kiebitz Plus का खाता केवल साइन-इन, बिलिंग और अनलॉक संभालता है।</span>
+          <span lang="ar">تبقى المباريات والتحليلات وتقدّم التدريب على أجهزتك، وكل تحليل يجري محليًا. لا يحتاج Kiebitz Free إلى حساب؛ أما حساب Kiebitz Plus فلا يحمل سوى تسجيل الدخول والفوترة والتفعيل.</span>
+        </p>
+        <p class="xp-local-link">
+          <a class="btn btn-sm" href="privacy/index.html"><span lang="de">Vollständige Datenschutzerklärung</span><span lang="en">Full privacy policy</span><span lang="fr">Politique de confidentialité complète</span><span lang="es">Política de privacidad completa</span><span lang="zh">完整隐私政策</span><span lang="hi">पूरी गोपनीयता नीति</span><span lang="ar">سياسة الخصوصية كاملة</span></a>
+        </p>
+      </div>
+      <div class="privacy-grid">
         <div>
           <h4><span lang="de">Schachdaten bleiben lokal</span><span lang="en">Chess data stays local</span><span lang="fr">Les données d’échecs restent locales</span><span lang="es">Los datos de ajedrez quedan locales</span><span lang="zh">棋局数据保留在本地</span><span lang="hi">शतरंज डेटा स्थानीय रहता है</span><span lang="ar">بيانات الشطرنج تبقى محلية</span></h4>
           <p><span lang="de">Partien, Analysen, Repertoire und Trainingsfortschritt liegen auf deinen Geräten. Sie werden weder an Kiebitz noch an den Anzeigenanbieter übertragen.</span><span lang="en">Games, analyses, repertoire and training progress stay on your devices. They are sent neither to Kiebitz nor to the ad provider.</span><span lang="fr">Parties, analyses, répertoire et progression restent sur vos appareils. Ils ne sont transmis ni à Kiebitz ni au fournisseur publicitaire.</span><span lang="es">Partidas, análisis, repertorio y progreso permanecen en tus dispositivos. No se envían ni a Kiebitz ni al proveedor publicitario.</span><span lang="zh">对局、分析、开局库和训练进度都保留在你的设备上，既不会发送给 Kiebitz，也不会发送给广告提供商。</span><span lang="hi">बाज़ियाँ, विश्लेषण, रेपर्टवार और प्रशिक्षण प्रगति आपके उपकरणों पर रहते हैं। वे न Kiebitz को भेजे जाते हैं, न विज्ञापन प्रदाता को।</span><span lang="ar">تبقى المباريات والتحليلات والمرجع وتقدّم التدريب على أجهزتك، ولا تُرسل إلى Kiebitz ولا إلى مزوّد الإعلانات.</span></p>
@@ -356,17 +436,14 @@
           <p><span lang="de">Android Free nutzt Google Mobile Ads. Vor der ersten zulässigen Anzeige fragt Google UMP die erforderlichen Datenschutzentscheidungen ab; ändern kannst du sie unter Einstellungen → Werbung &amp; Datenschutz.</span><span lang="en">Android Free uses Google Mobile Ads. Before the first eligible ad, Google UMP requests the required privacy choices; you can change them under Settings → Ads &amp; privacy.</span><span lang="fr">Android Free utilise Google Mobile Ads. Avant la première publicité autorisée, Google UMP recueille les choix requis ; modifiez-les sous Réglages → Publicités et confidentialité.</span><span lang="es">Android Free usa Google Mobile Ads. Antes del primer anuncio permitido, Google UMP solicita las opciones necesarias; puedes cambiarlas en Ajustes → Anuncios y privacidad.</span><span lang="zh">Android Free 使用 Google Mobile Ads。首次投放合规广告前，Google UMP 会请求所需的隐私选择；你可在“设置 → 广告与隐私”中更改。</span><span lang="hi">Android Free Google Mobile Ads का उपयोग करता है। पहली अनुमत विज्ञापन से पहले Google UMP आवश्यक गोपनीयता विकल्प पूछता है; इन्हें सेटिंग्स → विज्ञापन और गोपनीयता में बदल सकते हैं।</span><span lang="ar">يستخدم Android Free إعلانات Google للجوال. وقبل أول إعلان مسموح، يطلب Google UMP خيارات الخصوصية المطلوبة؛ ويمكن تغييرها من الإعدادات ← الإعلانات والخصوصية.</span></p>
         </div>
       </div>
-      <p style="margin-top:26px">
-        <a class="btn btn-sm" href="privacy/index.html"><span lang="de">Vollständige Datenschutzerklärung</span><span lang="en">Full privacy policy</span><span lang="fr">Politique de confidentialité complète</span><span lang="es">Política de privacidad completa</span><span lang="zh">完整隐私政策</span><span lang="hi">पूरी गोपनीयता नीति</span><span lang="ar">سياسة الخصوصية كاملة</span></a>
-      </p>
     </div>
   </section>
 
   <!-- ── 04 Preise ─────────────────────────────────────────────────────── -->
-  <section class="section" id="pricing">
+  <section class="section xp-pricing" id="pricing" data-xp-scene>
     <div class="wrap">
       <p class="eyebrow"><b>04</b> <span lang="de">Preise</span><span lang="en">Pricing</span><span lang="fr">Tarifs</span><span lang="es">Precios</span><span lang="zh">价格</span><span lang="hi">क़ीमत</span><span lang="ar">الأسعار</span></p>
-      <h2 class="section-title">
+      <h2 class="section-title xp-display" data-xp-split>
         <span lang="de">Kiebitz Free und Kiebitz Plus.</span>
         <span lang="en">Kiebitz Free and Kiebitz Plus.</span>
         <span lang="fr">Kiebitz Free et Kiebitz Plus.</span>
@@ -385,7 +462,7 @@
         <span lang="ar">يبقى Kiebitz Free مجانيًا ويُموَّل بالإعلانات على سطح المكتب وAndroid. أما Kiebitz Plus فهو المستوى الخالي من الإعلانات، بالمزايا التي تعمل باستمرار من أجلك.</span>
       </p>
 
-      <div class="plans rv">
+      <div class="plans">
         <article class="plan">
           <p class="plan-flag plan-flag-live"><span class="dot" aria-hidden="true"></span><span lang="de">Verfügbar</span><span lang="en">Available</span><span lang="fr">Disponible</span><span lang="es">Disponible</span><span lang="zh">现已可用</span><span lang="hi">उपलब्ध</span><span lang="ar">متاح</span></p>
           <h3>Kiebitz Free</h3>
@@ -459,10 +536,21 @@
   </section>
 
   <!-- ── 05 Download ───────────────────────────────────────────────────── -->
-  <section class="section section-alt" id="download">
+  <section class="section xp-download" id="download" data-xp-scene>
+    <div class="wrap xp-flight" aria-hidden="true">
+      <p class="xp-flight-line" data-xp-split>
+        <span lang="de">Zug um <span class="flight">Zugvogel</span>.</span>
+        <span lang="en">Moves take <span class="flight">flight</span>.</span>
+        <span lang="fr">Coup <span class="flight">d’aile</span>.</span>
+        <span lang="es">Jugadas que <span class="flight">vuelan</span>.</span>
+        <span lang="zh">步步<span class="flight">高飞</span>。</span>
+        <span lang="hi">हर चाल, एक <span class="flight">उड़ान</span>।</span>
+        <span lang="ar">نقلة <span class="flight">تُحلّق</span>.</span>
+      </p>
+    </div>
     <div class="wrap">
       <p class="eyebrow"><b>05</b> <span lang="de">Download</span><span lang="en">Download</span><span lang="fr">Téléchargement</span><span lang="es">Descarga</span><span lang="zh">下载</span><span lang="hi">डाउनलोड</span><span lang="ar">التنزيل</span></p>
-      <h2 class="section-title">
+      <h2 class="section-title xp-display" data-xp-split>
         <span lang="de">Laden und loslegen.</span>
         <span lang="en">Download and start.</span>
         <span lang="fr">Téléchargez et lancez-vous.</span>
@@ -471,7 +559,7 @@
         <span lang="hi">डाउनलोड कीजिए और शुरू कीजिए।</span>
         <span lang="ar">نزّله وابدأ.</span>
       </h2>
-      <div class="dl rv">
+      <div class="dl">
         <article class="dl-card">
           <h3>Desktop</h3>
           <p><span lang="de">Versionen für Windows, macOS und Linux. Enthalten den nativen Stockfish und unterstützen automatische Updates.</span><span lang="en">Builds for Windows, macOS and Linux. They ship native Stockfish and support automatic updates.</span><span lang="fr">Versions pour Windows, macOS et Linux. Elles intègrent Stockfish en natif et prennent en charge les mises à jour automatiques.</span><span lang="es">Versiones para Windows, macOS y Linux. Incluyen Stockfish nativo y admiten actualizaciones automáticas.</span><span lang="zh">提供 Windows、macOS 和 Linux 版本，内置原生 Stockfish，并支持自动更新。</span><span lang="hi">Windows, macOS और Linux के लिए बिल्ड। इनमें नेटिव Stockfish शामिल है और ऑटो-अपडेट समर्थित हैं।</span><span lang="ar">إصدارات لأنظمة Windows وmacOS وLinux، تتضمن Stockfish أصليًا وتدعم التحديثات التلقائية.</span></p>
@@ -502,7 +590,7 @@
   </section>
 
   <!-- ── 06 Feedback ─────────────────────────────────────────────────────── -->
-  <section class="section feedback-section" id="feedback">
+  <section class="section feedback-section xp-feedback" id="feedback" data-xp-scene>
     <div class="wrap">
       <p class="eyebrow"><b>06</b> <span lang="de">Feedback</span><span lang="en">Feedback</span><span lang="fr">Retours</span><span lang="es">Comentarios</span><span lang="zh">反馈</span><span lang="hi">फ़ीडबैक</span><span lang="ar">الملاحظات</span></p>
       <div class="feedback-grid">
@@ -532,7 +620,7 @@
           </div>
         </div>
 
-        <details class="feedback-package rv">
+        <details class="feedback-package">
           <summary class="feedback-package-summary">
             <span class="package-topline">
               <span class="package-kicker"><span lang="de">Versiegelte Zuglinie</span><span lang="en">Sealed move line</span><span lang="fr">Ligne de jeu scellée</span><span lang="es">Línea de juego sellada</span><span lang="zh">封缄的着法线</span><span lang="hi">सीलबंद चाल-रेखा</span><span lang="ar">خط نقلات مختوم</span></span>
@@ -772,5 +860,6 @@
 </div>
 
 <script src="assets/site.js" defer></script>
+<script type="module" src="assets/experience.js"></script>
 </body>
 </html>

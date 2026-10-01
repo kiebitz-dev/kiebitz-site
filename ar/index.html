@@ -68,8 +68,41 @@
 </script>
 <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/experience.css">
+<script>
+// Die 3D-Erzählung nur dort, wo Bewegung erwünscht ist und WebGL 2 bereitsteht.
+// Ohne diese Klasse bleibt die Seite ein ruhiges, vollständiges Dokument.
+!function () {
+  var d = document.documentElement, m = null;
+  try { m = localStorage.getItem("kiebitz-motion"); } catch (e) { /* egal */ }
+  var still = m === "off" || (m !== "on" && window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  if (still) return;
+  try {
+    var gl = document.createElement("canvas").getContext("webgl2");
+    if (!gl) return;
+    var lose = gl.getExtension("WEBGL_lose_context");
+    if (lose) lose.loseContext();
+    d.classList.add("xp");
+  } catch (e) { /* egal */ }
+}();
+</script>
 </head>
 <body>
+<div class="xp-stage" aria-hidden="true">
+  <canvas class="xp-canvas" data-xp-canvas></canvas>
+  <div class="xp-veil"></div>
+  <div class="xp-grain"></div>
+</div>
+<div class="xp-intro" aria-hidden="true">
+  <div class="xp-intro-mark">
+    <img src="../assets/icon-128.png" width="44" height="44" alt="">
+    <span>Kiebitz</span>
+  </div>
+  <div class="xp-intro-meta">
+    <span><span lang="ar">نقلة تُحلّق</span></span>
+  </div>
+  <div class="xp-intro-line"><i data-xp-bar></i></div>
+</div>
 <a class="skip" href="#main"><span lang="ar">تخطَّ إلى المحتوى</span></a>
 
 <header class="top">
@@ -109,22 +142,34 @@
   </div>
 </header>
 
+<nav class="xp-hud" aria-hidden="true">
+  <a href="#top" tabindex="-1" data-xp-hud="top"><i></i><span>Kiebitz</span></a>
+  <a href="#import" tabindex="-1" data-xp-hud="import"><i></i><span><span lang="ar">الاستيراد</span></span></a>
+  <a href="#analyze" tabindex="-1" data-xp-hud="analyze"><i></i><span><span lang="ar">التحليل</span></span></a>
+  <a href="#understand" tabindex="-1" data-xp-hud="understand"><i></i><span><span lang="ar">الفهم</span></span></a>
+  <a href="#features" tabindex="-1" data-xp-hud="features"><i></i><span><span lang="ar">المزايا</span></span></a>
+  <a href="#local" tabindex="-1" data-xp-hud="local"><i></i><span><span lang="ar">محلي أولًا</span></span></a>
+  <a href="#pricing" tabindex="-1" data-xp-hud="pricing"><i></i><span><span lang="ar">الأسعار</span></span></a>
+  <a href="#download" tabindex="-1" data-xp-hud="download"><i></i><span><span lang="ar">التنزيل</span></span></a>
+  <a href="#feedback" tabindex="-1" data-xp-hud="feedback"><i></i><span><span lang="ar">الملاحظات</span></span></a>
+</nav>
+
 <main id="main">
 
   <!-- ── Hero ──────────────────────────────────────────────────────────── -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="badge"><span class="dot" aria-hidden="true"></span><span lang="ar">جديد · متوفّر الآن على Google Play</span></p>
-        <h1>
+  <section class="xp-hero" id="top">
+    <div class="wrap xp-hero-in">
+      <p class="badge" data-xp-intro><span class="dot" aria-hidden="true"></span><span lang="ar">جديد · متوفّر الآن على Google Play</span></p>
+      <h1 class="xp-title" data-xp-split>
 
 
 
 
 
 
-          <span lang="ar">يراقب Kiebitz مبارياتك <span class="flight">من فوق كتفك</span>.</span>
-        </h1>
+        <span lang="ar">يراقب Kiebitz مبارياتك <span class="flight">من فوق كتفك</span>.</span>
+      </h1>
+      <div class="xp-hero-copy" data-xp-intro>
 
 
 
@@ -132,40 +177,32 @@
 
 
         <p class="hero-sub" lang="ar">‏<i>Kiebitz</i> طائر القَطقاط، وهو بالألمانية أيضًا المتفرّج الذي يتابع المباراة من فوق كتفك. يستورد هذا التطبيق مبارياتك من chess.com وLichess، ويشغّل محرّك Stockfish أصليًا على تاريخك كاملًا، ويخبرك أين تخسر فعلًا لا أين تظن أنك تخسر. <strong>كل شيء يبقى على أجهزتك.</strong></p>
-        <div class="cta">
-          <a class="btn btn-primary" href="https://github.com/kiebitz-dev/Kiebitz/releases" rel="noopener">
-            <span lang="ar">التنزيل لسطح المكتب</span>
-          </a>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=de.torim.kiebitz" target="_blank" rel="noopener">
-            <span lang="ar">نزّله من Google Play</span>
-          </a>
-        </div>
-        <p class="cta-note"><span lang="ar">مجاني · سطح المكتب عبر GitHub · ‏Android على Google Play</span></p>
       </div>
-
-      <div class="board-card" aria-hidden="true">
-        <div class="board-head">
-          <span data-route-label>Knight · b1 → e8</span>
-          <span data-square-label>b1</span>
-        </div>
-        <div class="board-stage">
-          <div class="board-lattice"></div>
-          <svg class="board-path" viewBox="0 0 8 8" preserveAspectRatio="none" focusable="false"></svg>
-        </div>
-        <div class="board-coords"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
-        <div class="board-foot">
-          <span class="pill"><span lang="ar">Stockfish · أصلي</span></span>
-          <span><span lang="ar">يجري التحليل على جهازك.</span></span>
-        </div>
+      <div class="cta" data-xp-intro>
+        <a class="btn btn-primary" href="https://github.com/kiebitz-dev/Kiebitz/releases" rel="noopener" data-xp-magnet>
+          <span lang="ar">التنزيل لسطح المكتب</span>
+        </a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=de.torim.kiebitz" target="_blank" rel="noopener" data-xp-magnet>
+          <span lang="ar">نزّله من Google Play</span>
+        </a>
       </div>
+      <p class="cta-note" data-xp-intro><span lang="ar">مجاني · سطح المكتب عبر GitHub · ‏Android على Google Play</span></p>
+    </div>
+    <div class="wrap xp-hero-foot" aria-hidden="true">
+      <span class="xp-scroll"><i></i></span>
+      <span class="xp-readout">
+        <b data-xp-route>♘ b1</b>
+        <span><span lang="ar">Stockfish · أصلي</span></span>
+        <span><span lang="ar">يجري التحليل على جهازك.</span></span>
+      </span>
     </div>
   </section>
 
-  <!-- ── 01 Ablauf ─────────────────────────────────────────────────────── -->
-  <section class="section section-alt">
-    <div class="wrap">
+  <!-- ── 01 Ablauf: drei Kapitel, die Kamera fliegt mit ─────────────────── -->
+  <section class="xp-how" id="how" aria-labelledby="how-title">
+    <div class="wrap xp-how-head">
       <p class="eyebrow"><b>01</b> <span lang="ar">آلية العمل</span></p>
-      <h2 class="section-title">
+      <h2 class="xp-display" id="how-title" data-xp-split>
 
 
 
@@ -174,144 +211,182 @@
 
         <span lang="ar">استورد، حلّل، افهم.</span>
       </h2>
-      <div class="flow rv">
-        <article class="step">
-          <p class="step-n">01</p>
-          <h3><span lang="ar">الاستيراد</span></h3>
-          <p><span lang="ar">أدخل اسم المستخدم، وهذا كل شيء. يجلب Kiebitz تاريخك كاملًا دون تكرار، ويقبل ملفات PGN لمباريات الرقعة.</span></p>
-          <div class="step-viz srcrow">
-            <span class="srcpill cc">chess.com</span>
-            <span class="srcpill li">lichess</span>
-            <span class="srcpill pgn">PGN</span>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-n">02</p>
-          <h3><span lang="ar">التحليل</span></h3>
-          <p><span lang="ar">يعالج محرّك Stockfish أصلي قائمة الانتظار في الخلفية: تقييم لكل نقلة، وعدم دقة، وخطأ، وخطأ فادح، ونسبة دقة.</span></p>
-          <div class="step-viz">
-            <div class="evalbar" aria-hidden="true"><span class="w" style="width:52%"></span><span class="b"></span></div>
-            <div class="evalticks" aria-hidden="true"><span>1. e4</span><span class="bad">24. Nf3?? −3.1</span><span>41. Kg2</span></div>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-n">03</p>
-          <h3><span lang="ar">الفهم</span></h3>
-          <p><span lang="ar">ليس «أحسنتَ اللعب»، بل: في أي طور، وفي أي افتتاح، وتحت أي توقيت ينهار أداؤك.</span></p>
-          <div class="step-viz bars" aria-hidden="true">
-            <div class="bar"><span class="bar-l"><span lang="ar">الافتتاح</span></span><span class="bar-t"><i data-w="22"></i></span><span class="bar-v">0.4</span></div>
-            <div class="bar hot"><span class="bar-l"><span lang="ar">وسط المباراة</span></span><span class="bar-t"><i data-w="78"></i></span><span class="bar-v">1.9</span></div>
-            <div class="bar"><span class="bar-l"><span lang="ar">نهاية المباراة</span></span><span class="bar-t"><i data-w="46"></i></span><span class="bar-v">0.9</span></div>
-          </div>
-        </article>
-      </div>
     </div>
+
+    <article class="xp-chapter" id="import" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>01</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="ar">الاستيراد</span></h3>
+            <p class="xp-step-copy"><span lang="ar">أدخل اسم المستخدم، وهذا كل شيء. يجلب Kiebitz تاريخك كاملًا دون تكرار، ويقبل ملفات PGN لمباريات الرقعة.</span></p>
+            <div class="step-viz srcrow">
+              <span class="srcpill cc">chess.com</span>
+              <span class="srcpill li">lichess</span>
+              <span class="srcpill pgn">PGN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-chapter" id="analyze" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>02</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="ar">التحليل</span></h3>
+            <p class="xp-step-copy"><span lang="ar">يعالج محرّك Stockfish أصلي قائمة الانتظار في الخلفية: تقييم لكل نقلة، وعدم دقة، وخطأ، وخطأ فادح، ونسبة دقة.</span></p>
+            <div class="step-viz">
+              <div class="evalbar" aria-hidden="true"><span class="w" style="width:52%"></span><span class="b"></span></div>
+              <div class="evalticks" aria-hidden="true"><span>1. e4</span><span class="bad">24. Nf3?? −3.1</span><span>41. Kg2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-chapter" id="understand" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>03</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="ar">الفهم</span></h3>
+            <p class="xp-step-copy"><span lang="ar">ليس «أحسنتَ اللعب»، بل: في أي طور، وفي أي افتتاح، وتحت أي توقيت ينهار أداؤك.</span></p>
+            <div class="step-viz bars" aria-hidden="true">
+              <div class="bar"><span class="bar-l"><span lang="ar">الافتتاح</span></span><span class="bar-t"><i data-w="22"></i></span><span class="bar-v">0.4</span></div>
+              <div class="bar hot"><span class="bar-l"><span lang="ar">وسط المباراة</span></span><span class="bar-t"><i data-w="78"></i></span><span class="bar-v">1.9</span></div>
+              <div class="bar"><span class="bar-l"><span lang="ar">نهاية المباراة</span></span><span class="bar-t"><i data-w="46"></i></span><span class="bar-v">0.9</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   </section>
 
-  <!-- ── 02 Funktionen ─────────────────────────────────────────────────── -->
-  <section class="section" id="features">
-    <div class="wrap">
-      <p class="eyebrow"><b>02</b> <span lang="ar">المزايا</span></p>
+  <!-- ── 02 Funktionen: horizontale Bahn, angeheftet ───────────────────── -->
+  <section class="xp-features" id="features" data-xp-scene>
+    <div class="xp-pin">
+      <div class="wrap xp-features-head">
+        <p class="eyebrow"><b>02</b> <span lang="ar">المزايا</span></p>
+        <h2 class="xp-display" data-xp-split>
 
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Insights</p>
-          <h3><span lang="ar">أين ينهار مستوى لعبك فعلًا</span></h3>
-          <p><span lang="ar">أربع صفحات تحليل تغطي تاريخك كاملًا بدل رقم واحد لكل مباراة: قوة اللعب، والافتتاحات مفصولة حسب اللون، وأنماط السلوك، والأطوار التي تقع فيها أخطاؤك.</span></p>
-          <ul class="ticks">
-            <li><span lang="ar">الدقة ومعدّل الخطأ عبر شهور، لا عبر مباراة واحدة</span></li>
-            <li><span lang="ar">الافتتاحات مع النتيجة والانحراف ونسبة الإصابة</span></li>
-            <li><span lang="ar">الأنماط: ضيق الوقت، والجلسات الطويلة، ومباريات الثأر</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/insights.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Insights"></button>
-          <figcaption>
-            <span lang="ar">Insights · مستوى اللعب وما يلفت النظر والأخطاء حسب الطور</span>
-            <span><span lang="ar">1509 مباراة</span></span>
-          </figcaption>
-        </figure>
+
+
+
+
+
+          <span lang="ar">خمس أدوات وتاريخ واحد.</span>
+        </h2>
       </div>
+      <div class="xp-rail">
+        <div class="xp-track">
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Insights</p>
+              <h3><span lang="ar">أين ينهار مستوى لعبك فعلًا</span></h3>
+              <p><span lang="ar">أربع صفحات تحليل تغطي تاريخك كاملًا بدل رقم واحد لكل مباراة: قوة اللعب، والافتتاحات مفصولة حسب اللون، وأنماط السلوك، والأطوار التي تقع فيها أخطاؤك.</span></p>
+              <ul class="ticks">
+                <li><span lang="ar">الدقة ومعدّل الخطأ عبر شهور، لا عبر مباراة واحدة</span></li>
+                <li><span lang="ar">الافتتاحات مع النتيجة والانحراف ونسبة الإصابة</span></li>
+                <li><span lang="ar">الأنماط: ضيق الوقت، والجلسات الطويلة، ومباريات الثأر</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/insights.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Insights"></button>
+              <figcaption>
+                <span lang="ar">Insights · مستوى اللعب وما يلفت النظر والأخطاء حسب الطور</span>
+                <span><span lang="ar">1509 مباراة</span></span>
+              </figcaption>
+            </figure>
+          </article>
 
-      <div class="feature flip rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Repertoire · FSRS</p>
-          <h3><span lang="ar">مرجع افتتاحات يرسخ فعلًا</span></h3>
-          <p><span lang="ar">مرجعك شجرة أوضاع تُراجَع بنظام FSRS للتكرار المتباعد، وهو الأسلوب نفسه في تطبيقات البطاقات الجيدة. لكل نقلة فاصلها الزمني، والمراجعات المستحقّة تظهر كل صباح على لوحة المعلومات.</span></p>
-          <ul class="ticks">
-            <li><span lang="ar">أضف نقلات من مبارياتك مباشرة إلى المرجع</span></li>
-            <li><span lang="ar">نسبة التغطية لكل افتتاح، مفصولة بين الأبيض والأسود</span></li>
-            <li><span lang="ar">سلسلة الأيام والبطاقات المستحقّة بدل التدريب بلا نهاية</span></li>
-          </ul>
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Repertoire · FSRS</p>
+              <h3><span lang="ar">مرجع افتتاحات يرسخ فعلًا</span></h3>
+              <p><span lang="ar">مرجعك شجرة أوضاع تُراجَع بنظام FSRS للتكرار المتباعد، وهو الأسلوب نفسه في تطبيقات البطاقات الجيدة. لكل نقلة فاصلها الزمني، والمراجعات المستحقّة تظهر كل صباح على لوحة المعلومات.</span></p>
+              <ul class="ticks">
+                <li><span lang="ar">أضف نقلات من مبارياتك مباشرة إلى المرجع</span></li>
+                <li><span lang="ar">نسبة التغطية لكل افتتاح، مفصولة بين الأبيض والأسود</span></li>
+                <li><span lang="ar">سلسلة الأيام والبطاقات المستحقّة بدل التدريب بلا نهاية</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/repertoire.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Repertoire"></button>
+              <figcaption>
+                <span lang="ar">Repertoire · التنويعات بالأبيض والأسود</span>
+                <span><span lang="ar">تغطية 56 % من آخر 50 مباراة</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker"><span lang="ar">الألغاز والنهايات</span></p>
+              <h3><span lang="ar">تكتيكات مصنوعة من أخطائك أنت</span></h3>
+              <p><span lang="ar">إلى جانب قاعدة ألغاز Lichess المتاحة دون اتصال، يبني Kiebitz تمارين من الأوضاع التي فاتتك فيها النقلة الرابحة. تُضاف إليها تدريبات نهايات مختارة ضد المحرّك، مع جداول Syzygy اختياريًا.</span></p>
+              <ul class="ticks">
+                <li><span lang="ar">تصنيف الألغاز ونسبة الإصابة لكل موضوع</span></li>
+                <li><span lang="ar">النهايات: الترقية، ونهايات الرخّ، والمات الإجباري</span></li>
+                <li><span lang="ar">كل ذلك متاح دون اتصال بالإنترنت</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/puzzles.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Puzzles"></button>
+              <figcaption>
+                <span lang="ar">Puzzles · نسبة الإصابة لكل موضوع</span>
+                <span><span lang="ar">1701 تمرينًا من مبارياتك</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Study</p>
+              <h3><span lang="ar">خطة تخرج من بياناتك أنت</span></h3>
+              <p><span lang="ar">يقرأ مخطّط الدراسة نقاط ضعفك من التحليلات ويقترح ما يناسب اليوم: مراجعات، وموضوع تكتيكي واحد، ونهاية واحدة. على هيئة قائمة يومية وخطة أسبوعية تعيد ترتيبها بنفسك.</span></p>
+              <ul class="ticks">
+                <li><span lang="ar">توصيات مسبَّبة مأخوذة من مبارياتك</span></li>
+                <li><span lang="ar">مخطّط أسبوعي بالسحب والإفلات</span></li>
+                <li><span lang="ar">تذكيرات محلية على الجهاز</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/study.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Study"></button>
+              <figcaption>
+                <span lang="ar">Study · توصيات المدرّب والخطة الأسبوعية</span>
+                <span><span lang="ar">هدف اليوم وسلسلة الأيام</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature xp-panel-sync">
+            <div class="feature-text">
+              <p class="feature-kicker"><span lang="ar">مزامنة الأجهزة</span></p>
+              <h3><span lang="ar">جهازان وشبكة واحدة ولا شيء بينهما</span></h3>
+              <p><span lang="ar">الحاسوب هو المحور، والهاتف يقترن برمز QR. بعدها يتزامن الجهازان بتشفير ومباشرة عبر شبكتك المنزلية أو شبكتك الافتراضية الخاصة؛ العنوان ورمز الاقتران وبصمة الشهادة كلها داخل رمز QR. لا خادم بينهما، لأنه ببساطة غير موجود.</span></p>
+              <ul class="ticks">
+                <li><span lang="ar">تدرّب على الهاتف في تنقّلك، وحلّل مساءً على الحاسوب</span></li>
+                <li><span lang="ar">لا تُستخدم الكاميرا إلا لمسح رمز QR</span></li>
+                <li><span lang="ar">من دون اقتران، يعمل كل جهاز باستقلال تام</span></li>
+              </ul>
+            </div>
+            <div class="sync-viz" aria-hidden="true">
+              <div class="device"><span>Desktop<br>Hub</span></div>
+              <div class="wire"><span class="wire-label">LAN · TLS</span></div>
+              <div class="device phone"><span>Android</span></div>
+            </div>
+          </article>
         </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/repertoire.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Repertoire"></button>
-          <figcaption>
-            <span lang="ar">Repertoire · التنويعات بالأبيض والأسود</span>
-            <span><span lang="ar">تغطية 56 % من آخر 50 مباراة</span></span>
-          </figcaption>
-        </figure>
       </div>
-
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker"><span lang="ar">الألغاز والنهايات</span></p>
-          <h3><span lang="ar">تكتيكات مصنوعة من أخطائك أنت</span></h3>
-          <p><span lang="ar">إلى جانب قاعدة ألغاز Lichess المتاحة دون اتصال، يبني Kiebitz تمارين من الأوضاع التي فاتتك فيها النقلة الرابحة. تُضاف إليها تدريبات نهايات مختارة ضد المحرّك، مع جداول Syzygy اختياريًا.</span></p>
-          <ul class="ticks">
-            <li><span lang="ar">تصنيف الألغاز ونسبة الإصابة لكل موضوع</span></li>
-            <li><span lang="ar">النهايات: الترقية، ونهايات الرخّ، والمات الإجباري</span></li>
-            <li><span lang="ar">كل ذلك متاح دون اتصال بالإنترنت</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/puzzles.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Puzzles"></button>
-          <figcaption>
-            <span lang="ar">Puzzles · نسبة الإصابة لكل موضوع</span>
-            <span><span lang="ar">1701 تمرينًا من مبارياتك</span></span>
-          </figcaption>
-        </figure>
+      <div class="wrap xp-rail-foot" aria-hidden="true">
+        <span class="xp-rail-count"><b data-xp-panel-n>01</b> / 05</span>
+        <span class="xp-rail-bar"><i></i></span>
       </div>
-
-      <div class="feature flip rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Study</p>
-          <h3><span lang="ar">خطة تخرج من بياناتك أنت</span></h3>
-          <p><span lang="ar">يقرأ مخطّط الدراسة نقاط ضعفك من التحليلات ويقترح ما يناسب اليوم: مراجعات، وموضوع تكتيكي واحد، ونهاية واحدة. على هيئة قائمة يومية وخطة أسبوعية تعيد ترتيبها بنفسك.</span></p>
-          <ul class="ticks">
-            <li><span lang="ar">توصيات مسبَّبة مأخوذة من مبارياتك</span></li>
-            <li><span lang="ar">مخطّط أسبوعي بالسحب والإفلات</span></li>
-            <li><span lang="ar">تذكيرات محلية على الجهاز</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/study.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Study"></button>
-          <figcaption>
-            <span lang="ar">Study · توصيات المدرّب والخطة الأسبوعية</span>
-            <span><span lang="ar">هدف اليوم وسلسلة الأيام</span></span>
-          </figcaption>
-        </figure>
-      </div>
-
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker"><span lang="ar">مزامنة الأجهزة</span></p>
-          <h3><span lang="ar">جهازان وشبكة واحدة ولا شيء بينهما</span></h3>
-          <p><span lang="ar">الحاسوب هو المحور، والهاتف يقترن برمز QR. بعدها يتزامن الجهازان بتشفير ومباشرة عبر شبكتك المنزلية أو شبكتك الافتراضية الخاصة؛ العنوان ورمز الاقتران وبصمة الشهادة كلها داخل رمز QR. لا خادم بينهما، لأنه ببساطة غير موجود.</span></p>
-          <ul class="ticks">
-            <li><span lang="ar">تدرّب على الهاتف في تنقّلك، وحلّل مساءً على الحاسوب</span></li>
-            <li><span lang="ar">لا تُستخدم الكاميرا إلا لمسح رمز QR</span></li>
-            <li><span lang="ar">من دون اقتران، يعمل كل جهاز باستقلال تام</span></li>
-          </ul>
-        </div>
-        <div class="sync-viz" aria-hidden="true">
-          <div class="device"><span>Desktop<br>Hub</span></div>
-          <div class="wire"><span class="wire-label">LAN · TLS</span></div>
-          <div class="device phone"><span>Android</span></div>
-        </div>
-      </div>
-
-      <div class="more rv" style="margin-top:clamp(48px,6vw,84px)">
+    </div>
+    <div class="wrap xp-more">
+      <div class="more">
         <div>
           <h4><span lang="ar">لوحة المعلومات</span></h4>
           <p><span lang="ar">مسار التصنيف وآخر المباريات والمراجعات المستحقّة وقائمة التحليل في لمحة واحدة.</span></p>
@@ -340,29 +415,34 @@
     </div>
   </section>
 
-  <!-- ── 03 Local-first ────────────────────────────────────────────────── -->
-  <section class="section section-alt" id="local">
-    <div class="wrap">
-      <p class="eyebrow"><b>03</b> <span lang="ar">محلي أولًا</span></p>
-      <h2 class="section-title">
+  <!-- ── 03 Local-first: die Kuppel schließt sich ──────────────────────── -->
+  <section class="xp-local" id="local" data-xp-scene>
+    <div class="wrap xp-local-in">
+      <div class="xp-local-copy">
+        <p class="eyebrow"><b>03</b> <span lang="ar">محلي أولًا</span></p>
+        <h2 class="xp-display" data-xp-split>
 
 
 
 
 
 
-        <span lang="ar">مبارياتك مبارياتك وحدك.</span>
-      </h2>
-      <p class="lede">
+          <span lang="ar">مبارياتك مبارياتك وحدك.</span>
+        </h2>
+        <p class="lede">
 
 
 
 
 
 
-        <span lang="ar">تبقى المباريات والتحليلات وتقدّم التدريب على أجهزتك، وكل تحليل يجري محليًا. لا يحتاج Kiebitz Free إلى حساب؛ أما حساب Kiebitz Plus فلا يحمل سوى تسجيل الدخول والفوترة والتفعيل.</span>
-      </p>
-      <div class="privacy-grid rv">
+          <span lang="ar">تبقى المباريات والتحليلات وتقدّم التدريب على أجهزتك، وكل تحليل يجري محليًا. لا يحتاج Kiebitz Free إلى حساب؛ أما حساب Kiebitz Plus فلا يحمل سوى تسجيل الدخول والفوترة والتفعيل.</span>
+        </p>
+        <p class="xp-local-link">
+          <a class="btn btn-sm" href="privacy/index.html"><span lang="ar">سياسة الخصوصية كاملة</span></a>
+        </p>
+      </div>
+      <div class="privacy-grid">
         <div>
           <h4><span lang="ar">بيانات الشطرنج تبقى محلية</span></h4>
           <p><span lang="ar">تبقى المباريات والتحليلات والمرجع وتقدّم التدريب على أجهزتك، ولا تُرسل إلى Kiebitz ولا إلى مزوّد الإعلانات.</span></p>
@@ -380,17 +460,14 @@
           <p><span lang="ar">يستخدم Android Free إعلانات Google للجوال. وقبل أول إعلان مسموح، يطلب Google UMP خيارات الخصوصية المطلوبة؛ ويمكن تغييرها من الإعدادات ← الإعلانات والخصوصية.</span></p>
         </div>
       </div>
-      <p style="margin-top:26px">
-        <a class="btn btn-sm" href="privacy/index.html"><span lang="ar">سياسة الخصوصية كاملة</span></a>
-      </p>
     </div>
   </section>
 
   <!-- ── 04 Preise ─────────────────────────────────────────────────────── -->
-  <section class="section" id="pricing">
+  <section class="section xp-pricing" id="pricing" data-xp-scene>
     <div class="wrap">
       <p class="eyebrow"><b>04</b> <span lang="ar">الأسعار</span></p>
-      <h2 class="section-title">
+      <h2 class="section-title xp-display" data-xp-split>
 
 
 
@@ -409,7 +486,7 @@
         <span lang="ar">يبقى Kiebitz Free مجانيًا ويُموَّل بالإعلانات على سطح المكتب وAndroid. أما Kiebitz Plus فهو المستوى الخالي من الإعلانات، بالمزايا التي تعمل باستمرار من أجلك.</span>
       </p>
 
-      <div class="plans rv">
+      <div class="plans">
         <article class="plan">
           <p class="plan-flag plan-flag-live"><span class="dot" aria-hidden="true"></span><span lang="ar">متاح</span></p>
           <h3>Kiebitz Free</h3>
@@ -483,10 +560,21 @@
   </section>
 
   <!-- ── 05 Download ───────────────────────────────────────────────────── -->
-  <section class="section section-alt" id="download">
+  <section class="section xp-download" id="download" data-xp-scene>
+    <div class="wrap xp-flight" aria-hidden="true">
+      <p class="xp-flight-line" data-xp-split>
+
+
+
+
+
+
+        <span lang="ar">نقلة <span class="flight">تُحلّق</span>.</span>
+      </p>
+    </div>
     <div class="wrap">
       <p class="eyebrow"><b>05</b> <span lang="ar">التنزيل</span></p>
-      <h2 class="section-title">
+      <h2 class="section-title xp-display" data-xp-split>
 
 
 
@@ -495,7 +583,7 @@
 
         <span lang="ar">نزّله وابدأ.</span>
       </h2>
-      <div class="dl rv">
+      <div class="dl">
         <article class="dl-card">
           <h3>Desktop</h3>
           <p><span lang="ar">إصدارات لأنظمة Windows وmacOS وLinux، تتضمن Stockfish أصليًا وتدعم التحديثات التلقائية.</span></p>
@@ -526,7 +614,7 @@
   </section>
 
   <!-- ── 06 Feedback ─────────────────────────────────────────────────────── -->
-  <section class="section feedback-section" id="feedback">
+  <section class="section feedback-section xp-feedback" id="feedback" data-xp-scene>
     <div class="wrap">
       <p class="eyebrow"><b>06</b> <span lang="ar">الملاحظات</span></p>
       <div class="feedback-grid">
@@ -556,7 +644,7 @@
           </div>
         </div>
 
-        <details class="feedback-package rv">
+        <details class="feedback-package">
           <summary class="feedback-package-summary">
             <span class="package-topline">
               <span class="package-kicker"><span lang="ar">خط نقلات مختوم</span></span>
@@ -796,6 +884,7 @@
 </div>
 
 <script src="../assets/site.js" defer></script>
+<script type="module" src="../assets/experience.js"></script>
 <!-- Cloudflare Web Analytics -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"1b4e228e0b0d4095ae2c4a9a7abd5c95"}'></script>
 <!-- End Cloudflare Web Analytics -->

@@ -34,6 +34,9 @@ privacy/, terms/, impressum/       English legal pages
 cancel/, withdraw/                 public cancellation and withdrawal forms
 legal/                             self-contained contract annexes for the billing email
 assets/                            shared styles, script, fonts, images and social card
+assets/experience.{js,css}         3D experience of the landing page (Three.js + GSAP)
+assets/vendor/                     self-hosted three.js subset, GSAP and ScrollTrigger
+scripts/vendor/three.entry.js      which three.js classes go into assets/vendor/three.min.js
 robots.txt, sitemap.xml            generated crawler files
 ```
 
@@ -81,6 +84,44 @@ Do not add a production `CNAME` before the domain is registered and connected.
 After publishing, submit `/sitemap.xml` in Google Search Console and Bing
 Webmaster Tools. Inspect at least the English and German landing pages and
 request indexing.
+
+## Landing page experience
+
+The landing page tells Kiebitz as a scroll-driven 3D story. A fixed Three.js
+canvas sits behind the document and GSAP with ScrollTrigger moves the camera
+through nine keyframes: the board over White’s shoulder, games streaming in from
+chess.com, Lichess and PGN, a Stockfish scan with eval bar and best-move arrow,
+the board rising into an error landscape (opening low, middlegame high, endgame
+in between), the features as a pinned horizontal rail, a dome closing over the
+data for local-first, a calm top view for pricing, and finally the pieces taking
+off as a flock of lapwings — *Zug um Zugvogel*.
+
+- The pieces are built procedurally in `pieceGeometries()`: lathe profiles
+  for the round pieces, extruded silhouettes for the knight's head and mane,
+  the rook's battlements and the king's cross. Colours follow the app's piece
+  palette.
+- The intro shows the wordmark, the tagline and a thin loading line; the
+  download section opens with the tagline in large type while the flock
+  takes off.
+- Scroll distances are deliberately short: each chapter is one screen high
+  and the feature rail moves twice as fast as the scroll.
+- Every element with `data-xp-scene` is one keyframe; `KEYS` in
+  `assets/experience.js` holds one entry more than there are markers (the hero).
+  `npm run check` expects eight markers per language.
+- Content, links and forms stay complete in the HTML. The 3D layer only runs
+  when an inline gate in the template adds `html.xp`: WebGL 2 available and no
+  reduced-motion preference (or the footer’s animation toggle set to on).
+  Without it, and whenever loading fails, the page is the calm static version.
+- Three.js, GSAP and ScrollTrigger live in `assets/vendor/` and are only
+  requested when the experience runs. Nothing is loaded from other servers and
+  nothing is stored in the browser; `npm run check` enforces both.
+- `assets/vendor/three.min.js` is a tree-shaken bundle of the classes listed in
+  `scripts/vendor/three.entry.js`. When the stage needs another class, add it
+  there and rebuild with esbuild as described in that file. Licences are in
+  `assets/vendor/LICENSES.md`.
+- Append `?xp-debug` to the URL to expose `window.__xp` (stage, gsap,
+  ScrollTrigger) for checking single frames, e.g. `__xp.stage.pin = 3` shows
+  the error landscape regardless of the scroll position.
 
 ## Downloads and feedback
 

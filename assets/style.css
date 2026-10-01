@@ -1733,6 +1733,11 @@ html[dir="rtl"] .doc address { direction: rtl; }
   .feedback-copy { padding-top: 0; }
 }
 
+/* Sehr schmal: der Sprachname hat Vorrang vor dem Globus. */
+@media (max-width: 370px) {
+  .lang-globe { display: none; }
+}
+
 @media (max-width: 640px) {
   .top-in {
     gap: 8px;
@@ -1750,7 +1755,7 @@ html[dir="rtl"] .doc address { direction: rtl; }
     padding-inline: 7px;
   }
   .lang-select {
-    width: 58px;
+    width: auto;
     padding-right: 14px;
     background-position: calc(100% - 7px) 55%, calc(100% - 3px) 55%;
   }

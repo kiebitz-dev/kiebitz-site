@@ -114,6 +114,39 @@ for (const language of codes) {
   report(/href="[^"]*plus\/index\.html"/.test(home), `${fileFor(language, "home")}: pricing has no link to /plus/`);
 }
 
+// ── Experience der Startseite ───────────────────────────────────────────────
+// Die 3D-Bühne lädt ihre Bibliotheken selbst nach; fehlt eine Datei, fällt
+// die Seite still in die ruhige Fassung zurück. Darum prüft der Build hier,
+// was das HTML allein nicht verrät. Selbst gehostet heißt: kein fremder Server,
+// und gespeichert wird im Browser nichts.
+for (const file of [
+  "assets/experience.js",
+  "assets/experience.css",
+  "assets/vendor/three.min.js",
+  "assets/vendor/gsap.min.js",
+  "assets/vendor/ScrollTrigger.min.js",
+  "assets/vendor/LICENSES.md"
+]) {
+  try {
+    await access(path.join(root, ...file.split("/")));
+  } catch {
+    errors.push(`${file}: missing`);
+  }
+}
+const experienceScript = await readFile(path.join(root, "assets", "experience.js"), "utf8");
+report(!/https?:\/\//.test(experienceScript), "assets/experience.js: must not load anything from other servers");
+report(!/localStorage|sessionStorage|indexedDB|document\.cookie/.test(experienceScript), "assets/experience.js: must not store anything in the browser");
+for (const vendor of ["three.min.js", "gsap.min.js", "ScrollTrigger.min.js"]) {
+  report(experienceScript.includes(vendor), `assets/experience.js: does not load ${vendor}`);
+}
+for (const language of codes) {
+  const relative = fileFor(language, "home");
+  const home = await readFile(path.join(root, ...relative.split("/")), "utf8");
+  report(/<script type="module" src="[^"]*assets\/experience\.js"><\/script>/.test(home), `${relative}: experience.js not loaded as a module`);
+  report(/<link rel="stylesheet" href="[^"]*assets\/experience\.css">/.test(home), `${relative}: experience.css not linked`);
+  report((home.match(/data-xp-scene/g) || []).length === 8, `${relative}: expected eight scene markers for the camera keyframes`);
+}
+
 // ── Vertragsbedingungen ─────────────────────────────────────────────────────
 // Kaufen heißt einen Vertrag schließen: Die Bedingungen müssen aus jedem Footer
 // erreichbar sein und unmittelbar neben dem Kauf-Aufruf stehen — zusammen mit

@@ -68,8 +68,41 @@
 </script>
 <link rel="preload" href="../assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/experience.css">
+<script>
+// Die 3D-Erzählung nur dort, wo Bewegung erwünscht ist und WebGL 2 bereitsteht.
+// Ohne diese Klasse bleibt die Seite ein ruhiges, vollständiges Dokument.
+!function () {
+  var d = document.documentElement, m = null;
+  try { m = localStorage.getItem("kiebitz-motion"); } catch (e) { /* egal */ }
+  var still = m === "off" || (m !== "on" && window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  if (still) return;
+  try {
+    var gl = document.createElement("canvas").getContext("webgl2");
+    if (!gl) return;
+    var lose = gl.getExtension("WEBGL_lose_context");
+    if (lose) lose.loseContext();
+    d.classList.add("xp");
+  } catch (e) { /* egal */ }
+}();
+</script>
 </head>
 <body>
+<div class="xp-stage" aria-hidden="true">
+  <canvas class="xp-canvas" data-xp-canvas></canvas>
+  <div class="xp-veil"></div>
+  <div class="xp-grain"></div>
+</div>
+<div class="xp-intro" aria-hidden="true">
+  <div class="xp-intro-mark">
+    <img src="../assets/icon-128.png" width="44" height="44" alt="">
+    <span>Kiebitz</span>
+  </div>
+  <div class="xp-intro-meta">
+    <span><span lang="zh">步步高飞</span></span>
+  </div>
+  <div class="xp-intro-line"><i data-xp-bar></i></div>
+</div>
 <a class="skip" href="#main"><span lang="zh">跳到主要内容</span></a>
 
 <header class="top">
@@ -109,22 +142,34 @@
   </div>
 </header>
 
+<nav class="xp-hud" aria-hidden="true">
+  <a href="#top" tabindex="-1" data-xp-hud="top"><i></i><span>Kiebitz</span></a>
+  <a href="#import" tabindex="-1" data-xp-hud="import"><i></i><span><span lang="zh">导入</span></span></a>
+  <a href="#analyze" tabindex="-1" data-xp-hud="analyze"><i></i><span><span lang="zh">分析</span></span></a>
+  <a href="#understand" tabindex="-1" data-xp-hud="understand"><i></i><span><span lang="zh">看懂</span></span></a>
+  <a href="#features" tabindex="-1" data-xp-hud="features"><i></i><span><span lang="zh">功能</span></span></a>
+  <a href="#local" tabindex="-1" data-xp-hud="local"><i></i><span><span lang="zh">本地优先</span></span></a>
+  <a href="#pricing" tabindex="-1" data-xp-hud="pricing"><i></i><span><span lang="zh">价格</span></span></a>
+  <a href="#download" tabindex="-1" data-xp-hud="download"><i></i><span><span lang="zh">下载</span></span></a>
+  <a href="#feedback" tabindex="-1" data-xp-hud="feedback"><i></i><span><span lang="zh">反馈</span></span></a>
+</nav>
+
 <main id="main">
 
   <!-- ── Hero ──────────────────────────────────────────────────────────── -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="badge"><span class="dot" aria-hidden="true"></span><span lang="zh">新 · 现已上架 Google Play</span></p>
-        <h1>
+  <section class="xp-hero" id="top">
+    <div class="wrap xp-hero-in">
+      <p class="badge" data-xp-intro><span class="dot" aria-hidden="true"></span><span lang="zh">新 · 现已上架 Google Play</span></p>
+      <h1 class="xp-title" data-xp-split>
 
 
 
 
-          <span lang="zh">Kiebitz 在你身后<span class="flight">观棋</span>。</span>
+        <span lang="zh">Kiebitz 在你身后<span class="flight">观棋</span>。</span>
 
 
-        </h1>
+      </h1>
+      <div class="xp-hero-copy" data-xp-intro>
 
 
 
@@ -132,40 +177,32 @@
         <p class="hero-sub" lang="zh"><i>Kiebitz</i> 是一种鸟，在德语里也指在旁边看棋的人。这款应用会导入你在 chess.com 和 Lichess 上的对局，用原生 Stockfish 跑完整个对局历史，告诉你棋究竟坏在哪里，而不是你以为的地方。<strong>所有数据都留在你自己的设备上。</strong></p>
 
 
-        <div class="cta">
-          <a class="btn btn-primary" href="https://github.com/kiebitz-dev/Kiebitz/releases" rel="noopener">
-            <span lang="zh">下载桌面版</span>
-          </a>
-          <a class="btn" href="https://play.google.com/store/apps/details?id=de.torim.kiebitz" target="_blank" rel="noopener">
-            <span lang="zh">在 Google Play 下载</span>
-          </a>
-        </div>
-        <p class="cta-note"><span lang="zh">免费 · 桌面版通过 GitHub · Android 在 Google Play</span></p>
       </div>
-
-      <div class="board-card" aria-hidden="true">
-        <div class="board-head">
-          <span data-route-label>Knight · b1 → e8</span>
-          <span data-square-label>b1</span>
-        </div>
-        <div class="board-stage">
-          <div class="board-lattice"></div>
-          <svg class="board-path" viewBox="0 0 8 8" preserveAspectRatio="none" focusable="false"></svg>
-        </div>
-        <div class="board-coords"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
-        <div class="board-foot">
-          <span class="pill"><span lang="zh">Stockfish · 原生</span></span>
-          <span><span lang="zh">分析在你的设备上运行。</span></span>
-        </div>
+      <div class="cta" data-xp-intro>
+        <a class="btn btn-primary" href="https://github.com/kiebitz-dev/Kiebitz/releases" rel="noopener" data-xp-magnet>
+          <span lang="zh">下载桌面版</span>
+        </a>
+        <a class="btn" href="https://play.google.com/store/apps/details?id=de.torim.kiebitz" target="_blank" rel="noopener" data-xp-magnet>
+          <span lang="zh">在 Google Play 下载</span>
+        </a>
       </div>
+      <p class="cta-note" data-xp-intro><span lang="zh">免费 · 桌面版通过 GitHub · Android 在 Google Play</span></p>
+    </div>
+    <div class="wrap xp-hero-foot" aria-hidden="true">
+      <span class="xp-scroll"><i></i></span>
+      <span class="xp-readout">
+        <b data-xp-route>♘ b1</b>
+        <span><span lang="zh">Stockfish · 原生</span></span>
+        <span><span lang="zh">分析在你的设备上运行。</span></span>
+      </span>
     </div>
   </section>
 
-  <!-- ── 01 Ablauf ─────────────────────────────────────────────────────── -->
-  <section class="section section-alt">
-    <div class="wrap">
+  <!-- ── 01 Ablauf: drei Kapitel, die Kamera fliegt mit ─────────────────── -->
+  <section class="xp-how" id="how" aria-labelledby="how-title">
+    <div class="wrap xp-how-head">
       <p class="eyebrow"><b>01</b> <span lang="zh">使用流程</span></p>
-      <h2 class="section-title">
+      <h2 class="xp-display" id="how-title" data-xp-split>
 
 
 
@@ -174,144 +211,182 @@
 
 
       </h2>
-      <div class="flow rv">
-        <article class="step">
-          <p class="step-n">01</p>
-          <h3><span lang="zh">导入</span></h3>
-          <p><span lang="zh">填上用户名就行。Kiebitz 会取回完整历史，自动去重，也支持 PGN 导入实地对局。</span></p>
-          <div class="step-viz srcrow">
-            <span class="srcpill cc">chess.com</span>
-            <span class="srcpill li">lichess</span>
-            <span class="srcpill pgn">PGN</span>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-n">02</p>
-          <h3><span lang="zh">分析</span></h3>
-          <p><span lang="zh">原生 Stockfish 在后台处理队列：逐着评分，标出不精确、失误、严重失误与准确率。</span></p>
-          <div class="step-viz">
-            <div class="evalbar" aria-hidden="true"><span class="w" style="width:52%"></span><span class="b"></span></div>
-            <div class="evalticks" aria-hidden="true"><span>1. e4</span><span class="bad">24. Nf3?? −3.1</span><span>41. Kg2</span></div>
-          </div>
-        </article>
-        <article class="step">
-          <p class="step-n">03</p>
-          <h3><span lang="zh">看懂</span></h3>
-          <p><span lang="zh">不是“下得不错”，而是：在哪个阶段、哪个开局、哪种用时规则下崩盘。</span></p>
-          <div class="step-viz bars" aria-hidden="true">
-            <div class="bar"><span class="bar-l"><span lang="zh">开局</span></span><span class="bar-t"><i data-w="22"></i></span><span class="bar-v">0.4</span></div>
-            <div class="bar hot"><span class="bar-l"><span lang="zh">中局</span></span><span class="bar-t"><i data-w="78"></i></span><span class="bar-v">1.9</span></div>
-            <div class="bar"><span class="bar-l"><span lang="zh">残局</span></span><span class="bar-t"><i data-w="46"></i></span><span class="bar-v">0.9</span></div>
-          </div>
-        </article>
-      </div>
     </div>
+
+    <article class="xp-chapter" id="import" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>01</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="zh">导入</span></h3>
+            <p class="xp-step-copy"><span lang="zh">填上用户名就行。Kiebitz 会取回完整历史，自动去重，也支持 PGN 导入实地对局。</span></p>
+            <div class="step-viz srcrow">
+              <span class="srcpill cc">chess.com</span>
+              <span class="srcpill li">lichess</span>
+              <span class="srcpill pgn">PGN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-chapter" id="analyze" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>02</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="zh">分析</span></h3>
+            <p class="xp-step-copy"><span lang="zh">原生 Stockfish 在后台处理队列：逐着评分，标出不精确、失误、严重失误与准确率。</span></p>
+            <div class="step-viz">
+              <div class="evalbar" aria-hidden="true"><span class="w" style="width:52%"></span><span class="b"></span></div>
+              <div class="evalticks" aria-hidden="true"><span>1. e4</span><span class="bad">24. Nf3?? −3.1</span><span>41. Kg2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp-chapter" id="understand" data-xp-scene>
+      <div class="xp-sticky">
+        <div class="wrap">
+          <div class="xp-card" data-xp-card>
+            <p class="xp-step-n"><b>03</b><span>/ 03</span></p>
+            <h3 class="xp-step-title"><span lang="zh">看懂</span></h3>
+            <p class="xp-step-copy"><span lang="zh">不是“下得不错”，而是：在哪个阶段、哪个开局、哪种用时规则下崩盘。</span></p>
+            <div class="step-viz bars" aria-hidden="true">
+              <div class="bar"><span class="bar-l"><span lang="zh">开局</span></span><span class="bar-t"><i data-w="22"></i></span><span class="bar-v">0.4</span></div>
+              <div class="bar hot"><span class="bar-l"><span lang="zh">中局</span></span><span class="bar-t"><i data-w="78"></i></span><span class="bar-v">1.9</span></div>
+              <div class="bar"><span class="bar-l"><span lang="zh">残局</span></span><span class="bar-t"><i data-w="46"></i></span><span class="bar-v">0.9</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   </section>
 
-  <!-- ── 02 Funktionen ─────────────────────────────────────────────────── -->
-  <section class="section" id="features">
-    <div class="wrap">
-      <p class="eyebrow"><b>02</b> <span lang="zh">功能</span></p>
+  <!-- ── 02 Funktionen: horizontale Bahn, angeheftet ───────────────────── -->
+  <section class="xp-features" id="features" data-xp-scene>
+    <div class="xp-pin">
+      <div class="wrap xp-features-head">
+        <p class="eyebrow"><b>02</b> <span lang="zh">功能</span></p>
+        <h2 class="xp-display" data-xp-split>
 
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Insights</p>
-          <h3><span lang="zh">你的棋究竟坏在哪里</span></h3>
-          <p><span lang="zh">四个覆盖全部历史的分析页面，而不是每局给一个数字：棋力、按执棋方分开的开局、行为模式，以及失误集中的阶段。</span></p>
-          <ul class="ticks">
-            <li><span lang="zh">以月为跨度的准确率与失误率，而不是单局数据</span></li>
-            <li><span lang="zh">开局的胜负结果、偏离点与命中率</span></li>
-            <li><span lang="zh">行为模式：时间紧张、连场久战、复仇局</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/insights.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Insights"></button>
-          <figcaption>
-            <span lang="zh">Insights · 棋力、突出问题与各阶段失误</span>
-            <span><span lang="zh">1,509 局</span></span>
-          </figcaption>
-        </figure>
+
+
+
+          <span lang="zh">五件工具，一份对局历史。</span>
+
+
+        </h2>
       </div>
+      <div class="xp-rail">
+        <div class="xp-track">
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Insights</p>
+              <h3><span lang="zh">你的棋究竟坏在哪里</span></h3>
+              <p><span lang="zh">四个覆盖全部历史的分析页面，而不是每局给一个数字：棋力、按执棋方分开的开局、行为模式，以及失误集中的阶段。</span></p>
+              <ul class="ticks">
+                <li><span lang="zh">以月为跨度的准确率与失误率，而不是单局数据</span></li>
+                <li><span lang="zh">开局的胜负结果、偏离点与命中率</span></li>
+                <li><span lang="zh">行为模式：时间紧张、连场久战、复仇局</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/insights.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Insights"></button>
+              <figcaption>
+                <span lang="zh">Insights · 棋力、突出问题与各阶段失误</span>
+                <span><span lang="zh">1,509 局</span></span>
+              </figcaption>
+            </figure>
+          </article>
 
-      <div class="feature flip rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Repertoire · FSRS</p>
-          <h3><span lang="zh">真正记得住的开局库</span></h3>
-          <p><span lang="zh">你的开局库是一棵局面树，用 FSRS 间隔重复来复习，跟好用的记忆卡应用是同一套办法。每一着都有自己的间隔，到期复习每天早上出现在仪表盘上。</span></p>
-          <ul class="ticks">
-            <li><span lang="zh">把自己对局里的着法直接收进开局库</span></li>
-            <li><span lang="zh">按开局统计覆盖率，白方黑方分开</span></li>
-            <li><span lang="zh">连续天数和到期卡片，而不是没完没了地刷</span></li>
-          </ul>
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Repertoire · FSRS</p>
+              <h3><span lang="zh">真正记得住的开局库</span></h3>
+              <p><span lang="zh">你的开局库是一棵局面树，用 FSRS 间隔重复来复习，跟好用的记忆卡应用是同一套办法。每一着都有自己的间隔，到期复习每天早上出现在仪表盘上。</span></p>
+              <ul class="ticks">
+                <li><span lang="zh">把自己对局里的着法直接收进开局库</span></li>
+                <li><span lang="zh">按开局统计覆盖率，白方黑方分开</span></li>
+                <li><span lang="zh">连续天数和到期卡片，而不是没完没了地刷</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/repertoire.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Repertoire"></button>
+              <figcaption>
+                <span lang="zh">Repertoire · 执白与执黑的变例</span>
+                <span><span lang="zh">最近 50 局覆盖率 56 %</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker"><span lang="zh">战术题与残局</span></p>
+              <h3><span lang="zh">用你自己的失误做成的战术题</span></h3>
+              <p><span lang="zh">除了可离线使用的 Lichess 战术题库，Kiebitz 还会用你漏掉制胜着法的局面生成习题。另有精选残局，可与引擎对练，并可选用 Syzygy 残局库。</span></p>
+              <ul class="ticks">
+                <li><span lang="zh">战术题 Elo 与各主题命中率</span></li>
+                <li><span lang="zh">残局：升变、车残局、强制杀法</span></li>
+                <li><span lang="zh">全部可离线练习，无需联网</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/puzzles.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Puzzles"></button>
+              <figcaption>
+                <span lang="zh">Puzzles · 各主题命中率</span>
+                <span><span lang="zh">1,701 道来自自己对局的习题</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature">
+            <div class="feature-text">
+              <p class="feature-kicker">Study</p>
+              <h3><span lang="zh">从你的数据里长出来的训练计划</span></h3>
+              <p><span lang="zh">学习计划器从分析里读出你的弱点，给出今天该做什么：复习、一个战术主题、一个残局。既是每日清单，也是可自行调整顺序的周计划。</span></p>
+              <ul class="ticks">
+                <li><span lang="zh">建议都附带来自你对局的理由</span></li>
+                <li><span lang="zh">可拖放的周计划表</span></li>
+                <li><span lang="zh">提醒完全在设备本地产生</span></li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/study.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Study"></button>
+              <figcaption>
+                <span lang="zh">Study · 教练建议与周计划</span>
+                <span><span lang="zh">每日目标与连续天数</span></span>
+              </figcaption>
+            </figure>
+          </article>
+
+          <article class="xp-panel feature xp-panel-sync">
+            <div class="feature-text">
+              <p class="feature-kicker"><span lang="zh">设备同步</span></p>
+              <h3><span lang="zh">两台设备，一个网络，中间什么都没有</span></h3>
+              <p><span lang="zh">桌面端是枢纽，手机通过二维码配对。之后两端加密后直接经由你的家庭网络或 VPN 同步；地址、配对码和证书指纹都在二维码里。中间没有服务器，因为根本就没有。</span></p>
+              <ul class="ticks">
+                <li><span lang="zh">路上用手机练，晚上回到桌面端分析</span></li>
+                <li><span lang="zh">摄像头只用于扫描二维码</span></li>
+                <li><span lang="zh">不配对时，每台设备都完全独立运行</span></li>
+              </ul>
+            </div>
+            <div class="sync-viz" aria-hidden="true">
+              <div class="device"><span>Desktop<br>Hub</span></div>
+              <div class="wire"><span class="wire-label">LAN · TLS</span></div>
+              <div class="device phone"><span>Android</span></div>
+            </div>
+          </article>
         </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/repertoire.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Repertoire"></button>
-          <figcaption>
-            <span lang="zh">Repertoire · 执白与执黑的变例</span>
-            <span><span lang="zh">最近 50 局覆盖率 56 %</span></span>
-          </figcaption>
-        </figure>
       </div>
-
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker"><span lang="zh">战术题与残局</span></p>
-          <h3><span lang="zh">用你自己的失误做成的战术题</span></h3>
-          <p><span lang="zh">除了可离线使用的 Lichess 战术题库，Kiebitz 还会用你漏掉制胜着法的局面生成习题。另有精选残局，可与引擎对练，并可选用 Syzygy 残局库。</span></p>
-          <ul class="ticks">
-            <li><span lang="zh">战术题 Elo 与各主题命中率</span></li>
-            <li><span lang="zh">残局：升变、车残局、强制杀法</span></li>
-            <li><span lang="zh">全部可离线练习，无需联网</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/puzzles.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Puzzles"></button>
-          <figcaption>
-            <span lang="zh">Puzzles · 各主题命中率</span>
-            <span><span lang="zh">1,701 道来自自己对局的习题</span></span>
-          </figcaption>
-        </figure>
+      <div class="wrap xp-rail-foot" aria-hidden="true">
+        <span class="xp-rail-count"><b data-xp-panel-n>01</b> / 05</span>
+        <span class="xp-rail-bar"><i></i></span>
       </div>
-
-      <div class="feature flip rv">
-        <div class="feature-text">
-          <p class="feature-kicker">Study</p>
-          <h3><span lang="zh">从你的数据里长出来的训练计划</span></h3>
-          <p><span lang="zh">学习计划器从分析里读出你的弱点，给出今天该做什么：复习、一个战术主题、一个残局。既是每日清单，也是可自行调整顺序的周计划。</span></p>
-          <ul class="ticks">
-            <li><span lang="zh">建议都附带来自你对局的理由</span></li>
-            <li><span lang="zh">可拖放的周计划表</span></li>
-            <li><span lang="zh">提醒完全在设备本地产生</span></li>
-          </ul>
-        </div>
-        <figure class="shot">
-          <button class="shot-zoom" type="button" data-aria="screenshot" aria-label="Screenshot"><img src="../assets/shots/study.png" width="1920" height="1009" loading="lazy" decoding="async" alt="Kiebitz Study"></button>
-          <figcaption>
-            <span lang="zh">Study · 教练建议与周计划</span>
-            <span><span lang="zh">每日目标与连续天数</span></span>
-          </figcaption>
-        </figure>
-      </div>
-
-      <div class="feature rv">
-        <div class="feature-text">
-          <p class="feature-kicker"><span lang="zh">设备同步</span></p>
-          <h3><span lang="zh">两台设备，一个网络，中间什么都没有</span></h3>
-          <p><span lang="zh">桌面端是枢纽，手机通过二维码配对。之后两端加密后直接经由你的家庭网络或 VPN 同步；地址、配对码和证书指纹都在二维码里。中间没有服务器，因为根本就没有。</span></p>
-          <ul class="ticks">
-            <li><span lang="zh">路上用手机练，晚上回到桌面端分析</span></li>
-            <li><span lang="zh">摄像头只用于扫描二维码</span></li>
-            <li><span lang="zh">不配对时，每台设备都完全独立运行</span></li>
-          </ul>
-        </div>
-        <div class="sync-viz" aria-hidden="true">
-          <div class="device"><span>Desktop<br>Hub</span></div>
-          <div class="wire"><span class="wire-label">LAN · TLS</span></div>
-          <div class="device phone"><span>Android</span></div>
-        </div>
-      </div>
-
-      <div class="more rv" style="margin-top:clamp(48px,6vw,84px)">
+    </div>
+    <div class="wrap xp-more">
+      <div class="more">
         <div>
           <h4><span lang="zh">仪表盘</span></h4>
           <p><span lang="zh">等级分曲线、最近对局、到期复习和分析队列，一眼看全。</span></p>
@@ -340,29 +415,34 @@
     </div>
   </section>
 
-  <!-- ── 03 Local-first ────────────────────────────────────────────────── -->
-  <section class="section section-alt" id="local">
-    <div class="wrap">
-      <p class="eyebrow"><b>03</b> <span lang="zh">本地优先</span></p>
-      <h2 class="section-title">
+  <!-- ── 03 Local-first: die Kuppel schließt sich ──────────────────────── -->
+  <section class="xp-local" id="local" data-xp-scene>
+    <div class="wrap xp-local-in">
+      <div class="xp-local-copy">
+        <p class="eyebrow"><b>03</b> <span lang="zh">本地优先</span></p>
+        <h2 class="xp-display" data-xp-split>
 
 
 
 
-        <span lang="zh">你的对局，就是你的对局。</span>
+          <span lang="zh">你的对局，就是你的对局。</span>
 
 
-      </h2>
-      <p class="lede">
+        </h2>
+        <p class="lede">
 
 
 
 
-        <span lang="zh">对局、分析和训练进度都保留在你的设备上，所有分析都在本地运行。Kiebitz Free 无需账号；Kiebitz Plus 的账号只承担登录、计费和解锁。</span>
+          <span lang="zh">对局、分析和训练进度都保留在你的设备上，所有分析都在本地运行。Kiebitz Free 无需账号；Kiebitz Plus 的账号只承担登录、计费和解锁。</span>
 
 
-      </p>
-      <div class="privacy-grid rv">
+        </p>
+        <p class="xp-local-link">
+          <a class="btn btn-sm" href="privacy/index.html"><span lang="zh">完整隐私政策</span></a>
+        </p>
+      </div>
+      <div class="privacy-grid">
         <div>
           <h4><span lang="zh">棋局数据保留在本地</span></h4>
           <p><span lang="zh">对局、分析、开局库和训练进度都保留在你的设备上，既不会发送给 Kiebitz，也不会发送给广告提供商。</span></p>
@@ -380,17 +460,14 @@
           <p><span lang="zh">Android Free 使用 Google Mobile Ads。首次投放合规广告前，Google UMP 会请求所需的隐私选择；你可在“设置 → 广告与隐私”中更改。</span></p>
         </div>
       </div>
-      <p style="margin-top:26px">
-        <a class="btn btn-sm" href="privacy/index.html"><span lang="zh">完整隐私政策</span></a>
-      </p>
     </div>
   </section>
 
   <!-- ── 04 Preise ─────────────────────────────────────────────────────── -->
-  <section class="section" id="pricing">
+  <section class="section xp-pricing" id="pricing" data-xp-scene>
     <div class="wrap">
       <p class="eyebrow"><b>04</b> <span lang="zh">价格</span></p>
-      <h2 class="section-title">
+      <h2 class="section-title xp-display" data-xp-split>
 
 
 
@@ -409,7 +486,7 @@
 
       </p>
 
-      <div class="plans rv">
+      <div class="plans">
         <article class="plan">
           <p class="plan-flag plan-flag-live"><span class="dot" aria-hidden="true"></span><span lang="zh">现已可用</span></p>
           <h3>Kiebitz Free</h3>
@@ -483,10 +560,21 @@
   </section>
 
   <!-- ── 05 Download ───────────────────────────────────────────────────── -->
-  <section class="section section-alt" id="download">
+  <section class="section xp-download" id="download" data-xp-scene>
+    <div class="wrap xp-flight" aria-hidden="true">
+      <p class="xp-flight-line" data-xp-split>
+
+
+
+
+        <span lang="zh">步步<span class="flight">高飞</span>。</span>
+
+
+      </p>
+    </div>
     <div class="wrap">
       <p class="eyebrow"><b>05</b> <span lang="zh">下载</span></p>
-      <h2 class="section-title">
+      <h2 class="section-title xp-display" data-xp-split>
 
 
 
@@ -495,7 +583,7 @@
 
 
       </h2>
-      <div class="dl rv">
+      <div class="dl">
         <article class="dl-card">
           <h3>Desktop</h3>
           <p><span lang="zh">提供 Windows、macOS 和 Linux 版本，内置原生 Stockfish，并支持自动更新。</span></p>
@@ -526,7 +614,7 @@
   </section>
 
   <!-- ── 06 Feedback ─────────────────────────────────────────────────────── -->
-  <section class="section feedback-section" id="feedback">
+  <section class="section feedback-section xp-feedback" id="feedback" data-xp-scene>
     <div class="wrap">
       <p class="eyebrow"><b>06</b> <span lang="zh">反馈</span></p>
       <div class="feedback-grid">
@@ -556,7 +644,7 @@
           </div>
         </div>
 
-        <details class="feedback-package rv">
+        <details class="feedback-package">
           <summary class="feedback-package-summary">
             <span class="package-topline">
               <span class="package-kicker"><span lang="zh">封缄的着法线</span></span>
@@ -796,6 +884,7 @@
 </div>
 
 <script src="../assets/site.js" defer></script>
+<script type="module" src="../assets/experience.js"></script>
 <!-- Cloudflare Web Analytics -->
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"1b4e228e0b0d4095ae2c4a9a7abd5c95"}'></script>
 <!-- End Cloudflare Web Analytics -->
