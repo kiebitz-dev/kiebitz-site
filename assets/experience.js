@@ -278,7 +278,7 @@ function choreograph(gsap, ScrollTrigger, stage) {
   // Alles Übrige: sanft herein, sobald es den unteren Rand erreicht.
   const reveal = $$([
     ".xp-how-head .eyebrow",
-    ".xp-features-head .eyebrow",
+    ".xp-features-head .eyebrow", ".xp-rail-foot",
     ".xp-local .eyebrow", ".xp-local .lede", ".xp-local-link",
     ".xp-pricing .eyebrow", ".xp-pricing .lede", ".xp-pricing .plan",
     ".xp-download .eyebrow", ".xp-download .dl-card", ".xp-download .small",
@@ -289,51 +289,6 @@ function choreograph(gsap, ScrollTrigger, stage) {
     start: "top 90%",
     once: true,
     onEnter: (batch) => gsap.to(batch, { opacity: 1, y: 0, duration: 1.1, stagger: 0.08, ease: "expo.out", overwrite: true })
-  });
-
-  // Funktionen: auf breiten Bildschirmen eine angeheftete, horizontale Bahn.
-  const mm = gsap.matchMedia();
-  mm.add("(min-width: 960px)", () => {
-    const pin = $(".xp-pin");
-    const track = $(".xp-track");
-    const bar = $(".xp-rail-bar i");
-    const number = $("[data-xp-panel-n]");
-    const panels = $$(".xp-panel", track);
-    $$("img", track).forEach((img) => { img.loading = "eager"; });
-    const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
-    const slide = gsap.to(track, {
-      x: () => (RTL ? 1 : -1) * distance(),
-      ease: "none",
-      scrollTrigger: {
-        trigger: pin,
-        pin: true,
-        start: "top top",
-        // Die Bahn läuft doppelt so schnell wie der Scroll: sechs Tafeln ohne
-        // sechs Bildschirmhöhen Fingerarbeit.
-        end: () => `+=${distance() * 0.5}`,
-        scrub: 0.9,
-        invalidateOnRefresh: true,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          if (bar) bar.style.transform = `scaleX(${self.progress})`;
-          if (number) number.textContent = `0${1 + Math.round(self.progress * (panels.length - 1))}`;
-        }
-      }
-    });
-    for (const panel of panels.slice(1)) {
-      const visual = $(".shot, .sync-viz, .more", panel);
-      const text = $(".feature-text", panel);
-      const scroll = RTL
-        ? { start: "right 2%", end: "right 55%" }
-        : { start: "left 98%", end: "left 45%" };
-      gsap.fromTo(visual,
-        { rotateY: RTL ? 24 : -24, xPercent: RTL ? -10 : 10, transformPerspective: 1400, transformOrigin: RTL ? "right center" : "left center" },
-        { rotateY: 0, xPercent: 0, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: slide, scrub: true, ...scroll } });
-      gsap.fromTo(text,
-        { opacity: 0.15, x: RTL ? -60 : 60 },
-        { opacity: 1, x: 0, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: slide, scrub: true, ...scroll } });
-    }
-    return () => gsap.set(track, { clearProps: "transform" });
   });
 
   // Aufklappen des Feedback-Formulars verschiebt alles darunter.
@@ -374,8 +329,7 @@ function choreograph(gsap, ScrollTrigger, stage) {
   }, { passive: true });
   window.addEventListener("resize", () => stage.resize());
 
-  // Trigger unterhalb der angehefteten Bahn entstanden vor ihr und kennen ihre
-  // Scrollstrecke noch nicht: nach Lage sortieren und alles neu vermessen.
+  // Alle Trigger stehen: nach Lage sortieren und einmal neu vermessen.
   ScrollTrigger.sort();
   ScrollTrigger.refresh();
 

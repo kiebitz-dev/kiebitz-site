@@ -92,7 +92,7 @@ canvas sits behind the document and GSAP with ScrollTrigger moves the camera
 through nine keyframes: the board over White’s shoulder, games streaming in from
 chess.com, Lichess and PGN, a Stockfish scan with eval bar and best-move arrow,
 the board rising into an error landscape (opening low, middlegame high, endgame
-in between), the features as a pinned horizontal rail, a dome closing over the
+in between), the features as a horizontal rail, a dome closing over the
 data for local-first, a calm top view for pricing, and finally the pieces taking
 off as a flock of lapwings — *Zug um Zugvogel*.
 
@@ -109,7 +109,10 @@ off as a flock of lapwings — *Zug um Zugvogel*.
   download section opens with the tagline in large type while the flock
   takes off.
 - Scroll distances are deliberately short: each chapter is one screen high
-  and the feature rail moves twice as fast as the scroll.
+  and the features sit in a snapping horizontal rail at every width, so a
+  vertical scroll passes them in one go. Buttons, swipe, trackpad or
+  Shift+wheel page through it; on phones the cards are compact enough for
+  the whole rail to fit on one screen.
 - Every element with `data-xp-scene` is one keyframe; `KEYS` in
   `assets/experience.js` holds one entry more than there are markers (the hero).
   `npm run check` expects eight markers per language.

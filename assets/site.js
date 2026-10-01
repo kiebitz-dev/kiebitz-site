@@ -196,26 +196,49 @@
     }
   }
 
-  /* ── Funktionen als Wischleiste (schmale Bildschirme): Zähler und Linie ── */
+  /* ── Funktionen als Querleiste: Zähler, Linie, Blätterknöpfe ──────────── */
   var rail = document.querySelector(".xp-rail");
   if (rail) {
     var railPanels = rail.querySelectorAll(".xp-panel");
     var railNumber = document.querySelector("[data-xp-panel-n]");
     var railBar = document.querySelector(".xp-rail-bar i");
+    var railButtons = document.querySelectorAll("[data-rail-step]");
+    var railRtl = document.documentElement.getAttribute("dir") === "rtl";
     var railFrame = 0;
+    // Abstand von einer Karte zur nächsten, Lücke eingeschlossen.
+    var railStep = function () {
+      if (railPanels.length < 2) return rail.clientWidth;
+      return Math.abs(railPanels[1].offsetLeft - railPanels[0].offsetLeft);
+    };
     var paintRail = function () {
       railFrame = 0;
       var max = rail.scrollWidth - rail.clientWidth;
-      if (max <= 0 || !railPanels.length) return;
+      if (!railPanels.length) return;
       // Im RTL-Layout zählt scrollLeft von 0 ins Negative.
-      var progress = Math.min(1, Math.abs(rail.scrollLeft) / max);
-      var index = Math.round(progress * (railPanels.length - 1));
+      var offset = Math.abs(rail.scrollLeft);
+      var atEnd = max <= 0 || offset >= max - 2;
+      var index = atEnd ? railPanels.length - 1 : Math.round(offset / railStep());
+      index = Math.max(0, Math.min(railPanels.length - 1, index));
       if (railNumber) railNumber.textContent = "0" + (index + 1);
       if (railBar) railBar.style.transform = "scaleX(" + ((index + 1) / railPanels.length) + ")";
+      for (var i = 0; i < railButtons.length; i++) {
+        var forward = railButtons[i].getAttribute("data-rail-step") === "1";
+        railButtons[i].disabled = forward ? atEnd : offset <= 2;
+      }
     };
     rail.addEventListener("scroll", function () {
       if (!railFrame) railFrame = requestAnimationFrame(paintRail);
     }, { passive: true });
+    for (var rb = 0; rb < railButtons.length; rb++) {
+      railButtons[rb].addEventListener("click", function () {
+        var step = Number(this.getAttribute("data-rail-step")) * (railRtl ? -1 : 1);
+        rail.scrollBy({ left: step * railStep(), behavior: reduced ? "auto" : "smooth" });
+      });
+    }
+    window.addEventListener("resize", function () {
+      if (!railFrame) railFrame = requestAnimationFrame(paintRail);
+    });
+    paintRail();
   }
 
   /* ── Eval-Balken: läuft durch eine Partie, solange er sichtbar ist ─────── */

@@ -124,10 +124,80 @@ html[data-lang="ar"] .xp-display { line-height: 1.18; }
 
 .xp-features { border-top: 1px solid var(--line); padding: clamp(58px, 8vw, 116px) 0; }
 .xp-features-head { margin-bottom: clamp(36px, 5vw, 64px); }
-.xp-track { display: grid; gap: clamp(56px, 7vw, 104px); }
+/* Funktionen: eine einrastende Querleiste bei jeder Breite. Wer weiter
+   nach unten scrollt, kommt sofort an ihr vorbei; geblättert wird per Knopf,
+   Wischen, Trackpad oder Shift+Mausrad. Den Zähler pflegt assets/site.js. */
+.xp-rail {
+  --rail-pad: max(24px, calc((100vw - 1120px) / 2 + 24px));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--rail-pad);
+  scrollbar-width: none;
+}
+.xp-rail::-webkit-scrollbar { display: none; }
+.xp-track {
+  display: flex;
+  gap: clamp(12px, 2.2vw, 28px);
+  width: max-content;
+  padding-inline: var(--rail-pad);
+}
+.xp-track .feature {
+  flex: none;
+  width: min(84vw, 1080px);
+  margin: 0;
+  padding: clamp(22px, 2.6vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--panel);
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  scroll-snap-align: start;
+}
 .xp-track .feature + .feature { margin-top: 0; }
-.xp-rail { padding-inline: 24px; max-width: 1120px; margin: 0 auto; }
-.xp-rail-foot { display: none; }
+.xp-track .feature.flip .feature-text { order: 0; }
+.xp-rail-foot {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(18px, 2.4vw, 30px);
+  font: 500 11.5px/1 var(--mono);
+  letter-spacing: 0.12em;
+  color: var(--ink3);
+}
+.xp-rail-count b { color: var(--accent); font-weight: 500; }
+.xp-rail-bar {
+  position: relative;
+  flex: 1;
+  max-width: 260px;
+  height: 1px;
+  background: var(--line2);
+}
+.xp-rail-bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0.1667);
+  transform-origin: left center;
+  transition: transform 0.3s var(--ease);
+}
+html[dir="rtl"] .xp-rail-bar i { transform-origin: right center; }
+.xp-rail-nav { display: flex; gap: 8px; margin-inline-start: auto; }
+.xp-rail-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line2);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+.xp-rail-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.xp-rail-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.xp-rail-btn:disabled { opacity: 0.35; cursor: default; }
+html[dir="rtl"] .xp-rail-btn svg { transform: scaleX(-1); }
 
 .xp-local {
   border-top: 1px solid var(--line);
@@ -310,7 +380,7 @@ html.xp .xp-card {
 html.xp .xp-card .step-viz { margin-top: 26px; max-width: 380px; }
 
 /* Funktionen */
-html.xp .xp-features { border-top: 0; padding: 0; }
+html.xp .xp-features { border-top: 0; padding: 0 0 10vh; }
 html.xp .xp-features-head { padding-top: 12vh; }
 html.xp .xp-track .feature {
   padding: clamp(22px, 2.6vw, 36px);
@@ -322,57 +392,6 @@ html.xp .xp-track .feature {
 html.xp .xp-track .shot {
   transform-style: preserve-3d;
   will-change: transform;
-}
-
-@media (min-width: 960px) {
-  html.xp .xp-pin {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    height: 100svh;
-    overflow: hidden;
-  }
-  html.xp .xp-features-head { padding-top: 76px; margin-bottom: clamp(24px, 3vw, 40px); }
-  html.xp .xp-features-head .xp-display { font-size: clamp(30px, 3.6vw, 54px); }
-  html.xp .xp-rail { max-width: none; margin: 0; padding: 0; }
-  html.xp .xp-track {
-    display: flex;
-    gap: clamp(28px, 4vw, 64px);
-    width: max-content;
-    padding-inline: max(24px, calc((100vw - 1120px) / 2 + 24px));
-    will-change: transform;
-  }
-  html.xp .xp-track .feature {
-    flex: none;
-    width: min(84vw, 1080px);
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-  }
-  html.xp .xp-track .feature.flip .feature-text { order: 0; }
-  html.xp .xp-rail-foot {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-top: clamp(22px, 3vw, 36px);
-    font: 500 11.5px/1 var(--mono);
-    letter-spacing: 0.12em;
-    color: var(--ink3);
-  }
-  html.xp .xp-rail-count b { color: var(--accent); font-weight: 500; }
-  html.xp .xp-rail-bar {
-    position: relative;
-    width: min(260px, 30vw);
-    height: 1px;
-    background: var(--line2);
-  }
-  html.xp .xp-rail-bar i {
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left center;
-  }
-  html.xp[dir="rtl"] .xp-rail-bar i { transform-origin: right center; }
 }
 
 /* Local-first: Text links, die Kuppel schließt sich rechts. */
@@ -495,47 +514,20 @@ html.xp .section-alt::before { display: none; }
   html.xp .xp-hero-foot .xp-readout > span { display: none; }
 }
 
-@media (max-width: 900px) {
-  .xp-track .feature { grid-template-columns: minmax(0, 1fr); }
-}
-
-/* Schmale Bildschirme: die Funktionen als Wischleiste mit Einrasten. Gilt
-   in beiden Fassungen; den Zähler pflegt assets/site.js. */
+/* Schmale Bildschirme: kompakte Karten, damit die ganze Leiste samt
+   Überschrift auf einen Bildschirm passt. Bild oben, darunter Rubrik, Titel,
+   Stichpunkte; Absatz, Bildunterschrift und Sync-Grafik bleiben dem Desktop. */
 @media (max-width: 959px) {
-  .xp-rail {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 16px;
-    scrollbar-width: none;
-  }
-  .xp-rail::-webkit-scrollbar { display: none; }
-  .xp-track {
-    display: flex;
-    gap: 12px;
-    width: max-content;
-    padding-inline: 16px;
-  }
+  .xp-rail { --rail-pad: 16px; }
   .xp-track .feature {
-    flex: none;
     width: min(86vw, 560px);
-    margin: 0;
-    padding: 22px 20px 24px;
-    border: 1px solid var(--line);
+    padding: 18px 18px 20px;
     border-radius: 18px;
-    background: var(--panel);
+    grid-template-columns: minmax(0, 1fr);
     align-content: start;
-    gap: 22px;
-    scroll-snap-align: start;
+    gap: 16px;
   }
   html.xp .xp-track .feature { padding: 18px 18px 20px; }
-  /* Kompakt: Bild oben, darunter Rubrik, Titel, Stichpunkte. Der lange
-     Absatz, die Bildunterschrift und die Sync-Grafik bleiben dem Desktop,
-     damit die ganze Leiste samt Überschrift auf einen Bildschirm passt. */
-  .xp-track .feature { gap: 16px; }
   .xp-track .feature > .shot { order: -1; }
   .xp-track .feature-text > p:not(.feature-kicker),
   .xp-track .shot figcaption,
@@ -552,31 +544,8 @@ html.xp .section-alt::before { display: none; }
   .xp-features-head { margin-bottom: 18px; }
   html.xp .xp-features-head { padding-top: 6vh; }
   .xp-features-head .xp-display { font-size: clamp(28px, 7.4vw, 40px); }
-  .xp-rail-foot {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 18px;
-    font: 500 11.5px/1 var(--mono);
-    letter-spacing: 0.12em;
-    color: var(--ink3);
-  }
-  .xp-rail-count b { color: var(--accent); font-weight: 500; }
-  .xp-rail-bar {
-    position: relative;
-    flex: 1;
-    max-width: 220px;
-    height: 1px;
-    background: var(--line2);
-  }
-  .xp-rail-bar i {
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform: scaleX(0.1667);
-    transform-origin: left center;
-  }
-  html[dir="rtl"] .xp-rail-bar i { transform-origin: right center; }
+  .xp-rail-foot { margin-top: 12px; }
+  .xp-rail-btn { width: 32px; height: 32px; }
   html.xp .xp-features { padding-bottom: 8vh; }
 }
 
